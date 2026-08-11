@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verkauf — Ventura Caravans</title>
+<meta name="description" content="Restaurierte Wohnwagen zum Verkauf bei Ventura Caravans — aktueller Stand und Warteliste.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="Ventura Caravans Logo">
+      <span>Ventura Caravans</span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="leistungen.html">Leistungen</a></li>
+        <li><a href="vermietung.html">Vermietung</a></li>
+        <li><a href="projekte.html">Projekte</a></li>
+        <li><a href="konfigurator.html">Konfigurator</a></li>
+        <li><a href="stil-konfigurator.html">Stil-Konfigurator</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+      </ul>
+    </nav>
+    <a href="kontakt.html" class="btn btn-primary btn-header">Kontakt</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="section" style="padding-bottom:0">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Verkauf</p>
+      <h1 style="font-size:clamp(30px,4.4vw,46px)">Wohnwagen zum Verkauf</h1>
+      <p class="lede" style="max-width:60ch">Aktuell sind alle fertigen Wohnwagen verkauft. Wir haben einige Interessenten in der Warteschlange — je früher ihr euch meldet, desto kürzer die Wartezeit.</p>
+      <a href="kontakt.html?betreff=Warteliste%20Verkauf" class="btn btn-primary">Auf die Warteliste</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head split">
+      <div>
+        <p class="eyebrow">Referenzen</p>
+        <h2>Unsere bisher verkauften Projekte</h2>
+      </div>
+      <a class="link" href="projekte.html">Alle Projekte →</a>
+    </div>
+    <div class="project-grid">
+      <a class="project-card" href="projekte.html#christa">
+        <div class="photo" style="background-image:url('assets/christa.jpg')"></div>
+        <div class="label"><h3>Christa</h3></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Ventura Caravans</h4>
+        <p style="max-width:36ch;opacity:.85">Stilvoll erneuert, nachhaltig unterwegs — Ihr Partner für individuelles Caravaning.</p>
+      </div>
+      <div>
+        <h4>Leistungen</h4>
+        <ul>
+          <li><a href="verkauf.html">Verkauf</a></li>
+          <li><a href="vermietung.html">Vermietung</a></li>
+          <li><a href="individuelle-gestaltung.html">Individuelle Gestaltung</a></li>
+          <li><a href="ankauf-raeumung.html">Ankauf &amp; Räumung</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:info@ventura-caravans.de">info@ventura-caravans.de</a></li>
+          <li><a href="ueber-uns.html">Über uns</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-funding">
+      <img src="assets/foerderbanner-transparent.png" alt="Kofinanziert von der Europäischen Union und dem Land Sachsen-Anhalt">
+    </div>    <div class="footer-bottom">
+      <span>© <span id="year"></span> Ventura Caravans</span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="agb.html">AGB</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('main-nav');
+  const header = document.querySelector('.site-header');
+
+  // Header-Höhe an CSS weitergeben, damit das mobile Menü exakt darunter ansetzt
+  const syncHeaderHeight = () => {
+    if (header) document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+  };
+  syncHeaderHeight();
+  window.addEventListener('resize', syncHeaderHeight);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHeaderHeight);
+
+  const closeNav = () => {
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+
+  toggle.addEventListener('click', () => {
+    syncHeaderHeight();
+    const open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  // Menü schließen, wenn ein Punkt angetippt oder auf Desktop-Breite gewechselt wird
+  nav.addEventListener('click', (e) => { if (e.target.closest('a')) closeNav(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 980 && nav.classList.contains('open')) closeNav(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('open')) closeNav(); });
+</script>
+</body>
+</html>

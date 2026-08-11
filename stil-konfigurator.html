@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stil-Konfigurator — Ventura Caravans</title>
+<meta name="description" content="Stellt die Optik eures Wohnwagens zusammen — Außenfarben, Möbelfronten, Arbeitsplatte und mehr, sofort sichtbar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .sk-note{
+    background:rgba(223,206,178,.35); border:1px solid var(--sand); border-radius:8px;
+    padding:14px 18px; margin:0 0 28px; font-size:14px; color:var(--ink);
+  }
+
+  .sk-layout{ display:grid; grid-template-columns:1.25fr .85fr; gap:40px; align-items:start; }
+  @media (max-width:980px){ .sk-layout{ grid-template-columns:1fr; gap:28px; } }
+
+  /* ---- Bühne ---- */
+  .sk-stage{ position:sticky; top:calc(var(--header-h, 80px) + 16px); }
+  @media (max-width:980px){ .sk-stage{ position:static; } }
+
+  .sk-tabs{ display:flex; gap:8px; margin-bottom:14px; }
+  .sk-tab{
+    font:inherit; font-size:14px; font-weight:600; cursor:pointer;
+    padding:9px 18px; border-radius:999px; border:1px solid var(--line);
+    background:transparent; color:var(--ink-soft);
+  }
+  .sk-tab[aria-selected="true"]{ background:var(--ink); color:var(--cream); border-color:var(--ink); }
+
+  .sk-canvas{
+    background:var(--cream); border:1px solid var(--line); border-radius:12px;
+    padding:10px; overflow:hidden;
+  }
+  .sk-canvas svg{ display:block; width:100%; height:auto; }
+  .sk-view[hidden]{ display:none; }
+
+  /* ---- Steuerung ---- */
+  .sk-group{ margin-bottom:26px; }
+  .sk-group h3{
+    font-family:Inter, sans-serif; font-size:12.5px; font-weight:600;
+    text-transform:uppercase; letter-spacing:.07em; color:var(--olive);
+    margin:0 0 10px;
+  }
+  .sk-swatches{ display:flex; flex-wrap:wrap; gap:10px; }
+  .sk-sw{
+    cursor:pointer; border:none; background:none; padding:0;
+    width:76px; text-align:center; font:inherit;
+    overflow-wrap:anywhere;
+  }
+  .sk-dot{
+    display:block; width:44px; height:44px; margin:0 auto 5px; border-radius:50%;
+    border:1px solid rgba(0,0,0,.16); box-shadow:inset 0 -6px 12px rgba(0,0,0,.06);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .sk-sw:hover .sk-dot{ transform:scale(1.07); }
+  .sk-sw[aria-pressed="true"] .sk-dot{
+    box-shadow:0 0 0 2px var(--cream), 0 0 0 4px var(--teal-deep), inset 0 -6px 12px rgba(0,0,0,.06);
+  }
+  .sk-sw span{ font-size:10.5px; line-height:1.25; color:var(--ink-soft); display:block; }
+  .sk-sw[aria-pressed="true"] span{ color:var(--ink); font-weight:600; }
+  .sk-ral{ display:block; font-style:normal; font-size:9px; font-weight:400; opacity:.6; margin-top:1px; }
+
+  /* ---- RAL-Liste (durchsuchbar, ersetzt Swatch-Kacheln für Außenfarben) ---- */
+  .sk-ral-search{
+    width:100%; box-sizing:border-box; font:inherit; font-size:14px;
+    padding:9px 12px; margin-bottom:8px; border:1px solid var(--line); border-radius:8px;
+    background:#fff; color:var(--ink);
+  }
+  .sk-ral-search:focus{ outline:2px solid var(--teal-deep); outline-offset:1px; }
+  .sk-ral-list{
+    max-height:240px; overflow-y:auto; border:1px solid var(--line); border-radius:8px;
+    background:rgba(255,255,255,.5);
+  }
+  .sk-ral-item{
+    display:flex; align-items:center; gap:10px; width:100%; text-align:left;
+    font:inherit; font-size:13px; color:var(--ink-soft);
+    border:none; background:none; cursor:pointer; padding:8px 10px;
+    border-bottom:1px solid var(--line);
+  }
+  .sk-ral-item:last-child{ border-bottom:none; }
+  .sk-ral-item:hover{ background:rgba(223,206,178,.35); }
+  .sk-ral-item .sk-ral-chip{
+    flex:none; width:22px; height:22px; border-radius:50%;
+    border:1px solid rgba(0,0,0,.16); box-shadow:inset 0 -3px 6px rgba(0,0,0,.08);
+  }
+  .sk-ral-item .sk-ral-code{ opacity:.65; font-size:11.5px; margin-left:auto; padding-left:8px; white-space:nowrap; }
+  .sk-ral-item[aria-pressed="true"]{ background:var(--ink); color:var(--cream); }
+  .sk-ral-item[aria-pressed="true"] .sk-ral-code{ opacity:.8; }
+  .sk-ral-empty{ padding:14px 10px; font-size:13px; color:var(--ink-soft); text-align:center; }
+
+  /* ---- Zusammenfassung ---- */
+  .sk-summary{
+    border:1px solid var(--line); border-radius:12px; padding:20px 22px;
+    background:rgba(255,255,255,.5); margin-top:8px;
+  }
+  .sk-summary h3{ margin:0 0 12px; font-size:12.5px; }
+  .sk-summary dl{ margin:0; font-size:14px; }
+  .sk-summary .row{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:7px 0; border-bottom:1px dashed var(--line);
+  }
+  .sk-summary .row:last-of-type{ border-bottom:none; }
+  .sk-summary dt{ color:var(--ink-soft); }
+  .sk-summary dd{ margin:0; font-weight:600; text-align:right; }
+  .sk-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="Ventura Caravans Logo">
+      <span>Ventura Caravans</span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="leistungen.html">Leistungen</a></li>
+        <li><a href="vermietung.html">Vermietung</a></li>
+        <li><a href="projekte.html">Projekte</a></li>
+        <li><a href="konfigurator.html">Konfigurator</a></li>
+        <li><a href="stil-konfigurator.html" aria-current="page">Stil-Konfigurator</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+      </ul>
+    </nav>
+    <a href="kontakt.html" class="btn btn-primary btn-header">Kontakt</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Stil-Konfigurator</p>
+      <h1 style="font-size:clamp(30px,4.4vw,46px)">Wie soll euer Wohnwagen aussehen?</h1>
+      <p class="lede" style="max-width:62ch">Wählt Farben für außen und innen — ihr seht sofort, wie die Kombination wirkt. Alle Töne stammen aus unserem typischen Stil, so wie ihr ihn aus unseren Projekten kennt.</p>
+    </div>
+
+    <div class="sk-note">
+      <strong>Erste Version — wird weiter ausgebaut.</strong> Die Darstellung ist eine stilisierte Zeichnung, kein Foto des echten Fahrzeugs. Die Außenfarben sind echte RAL-Töne aus unserem 2K-Autolack; die Innenmaterialien werden noch durch die tatsächlichen Arbeitsplatten und Dekore ersetzt. Bildschirmfarben können vom lackierten Ergebnis abweichen — für die endgültige Wahl schauen wir gemeinsam auf den Farbfächer.
+    </div>
+
+    <div class="sk-layout">
+
+      <!-- ================= Bühne ================= -->
+      <div class="sk-stage">
+        <div class="sk-tabs" role="tablist">
+          <button class="sk-tab" role="tab" id="tab-aussen" aria-controls="view-aussen" aria-selected="true">Außenansicht</button>
+          <button class="sk-tab" role="tab" id="tab-innen" aria-controls="view-innen" aria-selected="false">Innenansicht</button>
+        </div>
+
+        <div class="sk-canvas" id="canvas">
+
+          <!-- ---------- AUSSEN ---------- -->
+          <div class="sk-view" id="view-aussen" role="tabpanel" aria-labelledby="tab-aussen">
+            <svg viewBox="0 0 900 470" role="img" aria-label="Stilisierte Außenansicht des Wohnwagens">
+              <defs>
+                <clipPath id="clipBody">
+                  <path d="M138 358 L138 208 C138 158 172 136 226 132 L688 116
+                           C742 112 760 144 762 194 L768 336 C769 358 756 362 736 362
+                           L152 364 C140 364 138 362 138 358 Z"/>
+                </clipPath>
+                <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#fff" stop-opacity=".30"/>
+                  <stop offset=".45" stop-color="#fff" stop-opacity=".04"/>
+                  <stop offset="1" stop-color="#000" stop-opacity=".07"/>
+                </linearGradient>
+                <clipPath id="clipTuer">
+                  <rect x="196" y="152" width="112" height="206" rx="14"/>
+                </clipPath>
+              </defs>
+
+              <!-- Boden-Schatten -->
+              <ellipse cx="450" cy="410" rx="330" ry="17" fill="#403f2b" opacity=".10"/>
+
+              <!-- Karosserie, zweifarbig geteilt -->
+              <g clip-path="url(#clipBody)">
+                <rect x="120" y="100" width="670" height="149" fill="var(--a-oben)"/>
+                <rect x="120" y="249" width="670" height="143" fill="var(--a-unten)"/>
+                <!-- Blechsicken -->
+                <g stroke="#000" stroke-opacity=".07" stroke-width="1.5">
+                  <line x1="120" y1="150" x2="790" y2="146"/>
+                  <line x1="120" y1="180" x2="790" y2="176"/>
+                  <line x1="120" y1="210" x2="790" y2="206"/>
+                  <line x1="120" y1="290" x2="790" y2="288"/>
+                  <line x1="120" y1="322" x2="790" y2="320"/>
+                </g>
+                <rect x="120" y="100" width="670" height="292" fill="url(#gloss)"/>
+              </g>
+
+              <!-- Karosserie-Kontur -->
+              <path d="M138 358 L138 208 C138 158 172 136 226 132 L688 116
+                       C742 112 760 144 762 194 L768 336 C769 358 756 362 736 362
+                       L152 364 C140 364 138 362 138 358 Z"
+                    fill="none" stroke="#403f2b" stroke-opacity=".55" stroke-width="2.5"/>
+
+              <!-- Dachluke -->
+              <rect x="470" y="108" width="86" height="14" rx="5" fill="#f6f4ee" stroke="#403f2b" stroke-opacity=".4" stroke-width="2"/>
+
+              <!-- Großes Fenster -->
+              <g>
+                <rect x="430" y="168" width="216" height="74" rx="20" fill="#2b2b28"/>
+                <rect x="438" y="176" width="200" height="58" rx="15" fill="#b9cbd1" opacity=".75"/>
+                <path d="M438 220 L520 176 L560 176 L462 234 Z" fill="#fff" opacity=".28"/>
+              </g>
+
+              <!-- Kleines Fenster vorn -->
+              <g>
+                <rect x="672" y="172" width="72" height="66" rx="18" fill="#2b2b28"/>
+                <rect x="679" y="179" width="58" height="52" rx="13" fill="#b9cbd1" opacity=".75"/>
+              </g>
+
+              <!-- Tür, zweifarbig passend zur Karosserie -->
+              <g clip-path="url(#clipTuer)">
+                <rect x="196" y="152" width="112" height="97" fill="var(--a-oben)"/>
+                <rect x="196" y="249" width="112" height="109" fill="var(--a-unten)"/>
+              </g>
+              <g>
+                <rect x="196" y="152" width="112" height="206" rx="14"
+                      fill="none" stroke="#403f2b" stroke-opacity=".45" stroke-width="2.5"/>
+                <rect x="210" y="168" width="84" height="66" rx="12" fill="#2b2b28"/>
+                <rect x="216" y="174" width="72" height="54" rx="9" fill="#b9cbd1" opacity=".75"/>
+                <rect x="286" y="258" width="9" height="26" rx="4.5" fill="#2b2b28"/>
+              </g>
+
+              <!-- Serviceklappe -->
+              <rect x="560" y="286" width="96" height="46" rx="8"
+                    fill="#000" fill-opacity=".05" stroke="#403f2b" stroke-opacity=".3" stroke-width="2"/>
+
+              <!-- Rad -->
+              <g>
+                <path d="M348 364 a56 56 0 0 1 112 0 Z" fill="var(--a-unten)"/>
+                <circle cx="404" cy="368" r="44" fill="#2b2b28"/>
+                <circle cx="404" cy="368" r="21" fill="#d8d5cc"/>
+                <circle cx="404" cy="368" r="7" fill="#8d8a80"/>
+              </g>
+
+              <!-- Deichsel -->
+              <path d="M768 330 L862 372 L868 386 L774 348 Z" fill="#8d8a80"/>
+              <circle cx="866" cy="392" r="12" fill="#2b2b28"/>
+
+              <!-- Stützrad hinten -->
+              <rect x="176" y="362" width="9" height="30" rx="4" fill="#8d8a80"/>
+            </svg>
+          </div>
+
+          <!-- ---------- INNEN ---------- -->
+          <div class="sk-view" id="view-innen" role="tabpanel" aria-labelledby="tab-innen" hidden>
+            <svg viewBox="0 0 900 470" role="img" aria-label="Stilisierte Innenansicht der Küchenzeile">
+              <defs>
+                <pattern id="fliesen" width="46" height="24" patternUnits="userSpaceOnUse">
+                  <rect width="46" height="24" fill="var(--i-spritz)"/>
+                  <path d="M0 24 H46 M23 0 V24" stroke="#000" stroke-opacity=".13" stroke-width="1.5"/>
+                </pattern>
+                <linearGradient id="raumlicht" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#fff" stop-opacity=".22"/>
+                  <stop offset="1" stop-color="#000" stop-opacity=".08"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Wand -->
+              <rect x="0" y="0" width="900" height="470" fill="var(--i-wand)"/>
+
+              <!-- Oberschränke -->
+              <g>
+                <rect x="48" y="26" width="804" height="126" rx="7" fill="var(--i-front)" stroke="#000" stroke-opacity=".12" stroke-width="2"/>
+                <g fill="none" stroke="#000" stroke-opacity=".13" stroke-width="2">
+                  <line x1="249" y1="26" x2="249" y2="152"/>
+                  <line x1="450" y1="26" x2="450" y2="152"/>
+                  <line x1="651" y1="26" x2="651" y2="152"/>
+                  <rect x="70" y="46" width="157" height="86" rx="14"/>
+                  <rect x="271" y="46" width="157" height="86" rx="14"/>
+                  <rect x="472" y="46" width="157" height="86" rx="14"/>
+                  <rect x="673" y="46" width="157" height="86" rx="14"/>
+                </g>
+                <g fill="#2b2b28">
+                  <rect x="128" y="138" width="42" height="7" rx="3.5"/>
+                  <rect x="329" y="138" width="42" height="7" rx="3.5"/>
+                  <rect x="530" y="138" width="42" height="7" rx="3.5"/>
+                  <rect x="731" y="138" width="42" height="7" rx="3.5"/>
+                </g>
+              </g>
+
+              <!-- Spritzschutz -->
+              <rect x="48" y="152" width="804" height="106" fill="url(#fliesen)"/>
+
+              <!-- Fenster in der Fliesenwand -->
+              <g>
+                <rect x="470" y="158" width="250" height="66" rx="16" fill="#2b2b28"/>
+                <rect x="478" y="166" width="234" height="50" rx="11" fill="#c3d3d8" opacity=".8"/>
+              </g>
+
+              <!-- Arbeitsplatte -->
+              <rect x="40" y="258" width="820" height="26" rx="5" fill="var(--i-platte)" stroke="#000" stroke-opacity=".14" stroke-width="2"/>
+              <rect x="40" y="278" width="820" height="7" fill="#000" fill-opacity=".10"/>
+
+              <!-- Spüle + Armatur -->
+              <rect x="520" y="262" width="150" height="18" rx="5" fill="#2b2b28"/>
+              <path d="M600 262 v-22 a14 14 0 0 1 28 0 v8" fill="none" stroke="#2b2b28" stroke-width="7" stroke-linecap="round"/>
+
+              <!-- Unterschränke -->
+              <g>
+                <rect x="48" y="285" width="804" height="122" fill="var(--i-front)" stroke="#000" stroke-opacity=".12" stroke-width="2"/>
+                <g fill="none" stroke="#000" stroke-opacity=".13" stroke-width="2">
+                  <rect x="68" y="299" width="180" height="30" rx="7"/>
+                  <rect x="68" y="337" width="180" height="30" rx="7"/>
+                  <rect x="68" y="375" width="180" height="22" rx="7"/>
+                  <rect x="286" y="299" width="176" height="98" rx="10"/>
+                  <rect x="486" y="299" width="176" height="98" rx="10"/>
+                  <rect x="686" y="299" width="146" height="98" rx="10"/>
+                </g>
+                <g fill="#2b2b28">
+                  <rect x="138" y="310" width="40" height="6" rx="3"/>
+                  <rect x="138" y="348" width="40" height="6" rx="3"/>
+                  <rect x="354" y="340" width="40" height="6" rx="3"/>
+                  <rect x="554" y="340" width="40" height="6" rx="3"/>
+                  <rect x="739" y="340" width="40" height="6" rx="3"/>
+                </g>
+              </g>
+
+              <!-- Boden -->
+              <rect x="0" y="407" width="900" height="63" fill="var(--i-boden)"/>
+              <g stroke="#000" stroke-opacity=".10" stroke-width="2">
+                <line x1="0" y1="428" x2="900" y2="428"/>
+                <line x1="0" y1="450" x2="900" y2="450"/>
+                <line x1="150" y1="407" x2="150" y2="428"/>
+                <line x1="470" y1="407" x2="470" y2="428"/>
+                <line x1="300" y1="428" x2="300" y2="450"/>
+                <line x1="700" y1="428" x2="700" y2="450"/>
+              </g>
+
+              <rect x="0" y="0" width="900" height="470" fill="url(#raumlicht)" pointer-events="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= Steuerung ================= -->
+      <div>
+        <div id="ctrl-aussen">
+          <div class="sk-group" data-var="--a-oben" data-label="Karosserie oben"></div>
+          <div class="sk-group" data-var="--a-unten" data-label="Karosserie unten"></div>
+        </div>
+
+        <div id="ctrl-innen" hidden>
+          <div class="sk-group" data-var="--i-front" data-label="Möbelfronten"></div>
+          <div class="sk-group" data-var="--i-platte" data-label="Arbeitsplatte"></div>
+          <div class="sk-group" data-var="--i-spritz" data-label="Spritzschutz"></div>
+          <div class="sk-group" data-var="--i-wand" data-label="Wandfarbe"></div>
+          <div class="sk-group" data-var="--i-boden" data-label="Bodenbelag"></div>
+        </div>
+
+        <div class="sk-summary">
+          <h3>Eure Zusammenstellung</h3>
+          <dl id="summary"></dl>
+          <div class="sk-actions">
+            <a href="#" class="btn btn-primary" id="anfrage">Diesen Stil anfragen</a>
+            <a href="konfigurator.html" class="btn btn-outline">Zum Preis-Konfigurator</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Ventura Caravans</h4>
+        <p style="max-width:36ch;opacity:.85">Stilvoll erneuert, nachhaltig unterwegs — Ihr Partner für individuelles Caravaning.</p>
+      </div>
+      <div>
+        <h4>Leistungen</h4>
+        <ul>
+          <li><a href="verkauf.html">Verkauf</a></li>
+          <li><a href="vermietung.html">Vermietung</a></li>
+          <li><a href="individuelle-gestaltung.html">Individuelle Gestaltung</a></li>
+          <li><a href="ankauf-raeumung.html">Ankauf &amp; Räumung</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:info@ventura-caravans.de">info@ventura-caravans.de</a></li>
+          <li><a href="ueber-uns.html">Über uns</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-funding">
+      <img src="assets/foerderbanner-transparent.png" alt="Kofinanziert von der Europäischen Union und dem Land Sachsen-Anhalt">
+    </div>    <div class="footer-bottom">
+      <span>© <span id="year"></span> Ventura Caravans</span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="agb.html">AGB</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('main-nav');
+  const header = document.querySelector('.site-header');
+
+  const syncHeaderHeight = () => {
+    if (header) document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+  };
+  syncHeaderHeight();
+  window.addEventListener('resize', syncHeaderHeight);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHeaderHeight);
+
+  const closeNav = () => {
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+  toggle.addEventListener('click', () => {
+    syncHeaderHeight();
+    const open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  nav.addEventListener('click', (e) => { if (e.target.closest('a')) closeNav(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 980 && nav.classList.contains('open')) closeNav(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('open')) closeNav(); });
+</script>
+
+<script>
+/* =========================================================================
+   Farbpaletten — abgeleitet aus unseren echten Projektfotos.
+   Werden ersetzt, sobald die tatsächlichen Lacke (Lackseite) und
+   Arbeitsplatten (Hornbach) vorliegen: einfach hier die Einträge tauschen,
+   der Rest der Seite passt sich automatisch an.
+   ========================================================================= */
+/* --- AUSSEN: komplette RAL-Classic-Palette (echte Farbtöne, 2K-Autolack) ---
+   Gilt für beide Außenzonen (Karosserie oben/unten) —
+   jede Zone kann unabhängig aus derselben Liste wählen. */
+const RAL_FARBEN = [
+  { name: 'Grünbeige',       ral: 'RAL 1000', hex: '#CCC58F' },
+  { name: 'Beige',           ral: 'RAL 1001', hex: '#D0B084' },
+  { name: 'Sandgelb',        ral: 'RAL 1002', hex: '#D2AA6D' },
+  { name: 'Signalgelb',      ral: 'RAL 1003', hex: '#F9A800' },
+  { name: 'Goldgelb',        ral: 'RAL 1004', hex: '#E49E00' },
+  { name: 'Honiggelb',       ral: 'RAL 1005', hex: '#CB8042' },
+  { name: 'Maisgelb',        ral: 'RAL 1006', hex: '#E29000' },
+  { name: 'Narzissengelb',   ral: 'RAL 1007', hex: '#E88C00' },
+  { name: 'Braunbeige',      ral: 'RAL 1011', hex: '#AF8A54' },
+  { name: 'Zitronengelb',    ral: 'RAL 1012', hex: '#DDAF27' },
+  { name: 'Perlweiß',        ral: 'RAL 1013', hex: '#E3D9C6' },
+  { name: 'Elfenbein',       ral: 'RAL 1014', hex: '#DDC49A' },
+  { name: 'Hellelfenbein',   ral: 'RAL 1015', hex: '#E6D2B5' },
+  { name: 'Schwefelgelb',    ral: 'RAL 1016', hex: '#EDFF21' },
+  { name: 'Safrangelb',      ral: 'RAL 1017', hex: '#F6A950' },
+  { name: 'Zinkgelb',        ral: 'RAL 1018', hex: '#F8D64E' },
+  { name: 'Graubeige',       ral: 'RAL 1019', hex: '#A48F7A' },
+  { name: 'Olivgelb',        ral: 'RAL 1020', hex: '#98902E' },
+  { name: 'Rapsgelb',        ral: 'RAL 1021', hex: '#F6B600' },
+  { name: 'Verkehrsgelb',    ral: 'RAL 1023', hex: '#FBB800' },
+  { name: 'Ockergelb',       ral: 'RAL 1024', hex: '#BA8F4C' },
+  { name: 'Currygelb',       ral: 'RAL 1027', hex: '#A77F0E' },
+  { name: 'Melonengelb',     ral: 'RAL 1028', hex: '#FFA421' },
+  { name: 'Ginstergelb',     ral: 'RAL 1032', hex: '#C08C24' },
+  { name: 'Dahliengelb',     ral: 'RAL 1033', hex: '#FA9C1C' },
+  { name: 'Pastellgelb',     ral: 'RAL 1034', hex: '#EFA94A' },
+  { name: 'Sonnengelb',      ral: 'RAL 1037', hex: '#E0A600' },
+  { name: 'Gelborange',      ral: 'RAL 2000', hex: '#ED7B00' },
+  { name: 'Rotorange',       ral: 'RAL 2001', hex: '#BE4E20' },
+  { name: 'Blutorange',      ral: 'RAL 2002', hex: '#C63927' },
+  { name: 'Pastellorange',   ral: 'RAL 2003', hex: '#FA842B' },
+  { name: 'Reinorange',      ral: 'RAL 2004', hex: '#E75B12' },
+  { name: 'Hellrotorange',   ral: 'RAL 2008', hex: '#F3752C' },
+  { name: 'Verkehrsorange',  ral: 'RAL 2009', hex: '#E15501' },
+  { name: 'Signalorange',    ral: 'RAL 2010', hex: '#D4652F' },
+  { name: 'Tieforange',      ral: 'RAL 2011', hex: '#EC7C25' },
+  { name: 'Lachsorange',     ral: 'RAL 2012', hex: '#DB6A50' },
+  { name: 'Feuerrot',        ral: 'RAL 3000', hex: '#AB2524' },
+  { name: 'Signalrot',       ral: 'RAL 3001', hex: '#A02128' },
+  { name: 'Karminrot',       ral: 'RAL 3002', hex: '#A1232B' },
+  { name: 'Rubinrot',        ral: 'RAL 3003', hex: '#8D1D2C' },
+  { name: 'Purpurrot',       ral: 'RAL 3004', hex: '#701F29' },
+  { name: 'Weinrot',         ral: 'RAL 3005', hex: '#5E2028' },
+  { name: 'Schwarzrot',      ral: 'RAL 3007', hex: '#402225' },
+  { name: 'Oxidrot',         ral: 'RAL 3009', hex: '#6D3324' },
+  { name: 'Braunrot',        ral: 'RAL 3011', hex: '#793328' },
+  { name: 'Beigerot',        ral: 'RAL 3012', hex: '#CB8D73' },
+  { name: 'Tomatenrot',      ral: 'RAL 3013', hex: '#9C322E' },
+  { name: 'Altrosa',         ral: 'RAL 3014', hex: '#D47479' },
+  { name: 'Hellrosa',        ral: 'RAL 3015', hex: '#E1A6AD' },
+  { name: 'Korallenrot',     ral: 'RAL 3016', hex: '#AC4034' },
+  { name: 'Rosé',            ral: 'RAL 3017', hex: '#D3545F' },
+  { name: 'Erdbeerrot',      ral: 'RAL 3018', hex: '#D14152' },
+  { name: 'Verkehrsrot',     ral: 'RAL 3020', hex: '#C1121C' },
+  { name: 'Lachsrot',        ral: 'RAL 3022', hex: '#D56D56' },
+  { name: 'Himbeerrot',      ral: 'RAL 3027', hex: '#9D303B' },
+  { name: 'Reinrot',         ral: 'RAL 3028', hex: '#C61D23' },
+  { name: 'Orientrot',       ral: 'RAL 3031', hex: '#B32821' },
+  { name: 'Rotlila',         ral: 'RAL 4001', hex: '#6D3F5B' },
+  { name: 'Rotviolett',      ral: 'RAL 4002', hex: '#7E3149' },
+  { name: 'Erikaviolett',    ral: 'RAL 4003', hex: '#C4618C' },
+  { name: 'Bordeauxviolett', ral: 'RAL 4004', hex: '#6B1C23' },
+  { name: 'Blaulila',        ral: 'RAL 4005', hex: '#6C4675' },
+  { name: 'Verkehrspurpur',  ral: 'RAL 4006', hex: '#950B31' },
+  { name: 'Purpurviolett',   ral: 'RAL 4007', hex: '#4A203B' },
+  { name: 'Signalviolett',   ral: 'RAL 4008', hex: '#924E7D' },
+  { name: 'Pastellviolett',  ral: 'RAL 4009', hex: '#8A6E7B' },
+  { name: 'Telemagenta',     ral: 'RAL 4010', hex: '#A63A79' },
+  { name: 'Violettblau',     ral: 'RAL 5000', hex: '#354D73' },
+  { name: 'Grünblau',        ral: 'RAL 5001', hex: '#1F4762' },
+  { name: 'Ultramarinblau',  ral: 'RAL 5002', hex: '#15297C' },
+  { name: 'Saphirblau',      ral: 'RAL 5003', hex: '#1E3250' },
+  { name: 'Schwarzblau',     ral: 'RAL 5004', hex: '#18171C' },
+  { name: 'Signalblau',      ral: 'RAL 5005', hex: '#154889' },
+  { name: 'Brillantblau',    ral: 'RAL 5007', hex: '#3E5F8A' },
+  { name: 'Graublau',        ral: 'RAL 5008', hex: '#26252D' },
+  { name: 'Azurblau',        ral: 'RAL 5009', hex: '#2A6478' },
+  { name: 'Enzianblau',      ral: 'RAL 5010', hex: '#13447C' },
+  { name: 'Stahlblau',       ral: 'RAL 5011', hex: '#232C3F' },
+  { name: 'Lichtblau',       ral: 'RAL 5012', hex: '#3481B8' },
+  { name: 'Kobaltblau',      ral: 'RAL 5013', hex: '#232D53' },
+  { name: 'Taubenblau',      ral: 'RAL 5014', hex: '#6C7C98' },
+  { name: 'Himmelblau',      ral: 'RAL 5015', hex: '#2874B2' },
+  { name: 'Verkehrsblau',    ral: 'RAL 5017', hex: '#0E518D' },
+  { name: 'Türkisblau',      ral: 'RAL 5018', hex: '#21888F' },
+  { name: 'Capriblau',       ral: 'RAL 5019', hex: '#1A5784' },
+  { name: 'Ozeanblau',       ral: 'RAL 5020', hex: '#0B4151' },
+  { name: 'Wasserblau',      ral: 'RAL 5021', hex: '#07737A' },
+  { name: 'Nachtblau',       ral: 'RAL 5022', hex: '#232750' },
+  { name: 'Fernblau',        ral: 'RAL 5023', hex: '#49678D' },
+  { name: 'Pastellblau',     ral: 'RAL 5024', hex: '#6A93B0' },
+  { name: 'Patinagrün',      ral: 'RAL 6000', hex: '#327662' },
+  { name: 'Smaragdgrün',     ral: 'RAL 6001', hex: '#28713E' },
+  { name: 'Laubgrün',        ral: 'RAL 6002', hex: '#276235' },
+  { name: 'Olivgrün',        ral: 'RAL 6003', hex: '#4B573E' },
+  { name: 'Blaugrün',        ral: 'RAL 6004', hex: '#0E4243' },
+  { name: 'Moosgrün',        ral: 'RAL 6005', hex: '#0F4336' },
+  { name: 'Grauoliv',        ral: 'RAL 6006', hex: '#40433B' },
+  { name: 'Flaschengrün',    ral: 'RAL 6007', hex: '#283424' },
+  { name: 'Braungrün',       ral: 'RAL 6008', hex: '#3B3C36' },
+  { name: 'Tannengrün',      ral: 'RAL 6009', hex: '#27352A' },
+  { name: 'Grasgrün',        ral: 'RAL 6010', hex: '#3D642D' },
+  { name: 'Resedagrün',      ral: 'RAL 6011', hex: '#68825B' },
+  { name: 'Schwarzgrün',     ral: 'RAL 6012', hex: '#303D3A' },
+  { name: 'Schilfgrün',      ral: 'RAL 6013', hex: '#7A7B5D' },
+  { name: 'Gelboliv',        ral: 'RAL 6014', hex: '#474135' },
+  { name: 'Schwarzoliv',     ral: 'RAL 6015', hex: '#3B3C32' },
+  { name: 'Türkisgrün',      ral: 'RAL 6016', hex: '#026A52' },
+  { name: 'Maigrün',         ral: 'RAL 6017', hex: '#4D8C57' },
+  { name: 'Gelbgrün',        ral: 'RAL 6018', hex: '#5B9A4B' },
+  { name: 'Weißgrün',        ral: 'RAL 6019', hex: '#B7D9B1' },
+  { name: 'Chromoxidgrün',   ral: 'RAL 6020', hex: '#354733' },
+  { name: 'Blassgrün',       ral: 'RAL 6021', hex: '#86A47C' },
+  { name: 'Braunoliv',       ral: 'RAL 6022', hex: '#3E3C32' },
+  { name: 'Verkehrsgrün',    ral: 'RAL 6024', hex: '#008754' },
+  { name: 'Farngrün',        ral: 'RAL 6025', hex: '#5E6E3B' },
+  { name: 'Opalgrün',        ral: 'RAL 6026', hex: '#005D52' },
+  { name: 'Lichtgrün',       ral: 'RAL 6027', hex: '#81C0BB' },
+  { name: 'Kieferngrün',     ral: 'RAL 6028', hex: '#2D5546' },
+  { name: 'Minzgrün',        ral: 'RAL 6029', hex: '#007243' },
+  { name: 'Signalgrün',      ral: 'RAL 6032', hex: '#237F52' },
+  { name: 'Minttürkis',      ral: 'RAL 6033', hex: '#49A793' },
+  { name: 'Pastelltürkis',   ral: 'RAL 6034', hex: '#7FB0B2' },
+  { name: 'Reingrün',        ral: 'RAL 6037', hex: '#008B29' },
+  { name: 'Fehgrau',         ral: 'RAL 7000', hex: '#81888A' },
+  { name: 'Silbergrau',      ral: 'RAL 7001', hex: '#8F999F' },
+  { name: 'Olivgrau',        ral: 'RAL 7002', hex: '#817F68' },
+  { name: 'Moosgrau',        ral: 'RAL 7003', hex: '#7C7B6E' },
+  { name: 'Signalgrau',      ral: 'RAL 7004', hex: '#9EA0A1' },
+  { name: 'Mausgrau',        ral: 'RAL 7005', hex: '#6B716F' },
+  { name: 'Beigegrau',       ral: 'RAL 7006', hex: '#776F61' },
+  { name: 'Khakigrau',       ral: 'RAL 7008', hex: '#6A5F31' },
+  { name: 'Grüngrau',        ral: 'RAL 7009', hex: '#4D5645' },
+  { name: 'Zeltgrau',        ral: 'RAL 7010', hex: '#4C514A' },
+  { name: 'Eisengrau',       ral: 'RAL 7011', hex: '#434B4D' },
+  { name: 'Basaltgrau',      ral: 'RAL 7012', hex: '#4E5754' },
+  { name: 'Braungrau',       ral: 'RAL 7013', hex: '#43473C' },
+  { name: 'Schiefergrau',    ral: 'RAL 7015', hex: '#434750' },
+  { name: 'Anthrazitgrau',   ral: 'RAL 7016', hex: '#373F43' },
+  { name: 'Schwarzgrau',     ral: 'RAL 7021', hex: '#2E3234' },
+  { name: 'Umbragrau',       ral: 'RAL 7022', hex: '#4A4640' },
+  { name: 'Betongrau',       ral: 'RAL 7023', hex: '#818479' },
+  { name: 'Graphitgrau',     ral: 'RAL 7024', hex: '#474A51' },
+  { name: 'Granitgrau',      ral: 'RAL 7026', hex: '#374447' },
+  { name: 'Steingrau',       ral: 'RAL 7030', hex: '#939388' },
+  { name: 'Blaugrau',        ral: 'RAL 7031', hex: '#5D6970' },
+  { name: 'Kieselgrau',      ral: 'RAL 7032', hex: '#B8B799' },
+  { name: 'Zementgrau',      ral: 'RAL 7033', hex: '#7D8471' },
+  { name: 'Gelbgrau',        ral: 'RAL 7034', hex: '#939176' },
+  { name: 'Lichtgrau',       ral: 'RAL 7035', hex: '#D7D7D7' },
+  { name: 'Platingrau',      ral: 'RAL 7036', hex: '#979392' },
+  { name: 'Staubgrau',       ral: 'RAL 7037', hex: '#7A7B7A' },
+  { name: 'Achatgrau',       ral: 'RAL 7038', hex: '#B4B8B0' },
+  { name: 'Quarzgrau',       ral: 'RAL 7039', hex: '#6B695F' },
+  { name: 'Fenstergrau',     ral: 'RAL 7040', hex: '#9DA3A6' },
+  { name: 'Verkehrsgrau A',  ral: 'RAL 7042', hex: '#8F9695' },
+  { name: 'Verkehrsgrau B',  ral: 'RAL 7043', hex: '#4E5451' },
+  { name: 'Seidengrau',      ral: 'RAL 7044', hex: '#BDBDB2' },
+  { name: 'Telegrau 1',      ral: 'RAL 7045', hex: '#91969A' },
+  { name: 'Telegrau 2',      ral: 'RAL 7046', hex: '#82898E' },
+  { name: 'Telegrau 4',      ral: 'RAL 7047', hex: '#CFD0CF' },
+  { name: 'Grünbraun',       ral: 'RAL 8000', hex: '#887142' },
+  { name: 'Ockerbraun',      ral: 'RAL 8001', hex: '#9C6B30' },
+  { name: 'Signalbraun',     ral: 'RAL 8002', hex: '#6B5045' },
+  { name: 'Lehmbraun',       ral: 'RAL 8003', hex: '#7A5230' },
+  { name: 'Kupferbraun',     ral: 'RAL 8004', hex: '#8D4931' },
+  { name: 'Rehbraun',        ral: 'RAL 8007', hex: '#6F4A2F' },
+  { name: 'Olivbraun',       ral: 'RAL 8008', hex: '#6F4F28' },
+  { name: 'Nussbraun',       ral: 'RAL 8011', hex: '#5A3A29' },
+  { name: 'Rotbraun',        ral: 'RAL 8012', hex: '#67352A' },
+  { name: 'Sepiabraun',      ral: 'RAL 8014', hex: '#4A3526' },
+  { name: 'Kastanienbraun',  ral: 'RAL 8015', hex: '#5B2A26' },
+  { name: 'Mahagonibraun',   ral: 'RAL 8016', hex: '#4C2B20' },
+  { name: 'Schokoladenbraun',ral: 'RAL 8017', hex: '#442F29' },
+  { name: 'Graubraun',       ral: 'RAL 8019', hex: '#3D3635' },
+  { name: 'Schwarzbraun',    ral: 'RAL 8022', hex: '#1A1719' },
+  { name: 'Orangebraun',     ral: 'RAL 8023', hex: '#A55D30' },
+  { name: 'Beigebraun',      ral: 'RAL 8024', hex: '#795038' },
+  { name: 'Blassbraun',      ral: 'RAL 8025', hex: '#755C49' },
+  { name: 'Terrabraun',      ral: 'RAL 8028', hex: '#4E3B2C' },
+  { name: 'Cremeweiß',       ral: 'RAL 9001', hex: '#E9E0CB' },
+  { name: 'Grauweiß',        ral: 'RAL 9002', hex: '#D7D7CB' },
+  { name: 'Signalweiß',      ral: 'RAL 9003', hex: '#ECECE7' },
+  { name: 'Signalschwarz',   ral: 'RAL 9004', hex: '#282828' },
+  { name: 'Tiefschwarz',     ral: 'RAL 9005', hex: '#0A0A0D' },
+  { name: 'Weißaluminium',   ral: 'RAL 9006', hex: '#A5A8A6' },
+  { name: 'Graualuminium',   ral: 'RAL 9007', hex: '#8F8F8C' },
+  { name: 'Reinweiß',        ral: 'RAL 9010', hex: '#F7F9EF' },
+  { name: 'Graphitschwarz',  ral: 'RAL 9011', hex: '#27292B' },
+  { name: 'Verkehrsweiß',    ral: 'RAL 9016', hex: '#F1F0EA' },
+  { name: 'Verkehrsschwarz', ral: 'RAL 9017', hex: '#2A2A2A' },
+  { name: 'Papyrusweiß',     ral: 'RAL 9018', hex: '#CFD3CD' }
+];
+const RAL_VARS = ['--a-oben', '--a-unten'];
+
+/* --- INNEN: Materialien (Fronten, Arbeitsplatte, Boden ...), keine RAL-Töne --- */
+const PALETTEN = {
+  '--i-front': [
+    { name: 'Cremeweiß',   hex: '#F4F0E6' },
+    { name: 'Reinweiß',    hex: '#FCFBF8' },
+    { name: 'Salbeigrün',  hex: '#A8B79B' },
+    { name: 'Taupe',       hex: '#C4B7A4' },
+    { name: 'Anthrazit',   hex: '#54544E' }
+  ],
+  /* Echte Arbeitsplatten-Oberflächen, Hornbach Woodcut-Konfigurator */
+  '--i-platte': [
+    { name: 'Sonoma Oak',    hex: '#CBAF88' },
+    { name: 'Gold Craft Oak',hex: '#C39355' },
+    { name: 'Buche',         hex: '#DBB888' },
+    { name: 'Aluminium',     hex: '#AFB2AF' },
+    { name: 'Anthrazit',     hex: '#2B3336' },
+    { name: 'Schwarz',       hex: '#0D0D0D' }
+  ],
+  '--i-spritz': [
+    { name: 'Metro weiß',  hex: '#F6F4EF' },
+    { name: 'Metro salbei',hex: '#B9C8AF' },
+    { name: 'Metro sand',  hex: '#DFCFB4' },
+    { name: 'Metro terra', hex: '#C07A5D' },
+    { name: 'Metro schwarz',hex:'#3B3B37' }
+  ],
+  '--i-wand': [
+    { name: 'Cremeweiß',   hex: '#F5F1E7' },
+    { name: 'Reinweiß',    hex: '#FDFCFA' },
+    { name: 'Salbei hell', hex: '#DCE3D6' },
+    { name: 'Sandbeige',   hex: '#E8DCC7' }
+  ],
+  '--i-boden': [
+    { name: 'Eiche hell',  hex: '#CBA372' },
+    { name: 'Eiche rustik',hex: '#A97B4A' },
+    { name: 'Nussbaum',    hex: '#6F4B2E' },
+    { name: 'Grau gekälkt',hex: '#B7B2A7' }
+  ]
+};
+
+/* Startzustand = unser typischer Look (wie z. B. bei Sandy / Christa) */
+const AUSWAHL = {
+  '--a-oben': RAL_FARBEN.findIndex(f => f.ral === 'RAL 9001'),
+  '--a-unten': RAL_FARBEN.findIndex(f => f.ral === 'RAL 1024'),
+  '--i-front': 0, '--i-platte': 0, '--i-spritz': 0, '--i-wand': 0, '--i-boden': 0
+};
+
+const wurzel = document.documentElement;
+const summary = document.getElementById('summary');
+
+/* Farbe als Text: „Ockergelb (RAL 1024)" bzw. nur der Name, wo es kein RAL gibt */
+const bezeichnung = (farbe) => farbe.ral ? farbe.name + ' (' + farbe.ral + ')' : farbe.name;
+
+/* Liefert die passende Palette für eine Zone: RAL-Liste für Außenfarben, sonst Materialpalette */
+const paletteFuer = (variable) => RAL_VARS.includes(variable) ? RAL_FARBEN : PALETTEN[variable];
+
+/* ---- Steuerelemente aufbauen: RAL-Suchliste für Außenfarben, Swatch-Kacheln für Materialien ---- */
+document.querySelectorAll('.sk-group').forEach(gruppe => {
+  const variable = gruppe.dataset.var;
+  const titel = document.createElement('h3');
+  titel.textContent = gruppe.dataset.label;
+  gruppe.appendChild(titel);
+
+  if (RAL_VARS.includes(variable)) {
+    baueRalListe(gruppe, variable);
+  } else {
+    baueSwatches(gruppe, variable);
+  }
+});
+
+function baueSwatches(gruppe, variable){
+  const reihe = document.createElement('div');
+  reihe.className = 'sk-swatches';
+
+  PALETTEN[variable].forEach((farbe, i) => {
+    const knopf = document.createElement('button');
+    knopf.type = 'button';
+    knopf.className = 'sk-sw';
+    knopf.setAttribute('aria-pressed', i === AUSWAHL[variable] ? 'true' : 'false');
+    knopf.title = bezeichnung(farbe);
+    knopf.innerHTML = '<span class="sk-dot" style="background:' + farbe.hex + '"></span>'
+                    + '<span>' + farbe.name
+                    + (farbe.ral ? '<em class="sk-ral">' + farbe.ral + '</em>' : '')
+                    + '</span>';
+
+    knopf.addEventListener('click', () => {
+      AUSWAHL[variable] = i;
+      reihe.querySelectorAll('.sk-sw').forEach(b => b.setAttribute('aria-pressed', 'false'));
+      knopf.setAttribute('aria-pressed', 'true');
+      anwenden();
+    });
+
+    reihe.appendChild(knopf);
+  });
+
+  gruppe.appendChild(reihe);
+}
+
+function baueRalListe(gruppe, variable){
+  const suche = document.createElement('input');
+  suche.type = 'search';
+  suche.className = 'sk-ral-search';
+  suche.placeholder = 'RAL-Ton oder Nummer suchen …';
+  suche.setAttribute('aria-label', 'RAL-Ton suchen für ' + gruppe.dataset.label);
+
+  const liste = document.createElement('div');
+  liste.className = 'sk-ral-list';
+  liste.setAttribute('role', 'listbox');
+
+  const zeilen = RAL_FARBEN.map((farbe, i) => {
+    const zeile = document.createElement('button');
+    zeile.type = 'button';
+    zeile.className = 'sk-ral-item';
+    zeile.setAttribute('role', 'option');
+    zeile.setAttribute('aria-pressed', i === AUSWAHL[variable] ? 'true' : 'false');
+    zeile.dataset.suchtext = (farbe.name + ' ' + farbe.ral).toLowerCase();
+    zeile.innerHTML = '<span class="sk-ral-chip" style="background:' + farbe.hex + '"></span>'
+                     + '<span>' + farbe.name + '</span>'
+                     + '<span class="sk-ral-code">' + farbe.ral + '</span>';
+
+    zeile.addEventListener('click', () => {
+      AUSWAHL[variable] = i;
+      liste.querySelectorAll('.sk-ral-item').forEach(z => z.setAttribute('aria-pressed', 'false'));
+      zeile.setAttribute('aria-pressed', 'true');
+      anwenden();
+    });
+
+    liste.appendChild(zeile);
+    return zeile;
+  });
+
+  const leerHinweis = document.createElement('div');
+  leerHinweis.className = 'sk-ral-empty';
+  leerHinweis.textContent = 'Kein RAL-Ton gefunden.';
+  leerHinweis.hidden = true;
+  liste.appendChild(leerHinweis);
+
+  suche.addEventListener('input', () => {
+    const suchwert = suche.value.trim().toLowerCase();
+    let sichtbar = 0;
+    zeilen.forEach(zeile => {
+      const treffer = zeile.dataset.suchtext.includes(suchwert);
+      zeile.hidden = !treffer;
+      if (treffer) sichtbar++;
+    });
+    leerHinweis.hidden = sichtbar > 0;
+  });
+
+  gruppe.appendChild(suche);
+  gruppe.appendChild(liste);
+}
+
+/* ---- Farben auf die Zeichnung übertragen + Zusammenfassung ---- */
+function anwenden(){
+  summary.innerHTML = '';
+  document.querySelectorAll('.sk-group').forEach(gruppe => {
+    const variable = gruppe.dataset.var;
+    const farbe = paletteFuer(variable)[AUSWAHL[variable]];
+    wurzel.style.setProperty(variable, farbe.hex);
+
+    const zeile = document.createElement('div');
+    zeile.className = 'row';
+    zeile.innerHTML = '<dt>' + gruppe.dataset.label + '</dt><dd>' + bezeichnung(farbe) + '</dd>';
+    summary.appendChild(zeile);
+  });
+  mailtoAktualisieren();
+}
+
+function mailtoAktualisieren(){
+  const zeilen = [...document.querySelectorAll('.sk-group')].map(gruppe => {
+    const farbe = paletteFuer(gruppe.dataset.var)[AUSWAHL[gruppe.dataset.var]];
+    return gruppe.dataset.label + ': ' + bezeichnung(farbe);
+  });
+  const text = 'Hallo Ventura Caravans,\n\nich habe im Stil-Konfigurator folgende Kombination zusammengestellt:\n\n'
+             + zeilen.join('\n')
+             + '\n\nBitte meldet euch bei mir.\n\nViele Grüße';
+  document.getElementById('anfrage').href =
+    'mailto:info@ventura-caravans.de?subject=' + encodeURIComponent('Anfrage Stil-Konfigurator')
+    + '&body=' + encodeURIComponent(text);
+}
+
+/* ---- Ansichten umschalten ---- */
+const tabs = { 'tab-aussen': 'aussen', 'tab-innen': 'innen' };
+Object.keys(tabs).forEach(id => {
+  document.getElementById(id).addEventListener('click', () => {
+    Object.entries(tabs).forEach(([tabId, name]) => {
+      const aktiv = tabId === id;
+      document.getElementById(tabId).setAttribute('aria-selected', aktiv ? 'true' : 'false');
+      document.getElementById('view-' + name).hidden = !aktiv;
+      document.getElementById('ctrl-' + name).hidden = !aktiv;
+    });
+  });
+});
+
+anwenden();
+</script>
+</body>
+</html>

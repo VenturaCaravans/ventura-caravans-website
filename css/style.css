@@ -1,0 +1,384 @@
+/* ============================================
+   Ventura Caravans — Design Tokens
+   Farben/Fonts aus der bestehenden Wix-Seite übernommen
+   ============================================ */
+:root{
+  --cream:#fefaf0;
+  --cream-2:#f7f0dd;
+  --ink:#403f2b;
+  --ink-soft:rgba(64,63,43,.72);
+  --line:rgba(64,63,43,.14);
+  --btn-dark:#424040;
+  --btn-dark-hover:#2c2b2b;
+  --olive:#706e5c;
+  --teal:#62979f;
+  --teal-deep:#215f74;
+  --sand:#dfceb2;
+
+  --font-display:"Fraunces","Iowan Old Style",Georgia,serif;
+  --font-body:"Inter","Helvetica Neue",Arial,sans-serif;
+
+  --container:1180px;
+  --radius:10px;
+  --header-h:75px; /* wird per JS auf die real gemessene Header-Höhe gesetzt */
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; }
+.container{ max-width:var(--container); margin:0 auto; padding:0 6vw; }
+
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  color:var(--ink);
+  font-weight:600;
+  line-height:1.15;
+  margin:0 0 .5em;
+  text-wrap:balance;
+}
+h1{ font-size:clamp(34px,5.2vw,58px); font-weight:700; }
+h2{ font-size:clamp(26px,3.4vw,36px); }
+h3{ font-size:20px; }
+p{ margin:0 0 1em; }
+.eyebrow{
+  font-family:var(--font-body);
+  font-size:13px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--olive);
+  font-weight:600;
+  margin:0 0 12px;
+}
+
+.btn{
+  display:inline-block;
+  font-family:var(--font-body);
+  font-size:15px;
+  font-weight:600;
+  padding:14px 28px;
+  border-radius:2px;
+  text-decoration:none;
+  border:1.5px solid transparent;
+  cursor:pointer;
+  transition:background .15s ease, color .15s ease, border-color .15s ease;
+}
+.btn-primary{ background:var(--btn-dark); color:var(--cream); }
+.btn-primary:hover{ background:var(--btn-dark-hover); }
+.btn-secondary{ background:var(--olive); color:var(--cream); }
+.btn-secondary:hover{ background:var(--ink); }
+.btn-outline{ background:transparent; color:var(--ink); border-color:var(--ink); }
+.btn-outline:hover{ background:var(--ink); color:var(--cream); }
+
+/* ---------- Header ---------- */
+.site-header{
+  position:sticky; top:0; z-index:100;
+  background:rgba(254,250,240,.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.site-header .container{
+  display:flex; align-items:center; justify-content:space-between;
+  padding-top:14px; padding-bottom:14px; gap:24px;
+}
+.brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+.brand img{ height:46px; width:46px; flex-shrink:0; }
+.brand span{ font-family:var(--font-display); font-weight:700; font-size:19px; color:var(--ink); white-space:nowrap; }
+/* Kompakter Kontakt-Button in der Kopfzeile (vorher als Inline-Style auf jeder Seite) */
+.btn-header{ padding:11px 20px; font-size:14px; }
+
+.main-nav ul{ list-style:none; display:flex; gap:30px; margin:0; padding:0; }
+.main-nav a{
+  text-decoration:none; font-size:15px; color:var(--ink); opacity:.78;
+  position:relative; padding:4px 0; white-space:nowrap;
+}
+.main-nav a:hover, .main-nav a[aria-current="page"]{ opacity:1; }
+.main-nav a[aria-current="page"]::after{
+  content:""; position:absolute; left:0; right:0; bottom:-3px; height:2px; background:var(--teal-deep);
+}
+.nav-toggle{ display:none; }
+
+@media (max-width:980px){
+  /* Wichtig: backdrop-filter macht den Header zum Bezugsrahmen für position:fixed-Kinder.
+     Auf Mobil daher deaktivieren, damit sich das Menü am Bildschirm ausrichtet statt am Header. */
+  .site-header{
+    background:var(--cream);
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+  /* Kopfzeile so abstimmen, dass Logo + Schriftzug auf eine Zeile passen */
+  .site-header .container{ gap:10px; }
+  .brand{ gap:10px; min-width:0; }
+  .brand img{ height:42px; width:42px; }
+  .brand span{ font-size:16px; white-space:nowrap; }
+  .btn-header{ padding:10px 13px; font-size:13.5px; }
+  .main-nav{
+    position:fixed; top:var(--header-h); left:0; right:0; bottom:0;
+    background:var(--cream); z-index:99;
+    transform:translateY(-8px); visibility:hidden; pointer-events:none;
+    transition:transform .18s ease, visibility 0s linear .18s;
+    border-top:1px solid var(--line);
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .main-nav.open{
+    transform:translateY(0); visibility:visible; pointer-events:auto;
+    transition:transform .18s ease;
+  }
+  .main-nav ul{ flex-direction:column; gap:0; padding:8px 6vw; }
+  .main-nav li{ border-bottom:1px solid var(--line); }
+  .main-nav a{ display:block; padding:16px 0; }
+  .nav-toggle{
+    display:flex; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px;
+  }
+  .nav-toggle span{ width:22px; height:2px; background:var(--ink); display:block; }
+}
+
+/* ---------- Hero ---------- */
+.hero{ position:relative; overflow:hidden; }
+.hero-bg{
+  position:absolute; inset:0; z-index:0;
+  background-size:cover; background-position:center;
+}
+.hero-bg::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(254,250,240,.94) 0%, rgba(254,250,240,.75) 42%, rgba(254,250,240,.25) 75%);
+}
+.hero-inner{
+  position:relative; z-index:1;
+  padding:110px 0 96px;
+  max-width:640px;
+}
+.hero-inner p.lede{ font-size:18px; color:var(--ink-soft); max-width:52ch; }
+.hero-inner .cta-row{ display:flex; gap:14px; flex-wrap:wrap; margin-top:8px; }
+
+@media (max-width:640px){
+  .hero-bg::after{ background:linear-gradient(180deg, rgba(254,250,240,.55) 0%, rgba(254,250,240,.96) 72%); }
+  .hero-inner{ padding:64px 0 56px; max-width:100%; }
+}
+
+/* ---------- Sections ---------- */
+.section{ padding:76px 0; }
+.section-alt{ background:var(--cream-2); }
+.section-head{ max-width:640px; margin-bottom:44px; }
+.section-head.split{ display:flex; justify-content:space-between; align-items:flex-end; gap:20px; max-width:none; flex-wrap:wrap; }
+.section-head .link{ font-size:14px; font-weight:600; color:var(--teal-deep); text-decoration:none; white-space:nowrap; }
+.section-head .link:hover{ text-decoration:underline; }
+
+/* Leistungen teaser grid */
+.services-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+@media (max-width:980px){ .services-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:560px){ .services-grid{ grid-template-columns:1fr; } }
+.service-card{
+  background:var(--cream); border:1px solid var(--line); border-radius:var(--radius);
+  padding:26px; display:flex; flex-direction:column; gap:8px;
+}
+.service-card .icon{ width:34px; height:34px; color:var(--teal-deep); margin-bottom:6px; }
+.service-card h3{ margin-bottom:2px; }
+.service-card p{ font-size:14.5px; color:var(--ink-soft); flex:1; margin-bottom:14px; }
+.service-card .link{ font-size:14px; font-weight:600; color:var(--teal-deep); text-decoration:none; }
+.service-card .link:hover{ text-decoration:underline; }
+
+/* Fleet (Vermietung) */
+.fleet-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; }
+.fleet-card{
+  background:var(--cream); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+}
+/* 4:3 statt fester Höhe — schneidet die Fahrzeugfotos deutlich weniger an */
+.fleet-card .photo{ aspect-ratio:4/3; background-size:cover; background-position:center; position:relative; }
+.fleet-card .body{ padding:20px; }
+.fleet-card .specs{ font-size:13.5px; color:var(--ink-soft); margin-bottom:12px; }
+.fleet-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+.fleet-actions .btn{ padding:10px 18px; font-size:13.5px; }
+.badge{
+  display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600;
+  padding:5px 12px; border-radius:999px;
+}
+.badge::before{ content:""; width:7px; height:7px; border-radius:50%; background:currentColor; }
+.badge.is-free{ background:rgba(98,151,159,.16); color:var(--teal-deep); }
+.badge.is-busy{ background:rgba(223,206,178,.55); color:#8a5a2b; }
+.badge.is-prep{ background:rgba(64,63,43,.08); color:var(--olive); }
+
+/* Projekte */
+.project-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:22px; }
+.project-card{ border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); text-decoration:none; display:block; }
+.project-card .photo{ aspect-ratio:4/3; background-size:cover; background-position:center; }
+.project-card .label{ padding:14px 16px; background:var(--cream); }
+.project-card .label h3{ margin:0; font-size:18px; }
+
+/* Prozess */
+.process-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:28px; counter-reset:step; }
+.process-row .step{ counter-increment:step; padding-top:18px; border-top:2px solid var(--line); }
+.process-row .step .num{ font-family:var(--font-display); font-size:22px; color:var(--teal-deep); display:block; margin-bottom:10px; }
+.process-row .step h3{ font-size:17px; margin-bottom:6px; }
+.process-row .step p{ font-size:14px; color:var(--ink-soft); margin:0; }
+
+/* Pakete (S/M/L) */
+.package-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; }
+.package-card{
+  background:var(--ink); color:var(--cream); border-radius:var(--radius); padding:30px;
+  display:flex; flex-direction:column; gap:14px;
+}
+.package-card.is-featured{ background:var(--teal-deep); }
+.package-size{
+  width:44px; height:44px; border-radius:50%; background:rgba(254,250,240,.14);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-weight:700; font-size:18px;
+}
+.package-card h3{ color:var(--cream); margin:0; font-size:21px; }
+.package-card .package-sub{ font-size:12.5px; text-transform:uppercase; letter-spacing:.05em; opacity:.7; margin:-10px 0 0; }
+.package-card p{ font-size:14.5px; opacity:.88; flex:1; margin:0; }
+.package-card .price{
+  font-family:var(--font-display); font-size:19px; font-weight:700;
+  padding-top:14px; border-top:1px solid rgba(254,250,240,.25);
+}
+
+@media (max-width:820px){ .flo-grid{ grid-template-columns:1fr !important; } .two-col{ grid-template-columns:1fr !important; } }
+
+/* Sonderausstattungen / Extras */
+.extras-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:32px 40px; margin-top:8px; }
+.extras-category h3{ font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--olive); margin-bottom:12px; }
+.extras-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+.extras-list li{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:10px 0; border-bottom:1px solid var(--line); font-size:15px; }
+.extras-list li:last-child{ border-bottom:none; }
+.extras-list .amount{ font-weight:600; white-space:nowrap; color:var(--ink); }
+
+/* Ausstattungs-Checkliste (wiederverwendbar) */
+.check-list{ list-style:none; margin:0 0 20px; padding:0; display:flex; flex-direction:column; gap:11px; }
+.check-list li{ display:flex; gap:12px; font-size:15px; line-height:1.5; color:var(--ink-soft); }
+.check-list li::before{ content:"✓"; color:var(--teal-deep); font-weight:700; flex-shrink:0; }
+
+/* Preistabelle */
+.price-table{ width:100%; border-collapse:collapse; margin:0 0 22px; }
+.price-table th, .price-table td{ text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); font-size:14.5px; }
+.price-table th{ font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--olive); font-weight:600; }
+.price-table td.price{ font-family:var(--font-display); font-size:17px; color:var(--ink); white-space:nowrap; }
+.terms-list{ display:flex; flex-direction:column; gap:8px; font-size:14.5px; color:var(--ink-soft); margin:0 0 22px; }
+.terms-list b{ color:var(--ink); }
+
+/* Projekte-Galerie (Detailkarten) */
+.project-detail-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:28px; }
+.project-detail-card{ background:var(--cream); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; scroll-margin-top:90px; }
+/* 4:3 wie die meisten Originalfotos -> einheitlicher Ausschnitt auf allen Karten */
+.project-detail-card .photo{ aspect-ratio:4/3; background-size:cover; background-position:center; position:relative; }
+.project-detail-card .photo .flag{
+  position:absolute; top:14px; left:14px; background:var(--teal-deep); color:var(--cream);
+  font-size:12px; font-weight:600; padding:5px 12px; border-radius:999px;
+}
+.project-detail-card .body{ padding:22px; }
+.project-detail-card .specs-list{
+  display:flex; flex-wrap:wrap; gap:6px 16px; font-size:13px; color:var(--ink-soft);
+  margin:0 0 14px; padding-top:12px; border-top:1px solid var(--line);
+}
+.project-detail-card .desc{ font-size:14.5px; color:var(--ink-soft); margin:0 0 14px; }
+.project-detail-card .pending{ font-style:italic; opacity:.6; font-size:14px; margin:0 0 14px; }
+
+/* Karte als Ganzes anklickbar (oeffnet die Galerie) */
+.project-detail-card[data-slug]{ cursor:pointer; transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease; }
+.project-detail-card[data-slug]:hover,
+.project-detail-card[data-slug]:focus-visible{
+  transform:translateY(-3px); border-color:var(--teal); box-shadow:0 10px 28px rgba(64,63,43,.13);
+}
+.project-detail-card[data-slug]:focus-visible{ outline:2px solid var(--teal-deep); outline-offset:2px; }
+.project-detail-card .photo .photo-count{
+  position:absolute; right:12px; bottom:12px;
+  background:rgba(30,32,24,.72); color:var(--cream);
+  font-size:11.5px; font-weight:600; letter-spacing:.03em;
+  padding:5px 11px; border-radius:999px; backdrop-filter:blur(3px);
+}
+.specs-toggle{ margin:0 0 12px; }
+.specs-toggle summary{
+  cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:6px;
+  font-size:13px; font-weight:600; color:var(--teal-deep);
+}
+.specs-toggle summary::-webkit-details-marker{ display:none; }
+.specs-toggle summary .plus{ font-size:15px; transition:transform .15s ease; }
+.specs-toggle[open] summary .plus{ transform:rotate(45deg); }
+.project-detail-card .specs{
+  margin:10px 0 0; padding-top:12px; border-top:1px solid var(--line);
+  display:grid; gap:7px 18px; font-size:13px;
+}
+.project-detail-card .specs > div{ display:flex; justify-content:space-between; gap:14px; align-items:baseline; }
+.project-detail-card .specs dt{ color:var(--olive); flex-shrink:0; }
+.project-detail-card .specs dd{ margin:0; text-align:right; color:var(--ink); font-variant-numeric:tabular-nums; }
+.project-detail-card .gallery-cue{
+  display:inline-block; font-size:14px; font-weight:600; color:var(--teal-deep);
+}
+.project-detail-card .link{ display:block; margin-top:9px; }
+
+/* Lightbox-Galerie */
+.lightbox{
+  position:fixed; inset:0; z-index:200;
+  background:rgba(28,29,22,.94);
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  padding:20px;
+}
+.lightbox[hidden]{ display:none; }
+.lb-stage{ margin:0; display:flex; flex-direction:column; align-items:center; gap:14px; max-width:100%; max-height:100%; }
+.lb-stage img{
+  max-width:min(1100px, 92vw); max-height:78vh; width:auto; height:auto;
+  object-fit:contain; border-radius:6px; background:#000;
+}
+.lb-caption{
+  display:flex; gap:14px; align-items:baseline; color:var(--cream);
+  font-family:var(--font-display); font-size:16px;
+}
+.lb-caption #lb-counter{ font-family:var(--font-body); font-size:13px; opacity:.7; font-variant-numeric:tabular-nums; }
+.lb-close, .lb-nav{
+  background:rgba(254,250,240,.12); color:var(--cream);
+  border:1px solid rgba(254,250,240,.28); border-radius:50%;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:background .15s ease;
+}
+.lb-close:hover, .lb-nav:hover{ background:rgba(254,250,240,.26); }
+.lb-close{ position:absolute; top:18px; right:18px; width:42px; height:42px; font-size:17px; }
+.lb-nav{ width:48px; height:48px; font-size:17px; flex-shrink:0; }
+@media (max-width:700px){
+  /* Auf schmalen Screens ist kein Platz fuer Pfeile neben dem Bild -> darueber legen */
+  .lightbox{ padding:12px; gap:0; }
+  .lb-stage{ width:100%; }
+  .lb-stage img{ max-width:100%; max-height:70vh; }
+  .lb-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:42px; height:42px; background:rgba(28,29,22,.6);
+  }
+  .lb-prev{ left:10px; }
+  .lb-next{ right:10px; }
+  .lb-close{ top:10px; right:10px; width:38px; height:38px; }
+}
+@media (prefers-reduced-motion:reduce){
+  .project-detail-card[data-slug]{ transition:none; }
+  .project-detail-card[data-slug]:hover{ transform:none; }
+}
+
+/* Team */
+.team-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:26px; }
+.team-card{ text-align:left; }
+.team-avatar{
+  width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-size:22px; font-weight:700; color:var(--cream); margin-bottom:16px;
+}
+.team-card h3{ margin-bottom:2px; font-size:19px; }
+.team-role{ font-size:13px; font-weight:600; color:var(--teal-deep); text-transform:uppercase; letter-spacing:.04em; margin-bottom:10px; }
+.team-card p{ font-size:14.5px; color:var(--ink-soft); margin:0; }
+
+/* ---------- Footer ---------- */
+.site-footer{ background:var(--ink); color:var(--cream); padding:56px 0 28px; }
+.site-footer a{ color:var(--cream); text-decoration:none; }
+.site-footer a:hover{ text-decoration:underline; }
+.footer-grid{ display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px; padding-bottom:36px; border-bottom:1px solid rgba(254,250,240,.16); }
+@media (max-width:720px){ .footer-grid{ grid-template-columns:1fr; } }
+.footer-grid h4{ font-family:var(--font-body); font-size:13px; letter-spacing:.08em; text-transform:uppercase; opacity:.7; margin:0 0 14px; }
+.footer-grid ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; font-size:14.5px; }
+.footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:22px; font-size:13px; opacity:.7; }
+.footer-funding{ display:flex; justify-content:center; padding-top:28px; }
+.footer-funding img{ height:34px; width:auto; opacity:.92; }

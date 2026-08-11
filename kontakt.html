@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontakt — Ventura Caravans</title>
+<meta name="description" content="Meldet euch bei Ventura Caravans — per E-Mail, Telefon oder Formular.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .contact-layout{ display:grid; grid-template-columns:1fr 1.3fr; gap:48px; align-items:start; }
+  @media (max-width:820px){ .contact-layout{ grid-template-columns:1fr; } }
+  .contact-info dt{ font-size:12.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--olive); margin-top:20px; }
+  .contact-info dd{ margin:4px 0 0; font-size:16px; }
+  .contact-info dd a{ text-decoration:none; color:var(--ink); }
+  .contact-info dd a:hover{ text-decoration:underline; }
+  .form-field{ display:flex; flex-direction:column; gap:6px; margin-bottom:18px; }
+  .form-field label{ font-size:13.5px; font-weight:600; }
+  .form-field input, .form-field textarea{
+    font:inherit; font-size:15px; padding:12px 14px; border:1px solid var(--line); border-radius:6px;
+    background:var(--cream); color:var(--ink);
+  }
+  .form-field textarea{ resize:vertical; min-height:120px; }
+  .form-field input:focus, .form-field textarea:focus{ outline:2px solid var(--teal-deep); outline-offset:1px; }
+  .form-note{ font-size:13px; color:var(--ink-soft); margin-top:4px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="Ventura Caravans Logo">
+      <span>Ventura Caravans</span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="leistungen.html">Leistungen</a></li>
+        <li><a href="vermietung.html">Vermietung</a></li>
+        <li><a href="projekte.html">Projekte</a></li>
+        <li><a href="konfigurator.html">Konfigurator</a></li>
+        <li><a href="stil-konfigurator.html">Stil-Konfigurator</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+      </ul>
+    </nav>
+    <a href="kontakt.html" class="btn btn-primary btn-header">Kontakt</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Kontakt</p>
+      <h1 style="font-size:clamp(30px,4.4vw,46px)">Meldet euch</h1>
+      <p class="lede" style="max-width:60ch">Egal ob Frage zur Vermietung, Interesse an einem Projekt oder eigene Umbau-Ideen — schreibt uns einfach.</p>
+    </div>
+
+    <div class="contact-layout">
+      <dl class="contact-info">
+        <dt>E-Mail</dt>
+        <dd><a href="mailto:info@ventura-caravans.de">info@ventura-caravans.de</a></dd>
+        <dt>Telefon</dt>
+        <dd><a href="tel:+4917656032460">+49 176 56032460</a></dd>
+        <dt>Adresse</dt>
+        <dd>Helmstedter Straße 37A<br>39167 Irxleben</dd>
+      </dl>
+
+      <form id="contact-form" action="mailto:info@ventura-caravans.de" method="post" enctype="text/plain">
+        <div class="form-field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="Name" required>
+        </div>
+        <div class="form-field">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="E-Mail" required>
+        </div>
+        <div class="form-field">
+          <label for="betreff">Betreff</label>
+          <input type="text" id="betreff" name="Betreff">
+        </div>
+        <div class="form-field">
+          <label for="nachricht">Nachricht</label>
+          <textarea id="nachricht" name="Nachricht" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Nachricht senden</button>
+        <p class="form-note">Öffnet euer E-Mail-Programm mit einer vorausgefüllten Nachricht an uns.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Ventura Caravans</h4>
+        <p style="max-width:36ch;opacity:.85">Stilvoll erneuert, nachhaltig unterwegs — Ihr Partner für individuelles Caravaning.</p>
+      </div>
+      <div>
+        <h4>Leistungen</h4>
+        <ul>
+          <li><a href="verkauf.html">Verkauf</a></li>
+          <li><a href="vermietung.html">Vermietung</a></li>
+          <li><a href="individuelle-gestaltung.html">Individuelle Gestaltung</a></li>
+          <li><a href="ankauf-raeumung.html">Ankauf &amp; Räumung</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:info@ventura-caravans.de">info@ventura-caravans.de</a></li>
+          <li><a href="ueber-uns.html">Über uns</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-funding">
+      <img src="assets/foerderbanner-transparent.png" alt="Kofinanziert von der Europäischen Union und dem Land Sachsen-Anhalt">
+    </div>    <div class="footer-bottom">
+      <span>© <span id="year"></span> Ventura Caravans</span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="agb.html">AGB</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('main-nav');
+  const header = document.querySelector('.site-header');
+
+  // Header-Höhe an CSS weitergeben, damit das mobile Menü exakt darunter ansetzt
+  const syncHeaderHeight = () => {
+    if (header) document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+  };
+  syncHeaderHeight();
+  window.addEventListener('resize', syncHeaderHeight);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHeaderHeight);
+
+  const closeNav = () => {
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+
+  toggle.addEventListener('click', () => {
+    syncHeaderHeight();
+    const open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  // Menü schließen, wenn ein Punkt angetippt oder auf Desktop-Breite gewechselt wird
+  nav.addEventListener('click', (e) => { if (e.target.closest('a')) closeNav(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 980 && nav.classList.contains('open')) closeNav(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('open')) closeNav(); });
+
+  const params = new URLSearchParams(window.location.search);
+  const betreff = params.get('betreff');
+  if (betreff) document.getElementById('betreff').value = betreff;
+</script>
+</body>
+</html>
