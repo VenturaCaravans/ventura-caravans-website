@@ -1000,43 +1000,62 @@
 
 }
    .zahlungsplan{
-  margin-top: 22px;
-  padding-top: 20px;
+  margin-top: 18px;
+  padding-top: 14px;
   border-top: 1px solid var(--line);
 
 }
-   .zahlungsplan h4{
+   .zahlungsplan summary{
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-family:'Space Grotesk', sans-serif;
-  font-size: 12px;
-  letter-spacing: .09em;
+  font-size: 11px;
+  letter-spacing: .08em;
   text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0;
+
+}
+   .zahlungsplan summary::-webkit-details-marker{
+  display: none;
+
+}
+   .zahlungsplan summary::before{
+  content: '+';
+  font-size: 13px;
   color: var(--forest-deep);
-  margin: 0 0 14px;
+
+}
+   .zahlungsplan[open] summary::before{
+  content: '\2212';
 
 }
    .zahlungsplan ol{
   list-style: none;
-  margin: 0;
+  margin: 10px 0 0;
   padding: 0;
   display: grid;
-  gap: 10px;
+  gap: 8px;
 
 }
    .zahlungsplan li{
   display: flex;
   align-items: baseline;
-  gap: 14px;
-  font-size: 13.5px;
+  gap: 12px;
+  font-size: 12px;
   line-height: 1.5;
   color: var(--ink-soft);
 
 }
    .zp-anteil{
   flex-shrink: 0;
-  min-width: 46px;
+  min-width: 38px;
   font-family:'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--forest-deep);
   font-variant-numeric: tabular-nums;
 
@@ -1836,14 +1855,14 @@ Lieferumfang:
 <span class="price">24,99 &euro;</span>
 </span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-solona-edelstahl-besteck-set-16-tlg.-fuer-4-personen-457729?varid=456955" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>    </div>  </div>  </div>  <div class="extras-foot">Individuelle Sonderwünsche jederzeit möglich — transparente Kostenübersicht vor Vertragsabschluss. Alle Preise und Verfügbarkeiten vorbehaltlich Bestätigung durch den Hersteller.</div>  </div>   <div class="stage" style="margin-top:44px">  <div class="stage-label">Eure Auswahl</div>  </div>  <div class="summary-panel" id="summary-panel">  <div class="print-doc-header"><div class="print-brand">Ventura Caravans</div><div class="print-doc-title">Konfigurator – Zusammenfassung</div><div class="print-doc-meta" id="print-date"></div></div>  <h3>Zusammenfassung</h3>  <p class="sub">Unverbindlich — Preise inkl. MwSt. Wir melden uns mit einem konkreten Angebot.</p>  <div id="summary-empty" class="summary-empty">Noch nichts ausgewählt — klickt oben eine Basis und beliebig viele Extras an.</div>  <div id="summary-list" class="summary-list">
 </div>  <div id="summary-total" class="summary-total" style="display:none">
-</div>  <div class="notes-field">  <label for="notes-input">Fragen, Ideen, eigene Vorstellungen</label>  <textarea id="notes-input" placeholder="Platz für alles, was ihr uns noch mitteilen möchtet – Wünsche zum Grundriss, Fragen zu Extras, Sonderwünsche ..."></textarea>  </div>  <div class="zahlungsplan">
-  <h4>Zahlung in drei Schritten</h4>
+</div>  <div class="notes-field">  <label for="notes-input">Fragen, Ideen, eigene Vorstellungen</label>  <textarea id="notes-input" placeholder="Platz für alles, was ihr uns noch mitteilen möchtet – Wünsche zum Grundriss, Fragen zu Extras, Sonderwünsche ..."></textarea>  </div>  <details class="zahlungsplan">
+  <summary>Zahlung in drei Schritten</summary>
   <ol>
     <li><span class="zp-anteil">30&nbsp;%</span><span>bei Vertragsabschluss, sobald ihr das Basisfahrzeug freigegeben habt</span></li>
     <li><span class="zp-anteil">50&nbsp;%</span><span>nach Fertigstellung des Wohnwagens — unabh&auml;ngig davon, wann ihr ihn abholt</span></li>
     <li><span class="zp-anteil">20&nbsp;%</span><span>bei der &Uuml;bergabe, zusammen mit Einweisung und &Uuml;bergabeprotokoll</span></li>
   </ol>
-</div>  <div class="print-notes" id="print-notes"></div>  <div class="summary-actions">  <button type="button" class="btn-summary primary" id="btn-print" disabled>Zusammenfassung als PDF herunterladen</button>  <button type="button" class="btn-summary outline" id="btn-send" disabled>Anfrage per E-Mail senden</button>  <button type="button" class="btn-summary outline" id="btn-whatsapp" disabled>Anfrage per WhatsApp senden</button>  <button type="button" class="btn-summary outline" id="btn-callback">Rückruf-Termin buchen</button>  </div>  <p class="pdf-hint">Eure Auswahl bleibt gespeichert — ihr könnt die Seite also verlassen und später weitermachen. Bei „Anfrage per WhatsApp" hängen wir die PDF auf dem Handy direkt mit an; am Rechner wird sie heruntergeladen, damit ihr sie der Nachricht anfügen könnt.</p>  <p class="callback-hint" id="callback-hint">Kalender-Buchung folgt in Kürze — bitte nutzt bis dahin „Anfrage senden", wir rufen euch dann zurück.</p>  <div class="print-doc-footer">Unverbindliche Zusammenfassung · Alle Preise inkl. MwSt., vorbehaltlich Bestätigung durch den Hersteller · Norman Katzorke — Ventura Caravans, Irxleben · info@ventura-caravans.de</div>  </div>  </div>
+</details>  <div class="print-notes" id="print-notes"></div>  <div class="summary-actions">  <button type="button" class="btn-summary primary" id="btn-print" disabled>Zusammenfassung als PDF herunterladen</button>  <button type="button" class="btn-summary outline" id="btn-send" disabled>Anfrage per E-Mail senden</button>  <button type="button" class="btn-summary outline" id="btn-whatsapp" disabled>Anfrage per WhatsApp senden</button>  <button type="button" class="btn-summary outline" id="btn-callback">Rückruf-Termin buchen</button>  </div>  <p class="pdf-hint">Eure Auswahl bleibt gespeichert — ihr könnt die Seite also verlassen und später weitermachen. Bei „Anfrage per WhatsApp" öffnet sich direkt unser Chat mit vorausgefülltem Text; die PDF wird zusätzlich heruntergeladen, damit ihr sie der Nachricht anfügen könnt.</p>  <p class="callback-hint" id="callback-hint">Kalender-Buchung folgt in Kürze — bitte nutzt bis dahin „Anfrage senden", wir rufen euch dann zurück.</p>  <div class="print-doc-footer">Unverbindliche Zusammenfassung · Alle Preise inkl. MwSt., vorbehaltlich Bestätigung durch den Hersteller · Norman Katzorke — Ventura Caravans, Irxleben · info@ventura-caravans.de</div>  </div>  </div>
 
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal-box">
