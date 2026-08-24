@@ -256,6 +256,7 @@ p{ margin:0 0 1em; }
 }
 /* 4:3 statt fester Höhe — schneidet die Fahrzeugfotos deutlich weniger an */
 .fleet-card .photo{ aspect-ratio:4/3; background-size:cover; background-position:center; position:relative; }
+.fleet-card .photo-link{ display:block; cursor:pointer; }
 .fleet-card .body{ padding:20px; }
 .fleet-card .specs{ font-size:13.5px; color:var(--ink-soft); margin-bottom:12px; }
 .fleet-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
