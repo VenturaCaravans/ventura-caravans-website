@@ -16,6 +16,8 @@
   .prose strong{ color:var(--ink); }
   .prose ul{ padding-left:1.2em; }
   .prose ul li{ margin-bottom:.5em; }
+  .mission-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:28px; }
+  @media (max-width:780px){ .mission-grid{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -32,8 +34,13 @@
         <li><a href="leistungen.html">Leistungen</a></li>
         <li><a href="vermietung.html">Vermietung</a></li>
         <li><a href="projekte.html">Projekte</a></li>
-        <li><a href="konfigurator.html">Konfigurator</a></li>
-        <li><a href="stil-konfigurator.html">Stil-Konfigurator</a></li>
+        <li class="has-dropdown">
+          <a href="konfigurator.html">Konfigurator <span class="caret">▾</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="konfigurator.html">Preiskonfigurator</a></li>
+            <li><a href="stil-konfigurator.html">Stilkonfigurator</a></li>
+          </ul>
+        </li>
         <li><a href="ueber-uns.html" aria-current="page">Über uns</a></li>
       </ul>
     </nav>
@@ -87,42 +94,66 @@
         <p class="team-role">Vorbereitung &amp; Demontage</p>
         <p>Vorbereitende Maßnahmen für die Lackierung sowie Demontage.</p>
       </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:var(--ink)">P</div>
+        <h3>Pia</h3>
+        <p class="team-role">Social Media</p>
+        <p>Verantwortlich für Social Media und den Auftritt von Ventura Caravans nach außen.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container prose">
-    <h2>Unsere Mission — einzigartig, stilvoll, nachhaltig</h2>
+    <p class="eyebrow">Mission</p>
+    <h2 style="margin-top:.3em">Einzigartig, stilvoll, nachhaltig</h2>
     <p>Im Caravan-Markt gibt es zwei etablierte Optionen: Neue Caravans kommen vom Fließband, sind teuer, wenig individuell und oft ohne Stil. Gebrauchte Caravans sind oft in schlechtem Zustand, nicht mehr dicht, und ihre Innenausstattung ist überholt.</p>
-    <p>Und dann gibt es uns: <strong>Ventura Caravans.</strong> Wir stehen für die Refurbishment-Sparte — die Lösung zwischen Neu und Gebraucht. Wir kaufen alte Caravans, bringen sie in einen "Wie-Neu"-Zustand und schaffen Unikate mit Stil, Funktionalität und Persönlichkeit.</p>
+    <p>Und dann gibt es uns: <strong>Ventura Caravans.</strong> Wir stehen für die Refurbishment-Sparte — die Lösung zwischen Neu und Gebraucht. Wir kaufen alte Caravans, bringen sie in einen „Wie-Neu"-Zustand und schaffen Unikate mit Stil, Funktionalität und Persönlichkeit. Dabei setzen wir auf drei zentrale Werte:</p>
+  </div>
+  <div class="container">
+    <div class="mission-grid">
+      <div class="service-card">
+        <h3>Qualität</h3>
+        <p>Jeder Caravan wird mit größter Sorgfalt und Präzision in einen „Wie-Neu"-Zustand gebracht — vom Dach bis zur Achse.</p>
+      </div>
+      <div class="service-card">
+        <h3>Nachhaltigkeit</h3>
+        <p>Anstatt alte Caravans zu entsorgen, geben wir ihnen ein zweites Leben — ein aktiver Beitrag zur Kreislaufwirtschaft.</p>
+      </div>
+      <div class="service-card">
+        <h3>Individualität</h3>
+        <p>Wir gestalten euren Caravan nach euren Wünschen oder kreieren Caravans nach unseren eigenen Stilideen.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <h2>Was bedeutet Refurbishment bei uns?</h2>
-    <p>Refurbishment ist mehr als eine Renovierung. Wir nehmen alte Caravans und bringen sie auf den neuesten Stand:</p>
-    <ul>
-      <li><strong>Demontage:</strong> Der Wohnwagen wird komplett zerlegt — außen wie innen.</li>
-      <li><strong>Reinigung &amp; Aufarbeitung:</strong> Inklusive Vorbereitung für die Lackierung.</li>
-      <li><strong>Lackierung:</strong> Mehrschichtige Lackierung innen und außen.</li>
-      <li><strong>Unterboden &amp; Chassis:</strong> Vollständige technische Aufarbeitung.</li>
-      <li><strong>Kfz-Technik:</strong> Prüfung und Erneuerung der gesamten Technik.</li>
-      <li><strong>Neu abdichten:</strong> Inklusive neuer Dichtungsleisten.</li>
-      <li><strong>Außeneinbau:</strong> Neue Dach- und Seitenfenster.</li>
-      <li><strong>Inneneinbau:</strong> Küche, Bad, Bett, Sitzgruppe und Böden.</li>
-      <li><strong>Deko &amp; Feinschliff:</strong> Der letzte Schliff vor der Übergabe.</li>
-      <li><strong>Neuer TÜV:</strong> Die Gasanlage wird ausgebaut, dadurch entfällt die Gasprüfung.</li>
-    </ul>
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Refurbishment</p>
+      <h2>Was bedeutet Refurbishment bei uns?</h2>
+      <p class="lede" style="max-width:60ch">Refurbishment ist mehr als eine Renovierung. Wir nehmen alte Caravans und bringen sie in 10 Schritten auf den neuesten Stand.</p>
+    </div>
+    <div class="process-row">
+      <div class="step"><span class="num">01</span><h3>Demontage</h3><p>Der Wohnwagen wird komplett zerlegt — außen wie innen.</p></div>
+      <div class="step"><span class="num">02</span><h3>Reinigung &amp; Aufarbeitung</h3><p>Inklusive Vorbereitung für die Lackierung.</p></div>
+      <div class="step"><span class="num">03</span><h3>Lackierung</h3><p>Mehrschichtige Lackierung innen und außen.</p></div>
+      <div class="step"><span class="num">04</span><h3>Unterboden &amp; Chassis</h3><p>Vollständige technische Aufarbeitung.</p></div>
+      <div class="step"><span class="num">05</span><h3>Kfz-Technik</h3><p>Prüfung der gesamten Technik — erneuert wird nur, was nötig ist.</p></div>
+      <div class="step"><span class="num">06</span><h3>Neu abdichten</h3><p>Inklusive neuer Dichtungsleisten.</p></div>
+      <div class="step"><span class="num">07</span><h3>Außeneinbau</h3><p>Neue Dach- und Seitenfenster.</p></div>
+      <div class="step"><span class="num">08</span><h3>Inneneinbau</h3><p>Küche, Bad, Bett, Sitzgruppe und Böden.</p></div>
+      <div class="step"><span class="num">09</span><h3>Deko &amp; Feinschliff</h3><p>Der letzte Schliff vor der Übergabe.</p></div>
+      <div class="step"><span class="num">10</span><h3>Neuer TÜV</h3><p>Die Gasanlage wird ausgebaut, dadurch entfällt die Gasprüfung.</p></div>
+    </div>
+  </div>
+</section>
 
-    <h2>Unsere Vision — die Freiheit, neu definiert</h2>
-    <p>Mit Ventura Caravans setzen wir auf drei zentrale Werte:</p>
-    <ul>
-      <li><strong>Qualität:</strong> Jeder Caravan wird mit größter Sorgfalt und Präzision in einen "Wie-Neu"-Zustand gebracht — vom Dach bis zur Achse.</li>
-      <li><strong>Nachhaltigkeit:</strong> Anstatt alte Caravans zu entsorgen, geben wir ihnen ein zweites Leben — ein aktiver Beitrag zur Kreislaufwirtschaft.</li>
-      <li><strong>Individualität:</strong> Wir gestalten euren Caravan nach euren Wünschen oder kreieren Caravans nach unseren eigenen Stilideen.</li>
-    </ul>
-    <p>Zusätzlich bieten wir das Komplettpaket für eure Camping-Abenteuer: Egal ob Dauercamper oder Reisecamper — wir statten euren Caravan mit allem aus, was ihr braucht, von Outdoor-Möbeln bis zum passenden Vorzelt.</p>
-    <p>Erlebt die neue Art des Caravanings — nachhaltig, hochwertig und mit einzigartigem Stil.</p>
-
-    <a href="kontakt.html" class="btn btn-primary">Sag Hallo</a>
+<section class="section">
+  <div class="container" style="max-width:640px;text-align:center">
+    <a href="kontakt.html" class="btn btn-primary">Kontakt aufnehmen</a>
   </div>
 </section>
 

@@ -15,14 +15,6 @@
   .prose h3{ font-size:16px; margin-top:1.4em; }
   .prose ul{ padding-left:1.2em; }
   .prose ul li{ margin-bottom:.4em; }
-  .todo-box{
-    background:rgba(223,206,178,.35); border:1px solid var(--sand); border-radius:8px;
-    padding:18px 20px; margin:0 0 36px; font-size:14.5px; color:var(--ink);
-  }
-  .todo-box strong{ display:block; margin-bottom:6px; }
-  .todo-box ul{ margin:8px 0 0; padding-left:1.2em; }
-  .todo-box li{ margin-bottom:4px; }
-  .fill{ background:rgba(255,196,0,.28); padding:1px 4px; border-radius:3px; font-weight:600; }
 </style>
 </head>
 <body>
@@ -39,8 +31,13 @@
         <li><a href="leistungen.html">Leistungen</a></li>
         <li><a href="vermietung.html">Vermietung</a></li>
         <li><a href="projekte.html">Projekte</a></li>
-        <li><a href="konfigurator.html">Konfigurator</a></li>
-        <li><a href="stil-konfigurator.html">Stil-Konfigurator</a></li>
+        <li class="has-dropdown">
+          <a href="konfigurator.html">Konfigurator <span class="caret">▾</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="konfigurator.html">Preiskonfigurator</a></li>
+            <li><a href="stil-konfigurator.html">Stilkonfigurator</a></li>
+          </ul>
+        </li>
         <li><a href="ueber-uns.html">Über uns</a></li>
       </ul>
     </nav>
@@ -54,17 +51,6 @@
 <section class="section">
   <div class="container prose">
     <h1 style="font-size:clamp(28px,3.6vw,38px)">Allgemeine Geschäftsbedingungen</h1>
-
-    <div class="todo-box">
-      <strong>Hinweis für Norman, vor Veröffentlichung von einem Anwalt prüfen lassen:</strong>
-      Dieser Entwurf deckt die drei Geschäftsfelder ab, die die Website bewirbt (Verkauf gebrauchter Wohnwagen, Vermietung, individuelle Gestaltung/Umbau). Da über die Website selbst nirgends ein Vertrag verbindlich abgeschlossen wird — Kontaktformular und Konfigurator senden immer nur unverbindliche Anfragen —, ist eine AGB rechtlich nicht zwingend erforderlich, aber sinnvoll als einheitliche Vertragsgrundlage für die tatsächlichen Verträge, die ihr dann persönlich/schriftlich abschließt. Folgende Stellen (gelb markiert) sind bewusst als Platzhalter gelassen, weil ich die tatsächliche Geschäftspraxis nicht kenne — bitte ausfüllen, bevor der Anwalt drüberschaut:
-      <ul>
-        <li>Kautionshöhe bei Vermietung</li>
-        <li>Stornobedingungen/-fristen bei Vermietung</li>
-        <li>Ob und wie die gesetzliche Gewährleistungsfrist bei Gebrauchtfahrzeug-Verkauf verkürzt werden soll (1 statt 2 Jahre ist bei Gebrauchtware gegenüber Verbrauchern zulässig, muss aber ausdrücklich vereinbart werden)</li>
-        <li>Gerichtsstand / euer Ort für Rechtsstreitigkeiten mit Unternehmern</li>
-      </ul>
-    </div>
 
     <h2>§ 1 Geltungsbereich</h2>
     <p>Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge zwischen Norman Katzorke, Ventura Caravans, Helmstedter Straße 37A, 39167 Irxleben (nachfolgend „wir" oder „Ventura Caravans") und seinen Kunden über den Verkauf gebrauchter Wohnwagen, deren individuelle Gestaltung/Umbau sowie die Vermietung von Wohnwagen. Abweichende Bedingungen des Kunden erkennen wir nicht an, es sei denn, wir stimmen ihrer Geltung ausdrücklich schriftlich zu.</p>

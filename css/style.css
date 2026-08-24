@@ -101,11 +101,32 @@ p{ margin:0 0 1em; }
   text-decoration:none; font-size:15px; color:var(--ink); opacity:.78;
   position:relative; padding:4px 0; white-space:nowrap;
 }
-.main-nav a:hover, .main-nav a[aria-current="page"]{ opacity:1; }
-.main-nav a[aria-current="page"]::after{
+.main-nav a:hover, .main-nav a[aria-current="page"], .main-nav a.nav-active{ opacity:1; }
+.main-nav a[aria-current="page"]::after, .main-nav a.nav-active::after{
   content:""; position:absolute; left:0; right:0; bottom:-3px; height:2px; background:var(--teal-deep);
 }
 .nav-toggle{ display:none; }
+
+/* Konfigurator-Dropdown (Preis-/Stilkonfigurator) */
+.main-nav .has-dropdown{ position:relative; }
+.main-nav .caret{ font-size:10px; margin-left:4px; opacity:.65; position:relative; top:-1px; }
+.main-nav .dropdown-menu{
+  list-style:none; margin:0; padding:7px; position:absolute; top:100%; left:50%;
+  min-width:180px; background:var(--cream); border:1px solid var(--line); border-radius:10px;
+  box-shadow:0 12px 28px rgba(64,63,43,.14);
+  opacity:0; visibility:hidden; pointer-events:none; transform:translate(-50%,4px);
+  transition:opacity .15s ease, transform .15s ease, visibility 0s linear .15s;
+}
+.main-nav .has-dropdown:hover .dropdown-menu,
+.main-nav .has-dropdown:focus-within .dropdown-menu{
+  opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%,0);
+  transition:opacity .15s ease, transform .15s ease;
+}
+.main-nav .dropdown-menu li{ border:none; }
+.main-nav .dropdown-menu a{ display:block; padding:9px 12px; border-radius:6px; font-size:14.5px; white-space:nowrap; }
+.main-nav .dropdown-menu a:hover{ background:rgba(64,63,43,.07); }
+.main-nav .dropdown-menu a[aria-current="page"]::after{ display:none; }
+.main-nav .dropdown-menu a[aria-current="page"]{ color:var(--teal-deep); font-weight:600; }
 
 @media (max-width:980px){
   /* Wichtig: backdrop-filter macht den Header zum Bezugsrahmen für position:fixed-Kinder.
@@ -141,6 +162,46 @@ p{ margin:0 0 1em; }
     display:flex; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px;
   }
   .nav-toggle span{ width:22px; height:2px; background:var(--ink); display:block; }
+
+  /* Konfigurator-Dropdown auf Mobil: statisch eingerückt statt Hover-Popup */
+  .main-nav .caret{ display:none; }
+  .main-nav .has-dropdown{ border-bottom:none; }
+  .main-nav .dropdown-menu{
+    position:static; transform:none; pointer-events:none;
+    box-shadow:none; border:none; border-top:1px solid var(--line); background:none;
+    padding:0 0 0 5vw; margin:0;
+  }
+  .main-nav.open .dropdown-menu{ opacity:1; visibility:visible; pointer-events:auto; }
+  .main-nav .dropdown-menu li{ border-bottom:1px solid var(--line); }
+  .main-nav .dropdown-menu a{ padding:14px 0; font-size:14.5px; opacity:.78; }
+  .main-nav .dropdown-menu a:hover{ background:none; }
+}
+
+/* ---------- Instagram-Reels ---------- */
+.insta-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+  gap:28px; max-width:1080px; margin:0 auto;
+}
+.insta-card{
+  background:var(--cream); border:1px solid var(--line); border-radius:18px;
+  padding:20px 0 22px; box-shadow:0 16px 38px rgba(64,63,43,.09);
+  overflow:hidden;
+  display:flex; flex-direction:column; align-items:center; gap:16px;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.insta-card:hover{ transform:translateY(-4px); box-shadow:0 22px 48px rgba(64,63,43,.14); }
+.insta-card-head{ display:flex; align-items:center; gap:10px; align-self:flex-start; padding:0 18px; }
+.insta-card-head .icon{ width:22px; height:22px; color:var(--teal-deep); flex-shrink:0; }
+.insta-card-head h3{ font-size:16px; margin:0; line-height:1.3; }
+.insta-card-media{ width:100%; display:flex; justify-content:center; }
+.insta-card-media iframe{ display:block !important; }
+.insta-card-link{
+  align-self:flex-start; margin:0 18px; font-size:13.5px; font-weight:600; color:var(--teal-deep);
+  text-decoration:none; display:inline-flex; align-items:center; gap:5px;
+}
+.insta-card-link:hover{ text-decoration:underline; }
+@media (max-width:420px){
+  #instagram .container{ padding-left:14px; padding-right:14px; }
 }
 
 /* ---------- Hero ---------- */

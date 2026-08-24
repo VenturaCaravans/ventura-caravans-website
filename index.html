@@ -33,6 +33,11 @@
     <path d="M5 12 L9 6 L23 6 L27 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
     <path d="M12 17 L20 21 M20 17 L12 21" stroke="currentColor" stroke-width="2"/>
   </symbol>
+  <symbol id="icon-instagram" viewBox="0 0 32 32">
+    <rect x="4" y="4" width="24" height="24" rx="7" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="16" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+    <circle cx="22.5" cy="9.5" r="1.4" fill="currentColor" stroke="none"/>
+  </symbol>
 </svg>
 
 <header class="site-header">
@@ -47,8 +52,13 @@
         <li><a href="leistungen.html">Leistungen</a></li>
         <li><a href="vermietung.html">Vermietung</a></li>
         <li><a href="projekte.html">Projekte</a></li>
-        <li><a href="konfigurator.html">Konfigurator</a></li>
-        <li><a href="stil-konfigurator.html">Stil-Konfigurator</a></li>
+        <li class="has-dropdown">
+          <a href="konfigurator.html">Konfigurator <span class="caret">▾</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="konfigurator.html">Preiskonfigurator</a></li>
+            <li><a href="stil-konfigurator.html">Stilkonfigurator</a></li>
+          </ul>
+        </li>
         <li><a href="ueber-uns.html">Über uns</a></li>
       </ul>
     </nav>
@@ -68,13 +78,36 @@
       <p class="lede">Wir geben gebrauchten Wohnwagen ein zweites Leben und schaffen einzigartige, erschwingliche &amp; nachhaltige Alternativen zu Neufahrzeugen — Qualität, die Umwelt und Geldbeutel gleichermaßen schont.</p>
       <div class="cta-row">
         <a href="ueber-uns.html" class="btn btn-primary">Über uns</a>
-        <a href="index.html#pakete" class="btn btn-outline">Unsere Leistungsübersicht</a>
+        <a href="index.html#leistungen" class="btn btn-outline">Unsere Leistungsübersicht</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="instagram">
+  <div class="container">
+    <div class="section-head" style="text-align:center;justify-content:center">
+      <p class="eyebrow" style="justify-content:center">Instagram</p>
+      <h2>Das ist Hilde</h2>
+      <p class="lede" style="max-width:54ch;margin-left:auto;margin-right:auto">Ein Blick hinter die Kulissen unserer Refurbishments — mehr davon auf unserem Kanal.</p>
+    </div>
+    <div class="insta-grid">
+      <div class="insta-card">
+        <div class="insta-card-head">
+          <svg class="icon"><use href="#icon-instagram"/></svg>
+          <h3>Aus alt mach WOW!</h3>
+        </div>
+        <div class="insta-card-media">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DZR5eTJOrta/" data-instgrm-version="14"></blockquote>
+        </div>
+        <a class="insta-card-link" href="https://www.instagram.com/reel/DZR5eTJOrta/" target="_blank" rel="noopener">Auf Instagram ansehen ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+<script async src="//www.instagram.com/embed.js"></script>
+
+<section class="section" id="leistungen">
   <div class="container">
     <div class="section-head">
       <p class="eyebrow">Was wir tun</p>
@@ -120,26 +153,26 @@
     </div>
     <div class="fleet-grid">
       <div class="fleet-card">
-        <div class="photo" style="background-image:url('assets/sandy.jpg')"></div>
+        <a class="photo" href="vermietung.html#sandy" aria-label="Fotos von Sandy ansehen" style="display:block;background-image:url('assets/sandy.jpg')"></a>
         <div class="body">
           <h3>Sandy</h3>
           <p class="specs">Chateau Touring 390 KK · max. 2 Erw. + 1 Kind · vollausgestattet</p>
           <span class="badge is-free">Verfügbar</span>
           <div class="fleet-actions">
             <a href="vermietung.html#sandy-details" class="btn btn-outline">Ausstattung &amp; Preise</a>
-            <a href="kontakt.html?betreff=Anfrage%20Sandy" class="btn btn-primary">Jetzt anfragen</a>
+            <a href="https://wa.me/4917656032460?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20Sandy%20zum%20Mieten." class="btn btn-primary" target="_blank" rel="noopener">Jetzt anfragen</a>
           </div>
         </div>
       </div>
       <div class="fleet-card">
-        <div class="photo" style="background-image:url('assets/flo.jpg')"></div>
+        <a class="photo" href="vermietung.html#flo" aria-label="Fotos von Flo ansehen" style="display:block;background-image:url('assets/flo.jpg')"></a>
         <div class="body">
           <h3>Flo</h3>
-          <p class="specs">Fendt 470 N · viele Termine 2026 frei</p>
+          <p class="specs">Fendt 470 N · max. 2 Erw. + 2 Kinder · vollausgestattet</p>
           <span class="badge is-free">Verfügbar</span>
           <div class="fleet-actions">
             <a href="vermietung.html#flo-details" class="btn btn-outline">Ausstattung &amp; Preise</a>
-            <a href="kontakt.html?betreff=Anfrage%20Flo" class="btn btn-primary">Jetzt anfragen</a>
+            <a href="https://wa.me/4917656032460?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20Flo%20zum%20Mieten." class="btn btn-primary" target="_blank" rel="noopener">Jetzt anfragen</a>
           </div>
         </div>
       </div>
@@ -188,7 +221,7 @@
       <div class="step"><span class="num">02</span><h3>Reinigung &amp; Aufarbeitung</h3><p>Inklusive Vorbereitung für die Lackierung.</p></div>
       <div class="step"><span class="num">03</span><h3>Lackierung</h3><p>Mehrschichtige Lackierung innen und außen.</p></div>
       <div class="step"><span class="num">04</span><h3>Unterboden &amp; Chassis</h3><p>Vollständige technische Aufarbeitung.</p></div>
-      <div class="step"><span class="num">05</span><h3>Kfz-Technik</h3><p>Prüfung und Erneuerung der gesamten Technik.</p></div>
+      <div class="step"><span class="num">05</span><h3>Kfz-Technik</h3><p>Prüfung der gesamten Technik — erneuert wird nur, was nötig ist.</p></div>
       <div class="step"><span class="num">06</span><h3>Neu abdichten</h3><p>Inklusive neuer Dichtungsleisten.</p></div>
       <div class="step"><span class="num">07</span><h3>Außeneinbau</h3><p>Neue Dach- und Seitenfenster.</p></div>
       <div class="step"><span class="num">08</span><h3>Inneneinbau</h3><p>Küche, Bad, Bett, Sitzgruppe und Böden.</p></div>

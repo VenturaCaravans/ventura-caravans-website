@@ -14,11 +14,6 @@
   .prose h2{ font-size:19px; margin-top:1.8em; }
   .prose ul{ padding-left:1.2em; }
   .prose ul li{ margin-bottom:.4em; }
-  .todo-box{
-    background:rgba(223,206,178,.35); border:1px solid var(--sand); border-radius:8px;
-    padding:18px 20px; margin:0 0 36px; font-size:14.5px; color:var(--ink);
-  }
-  .todo-box strong{ display:block; margin-bottom:6px; }
 </style>
 </head>
 <body>
@@ -35,8 +30,13 @@
         <li><a href="leistungen.html">Leistungen</a></li>
         <li><a href="vermietung.html">Vermietung</a></li>
         <li><a href="projekte.html">Projekte</a></li>
-        <li><a href="konfigurator.html">Konfigurator</a></li>
-        <li><a href="stil-konfigurator.html">Stil-Konfigurator</a></li>
+        <li class="has-dropdown">
+          <a href="konfigurator.html">Konfigurator <span class="caret">▾</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="konfigurator.html">Preiskonfigurator</a></li>
+            <li><a href="stil-konfigurator.html">Stilkonfigurator</a></li>
+          </ul>
+        </li>
         <li><a href="ueber-uns.html">Über uns</a></li>
       </ul>
     </nav>
@@ -51,11 +51,6 @@
   <div class="container prose">
     <h1 style="font-size:clamp(28px,3.6vw,38px)">Datenschutzerklärung</h1>
 
-    <div class="todo-box">
-      <strong>Hinweis für Norman, vor Veröffentlichung von einem Anwalt/Datenschutzbeauftragten prüfen lassen:</strong>
-      Diese Fassung ist bewusst ausführlich gehalten und deckt alles ab, was auf dieser Website technisch tatsächlich passiert (Hosting bei IONOS, Google Fonts, Kontaktformular, Konfigurator mit lokaler Speicherung/PDF/WhatsApp-Weiterleitung). Zwei Punkte bitte gezielt vom Anwalt gegenprüfen lassen: (1) die IONOS-Anschrift in Abschnitt&nbsp;3 — bitte mit dem aktuellen IONOS-Vertrag abgleichen, und (2) den Google-Fonts-Hinweis in Abschnitt&nbsp;5 — dort steht ein bekanntes rechtliches Risiko (externe Einbindung ohne Einwilligung) erklärt, inklusive Empfehlung zum Self-Hosting als Alternative.
-    </div>
-
     <h2>1. Verantwortlicher</h2>
     <p>Verantwortlicher für die Datenverarbeitung auf dieser Website im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:</p>
     <p>Norman Katzorke / Ventura Caravans<br>
@@ -69,7 +64,7 @@
 
     <h2>3. Hosting &amp; Server-Logfiles</h2>
     <p>Diese Website wird bei folgendem Hosting-Anbieter gehostet:<br>
-    IONOS SE, Elgendorfer Straße 57, 56410 Montabaur, Deutschland <em>(bitte mit aktuellem Vertrag abgleichen)</em></p>
+    IONOS SE, Elgendorfer Straße 57, 56410 Montabaur, Deutschland</p>
     <p>Der Hosting-Anbieter verarbeitet in unserem Auftrag Daten, die zum Betrieb und zur Sicherung dieser Website erforderlich sind. Beim Aufruf dieser Website erfasst der Server dabei automatisch technische Informationen in sogenannten Server-Logfiles (z. B. IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Seite, verwendeter Browser und Betriebssystem, Referrer-URL). Diese Logfiles dienen der technischen Bereitstellung und Absicherung der Website (Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse an einem funktionsfähigen und sicheren Webangebot) und werden nicht mit anderen Datenquellen zusammengeführt.</p>
     <p>Unsere geschäftliche E-Mail-Kommunikation (u. a. <a href="mailto:info@ventura-caravans.de">info@ventura-caravans.de</a>) läuft technisch über Google Workspace (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Wenn ihr uns eine E-Mail schreibt, werden die darin enthaltenen Daten entsprechend auf den Servern von Google verarbeitet und gespeichert. Rechtsgrundlage ist auch hier Art. 6 Abs. 1 lit. b bzw. lit. f DSGVO.</p>
 
@@ -78,21 +73,23 @@
 
     <h2>5. Google Fonts</h2>
     <p>Diese Website nutzt zur einheitlichen Darstellung von Schriftarten sogenannte Google Fonts. Beim Aufruf einer Seite lädt euer Browser die benötigten Schriftdateien direkt von Servern von Google (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland) herunter. Dabei wird eure IP-Adresse an Google übermittelt, damit die Schriftarten ausgeliefert werden können. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer technisch einwandfreien und einheitlichen Darstellung der Website).</p>
-    <p><strong>Rechtlicher Hinweis zur Prüfung:</strong> Einzelne deutsche Gerichte (u. a. LG München I, Urteil vom 20.01.2022, Az. 3 O 17493/20) haben die Einbindung von Google Fonts direkt über Google-Server ohne vorherige Einwilligung der Nutzer als datenschutzrechtlich unzulässig bewertet, da hierfür regelmäßig keine ausreichende Rechtsgrundlage vorliegt. Um dieses Risiko vollständig auszuschließen, empfehlen wir, die Schriftdateien künftig lokal vom eigenen Server auszuliefern (Self-Hosting), statt sie extern von Google laden zu lassen — technisch ohne Aufwand umsetzbar. Bitte vom Anwalt bewerten lassen, ob die aktuelle Einbindung so vertretbar ist oder vor Livegang umgestellt werden sollte.</p>
 
-    <h2>6. Konfigurator: Anfragen &amp; PDF</h2>
+    <h2>6. Instagram-Einbindung</h2>
+    <p>Auf der Startseite binden wir ausgewählte Instagram-Reels über die offizielle Embed-Funktion von Instagram ein. Beim Aufruf der Seite lädt euer Browser dafür ein Script direkt von Servern von Meta (Instagram, Meta Platforms Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland) nach. Dabei kann eure IP-Adresse an Meta übermittelt werden, unabhängig davon, ob ihr selbst ein Instagram-Konto besitzt oder eingeloggt seid; Meta kann hierbei auch eigene Cookies setzen. Für die Datenverarbeitung innerhalb der eingebetteten Inhalte gilt ausschließlich die Datenschutzerklärung von Meta (<a href="https://privacycenter.instagram.com/policy" target="_blank" rel="noopener">privacycenter.instagram.com/policy</a>), auf die wir keinen Einfluss haben. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Präsentation unserer Social-Media-Inhalte).</p>
+
+    <h2>7. Konfigurator: Anfragen &amp; PDF</h2>
     <p>Eure Auswahl im Konfigurator (Basisausbau, Extras, Mengen, Varianten, Notiz) kann technisch über die localStorage-Funktion eures Browsers zwischengespeichert werden. Diese Daten verbleiben ausschließlich lokal auf eurem Gerät, werden nicht an uns oder Dritte übertragen und können jederzeit über die Browser-Einstellungen gelöscht werden. Aktuell ist diese Wiederherstellung deaktiviert — die Seite startet bei jedem Aufruf leer.</p>
     <p>Die Zusammenfassung eurer Konfiguration könnt ihr euch als PDF herunterladen. Die Datei wird vollständig lokal in eurem Browser erzeugt (mittels der von unserem eigenen Server ausgelieferten JavaScript-Bibliothek jsPDF); dabei findet keine Übertragung an uns oder Dritte statt.</p>
     <p>Der Button „Anfrage per E-Mail senden" öffnet, wie beim Kontaktformular, euer eigenes E-Mail-Programm mit einer vorausgefüllten Nachricht — auch hier erfolgt keine automatische Übertragung an einen Server dieser Website.</p>
     <p>Der Button „Anfrage per WhatsApp senden" öffnet je nach Gerät die WhatsApp-App oder WhatsApp Web mit einer vorausgefüllten Nachricht an unsere Geschäftsnummer; auf mobilen Geräten kann die PDF-Datei zusätzlich über die Web-Share-Funktion eures Betriebssystems als Anhang mitgegeben werden. Der Versand erfolgt erst, wenn ihr die Nachricht in WhatsApp aktiv abschickt. WhatsApp wird von WhatsApp Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland (Meta-Konzern) betrieben; für die Verarbeitung eurer Daten innerhalb von WhatsApp gilt ausschließlich deren eigene Datenschutzerklärung (<a href="https://www.whatsapp.com/legal/privacy-policy-eea" target="_blank" rel="noopener">whatsapp.com/legal/privacy-policy-eea</a>), auf die wir keinen Einfluss haben.</p>
 
-    <h2>7. SSL/TLS-Verschlüsselung</h2>
+    <h2>8. SSL/TLS-Verschlüsselung</h2>
     <p>Diese Website nutzt eine SSL/TLS-Verschlüsselung, um die Übertragung vertraulicher Inhalte zu schützen. Eine verschlüsselte Verbindung erkennt ihr an "https://" und dem Schloss-Symbol in der Adresszeile eures Browsers.</p>
 
-    <h2>8. Speicherdauer</h2>
+    <h2>9. Speicherdauer</h2>
     <p>Wir speichern personenbezogene Daten nur so lange, wie es für die Erfüllung des jeweiligen Zwecks erforderlich ist oder wie es gesetzliche Aufbewahrungsfristen vorschreiben (z. B. handels- und steuerrechtliche Aufbewahrungspflichten von in der Regel sechs bzw. zehn Jahren für Geschäftsunterlagen wie Rechnungen). Anfragen, aus denen kein Vertrag entsteht, löschen wir, sobald die Anfrage abschließend bearbeitet ist und keine weitere Aufbewahrungspflicht besteht.</p>
 
-    <h2>9. Eure Rechte</h2>
+    <h2>10. Eure Rechte</h2>
     <p>Ihr habt uns gegenüber jederzeit die folgenden Rechte hinsichtlich eurer personenbezogenen Daten:</p>
     <ul>
       <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
@@ -104,10 +101,10 @@
       <li>Recht, eine erteilte Einwilligung jederzeit mit Wirkung für die Zukunft zu widerrufen (Art. 7 Abs. 3 DSGVO)</li>
     </ul>
     <p>Zudem habt ihr das Recht, euch bei einer Datenschutzaufsichtsbehörde zu beschweren. Für uns zuständig ist:<br>
-    Landesbeauftragter für den Datenschutz Sachsen-Anhalt, Otto-von-Guericke-Straße 34a, 39104 Magdeburg <em>(bitte Kontaktdaten vom Anwalt gegenprüfen lassen)</em></p>
+    Landesbeauftragter für den Datenschutz Sachsen-Anhalt, Otto-von-Guericke-Straße 34a, 39104 Magdeburg</p>
     <p>Bei Fragen zum Datenschutz erreicht ihr uns jederzeit unter <a href="mailto:info@ventura-caravans.de">info@ventura-caravans.de</a>.</p>
 
-    <h2>10. Änderungen dieser Datenschutzerklärung</h2>
+    <h2>11. Änderungen dieser Datenschutzerklärung</h2>
     <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen unserer Leistungen umzusetzen. Für euren erneuten Besuch gilt dann die jeweils neue Fassung.</p>
   </div>
 </section>
