@@ -62,6 +62,14 @@
   .sk-sw span{ font-size:10.5px; line-height:1.25; color:var(--ink-soft); display:block; }
   .sk-sw[aria-pressed="true"] span{ color:var(--ink); font-weight:600; }
   .sk-ral{ display:block; font-style:normal; font-size:9px; font-weight:400; opacity:.6; margin-top:1px; }
+  .sk-sw-wrap{ position:relative; width:76px; }
+  .sk-sw-zoom{
+    position:absolute; top:-2px; right:8px; width:22px; height:22px; border-radius:50%;
+    background:var(--cream); border:1px solid rgba(0,0,0,.16); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; font-size:11px; padding:0;
+    box-shadow:0 1px 3px rgba(0,0,0,.18); transition:transform .12s ease;
+  }
+  .sk-sw-zoom:hover{ transform:scale(1.1); }
 
   /* ---- RAL-Liste (durchsuchbar, ersetzt Swatch-Kacheln für Außenfarben) ---- */
   .sk-ral-search{
@@ -139,6 +147,16 @@
   </div>
 </header>
 
+<div class="lightbox" id="sk-lightbox" role="dialog" aria-modal="true" aria-label="Dekor-Ansicht" hidden>
+  <button type="button" class="lb-close" id="sk-lb-close" aria-label="Schließen">&#10005;</button>
+  <button type="button" class="lb-nav lb-prev" id="sk-lb-prev" aria-label="Vorheriges Dekor">&#10094;</button>
+  <figure class="lb-stage">
+    <img id="sk-lb-img" src="" alt="">
+    <figcaption class="lb-caption"><span id="sk-lb-title"></span><span id="sk-lb-counter"></span></figcaption>
+  </figure>
+  <button type="button" class="lb-nav lb-next" id="sk-lb-next" aria-label="Nächstes Dekor">&#10095;</button>
+</div>
+
 <section class="section">
   <div class="container">
     <div class="section-head">
@@ -148,7 +166,7 @@
     </div>
 
     <div class="sk-note">
-      <strong>Erste Version — wird weiter ausgebaut.</strong> Die Darstellung ist eine stilisierte Zeichnung, kein Foto des echten Fahrzeugs. Die Außenfarben sind echte RAL-Töne aus unserem 2K-Autolack; die Innenmaterialien werden noch durch die tatsächlichen Arbeitsplatten und Dekore ersetzt. Bildschirmfarben können vom lackierten Ergebnis abweichen — für die endgültige Wahl schauen wir gemeinsam auf den Farbfächer.
+      <strong>Erste Version — wird weiter ausgebaut.</strong> Die Darstellung ist eine stilisierte Zeichnung, kein Foto des echten Fahrzeugs. Die Außenfarben sind echte RAL-Töne aus unserem 2K-Autolack, die Arbeitsplatten-Dekore sind echte Fotos (zum Vergrößern anklicken); die übrigen Innenmaterialien werden noch ersetzt. Bildschirmfarben können vom lackierten Ergebnis abweichen — für die endgültige Wahl schauen wir gemeinsam auf den Farbfächer.
     </div>
 
     <div class="sk-layout">
@@ -439,10 +457,12 @@
 
 <script>
 /* =========================================================================
-   Farbpaletten — abgeleitet aus unseren echten Projektfotos.
-   Werden ersetzt, sobald die tatsächlichen Lacke (Lackseite) und
-   Arbeitsplatten (Hornbach) vorliegen: einfach hier die Einträge tauschen,
-   der Rest der Seite passt sich automatisch an.
+   Farbpaletten. Arbeitsplatte (--i-platte) nutzt echte Dekore von
+   expresszuschnitt.de (Spanplatten-Zuschnitt) inkl. Fotos zum Vergrößern.
+   Möbelfronten/Spritzschutz/Wand/Boden sind noch aus den echten Projektfotos
+   abgeleitete Platzhalter — werden ersetzt, sobald die tatsächlichen Lacke
+   (Lackseite) vorliegen: einfach die jeweiligen Einträge tauschen, der Rest
+   der Seite passt sich automatisch an.
    ========================================================================= */
 /* --- AUSSEN: komplette RAL-Classic-Palette (echte Farbtöne, 2K-Autolack) ---
    Gilt für beide Außenzonen (Karosserie oben/unten) —
@@ -652,21 +672,308 @@ const PALETTEN = {
     { name: 'Taupe',       hex: '#C4B7A4' },
     { name: 'Anthrazit',   hex: '#54544E' }
   ],
-  /* Echte Arbeitsplatten-Oberflächen, Hornbach Woodcut-Konfigurator */
+  /* Echte Arbeitsplatten-Dekore, Spanplatten-Zuschnitt von expresszuschnitt.de */
   '--i-platte': [
-    { name: 'Sonoma Oak',    hex: '#CBAF88' },
-    { name: 'Gold Craft Oak',hex: '#C39355' },
-    { name: 'Buche',         hex: '#DBB888' },
-    { name: 'Aluminium',     hex: '#AFB2AF' },
-    { name: 'Anthrazit',     hex: '#2B3336' },
-    { name: 'Schwarz',       hex: '#0D0D0D' }
+    { name: 'Sonoma Eiche natur',            hex: '#CCBFB1', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-sonoma-eiche-natur.jpg' },
+    { name: 'Eiche astig natur',             hex: '#C6B3A1', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-astig-natur.jpg' },
+    { name: 'Halifax Eiche rustikal natur',  hex: '#C1B7A5', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-halifax-eiche-rustikal-natur.jpg' },
+    { name: 'Casella Eiche natur',           hex: '#BAA899', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-casella-eiche-natur.jpg' },
+    { name: 'Eiche strukturiert Weiß',       hex: '#E5E3DF', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-strukturiert-weiss.jpg' },
+    { name: 'Etna Eiche rustikal natur',     hex: '#A08A7C', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-etna-eiche-rustikal-natur.jpg' },
+    { name: 'Wildeiche rustikal natur',      hex: '#BA9F88', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-wildeiche-rustikal-natur.jpg' },
+    { name: 'Eiche rustikal Weiß',           hex: '#CEC9C2', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-rustikal-weiss.jpg' },
+    { name: 'Halifax Eiche lasiert sandgrau',hex: '#CBC7C2', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-halifax-eiche-lasiert-sandgrau.jpg' },
+    { name: 'Eiche natur',                   hex: '#C4B7A5', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-natur.jpg' },
+    { name: 'Eiche rustikal dunkel',         hex: '#8D8178', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-rustikal-dunkel.jpg' },
+    { name: 'Eiche vintage braun',           hex: '#9F948B', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-vintage-braun.jpg' },
+    { name: 'Eiche mokka dunkelbraun',       hex: '#7B7572', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-mokka-dunkelbraun.jpg' },
+    { name: 'Eiche schwarzbraun',            hex: '#5C5958', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-schwarzbraun.jpg' },
+    { name: 'Eiche rustikal schwarz',        hex: '#989594', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-rustikal-schwarz.jpg' },
+    { name: 'Eiche vintage grau',            hex: '#93908D', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-vintage-grau.jpg' },
+    { name: 'Pinie rustikal weiß',           hex: '#D9DAD9', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-pinie-rustikal-weiss.jpg' },
+    { name: 'Akazie natur',                  hex: '#D3CCC2', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-akazie-natur.jpg' },
+    { name: 'Ahorn Honig',                   hex: '#E4D6BC', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-ahorn-honig.jpg' },
+    { name: 'Buche rustikal natur',          hex: '#D4C5B6', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-buche-rustikal-natur.jpg' },
+    { name: 'Schneeweiß',      hex: '#E4E6E5', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-schneeweiss-miniperl.jpg' },
+    { name: 'Opalweiß Hochglanz', hex: '#E1E2DE', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-opalweiss-hochglanz.jpg' },
+    { name: 'Cremeweiß',       hex: '#E8E6E2', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-cremeweiss-miniperl.jpg' },
+    { name: 'Seidengrau',      hex: '#DBD8D5', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-seidengrau-miniperl.jpg' },
+    { name: 'Kaschmirgrau',    hex: '#CECBC8', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-kaschmirgrau-miniperl.jpg' },
+    { name: 'Kieselgrau',      hex: '#C9C7BF', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-kieselgrau-miniperl.jpg' },
+    { name: 'Steingrau',       hex: '#B5ADA4', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-steingrau-miniperl.jpg' },
+    { name: 'Arktisgrau',      hex: '#B3B3B3', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-arktisgrau-miniperl.jpg' },
+    { name: 'Anthrazit',       hex: '#999A9A', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-anthrazit-miniperl.jpg' },
+    { name: 'Graphitschwarz',  hex: '#72716F', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-graphitschwarz-miniperl.jpg' },
+    { name: 'Softschwarz',     hex: '#6E6C6C', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-softschwarz-miniperl.jpg' },
+    { name: 'Signalrot',       hex: '#A35C5F', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-signalrot-miniperl.jpg' },
+    { name: 'Eukalyptusgrün',  hex: '#9FA096', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eukalyptusgruen-miniperl.jpg' },
+    { name: 'Waldgrün',        hex: '#65766D', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-waldgruen-miniperl.jpg' },
+    { name: 'Tannengrün',      hex: '#6A726F', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-tannengruen-miniperl.jpg' },
+    { name: 'Steingrün',       hex: '#7B8585', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-steingruen-miniperl.jpg' },
+    { name: 'Fjordgrün',       hex: '#AAB1AF', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-fjordgruen-miniperl.jpg' },
+    { name: 'Denimblau',       hex: '#AEB8C1', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-denimblau-miniperl.jpg' },
+    { name: 'Nebelblau',       hex: '#91A2B3', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-nebelblau-miniperl.jpg' },
+    { name: 'Balticblau',      hex: '#81888F', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-balticblau-miniperl.jpg' },
+    { name: 'Indigoblau',      hex: '#696A6E', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-indigoblau-miniperl.jpg' },
+    { name: 'Nachtblau',       hex: '#696B7D', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-nachtblau-miniperl.jpg' },
+    { name: 'Tiefseeblau',     hex: '#707CA2', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-tiefseeblau-miniperl.jpg' },
+    { name: 'Premiumweiß',     hex: '#E5E5E2', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-premiumweiss-w1000.jpg' },
+    { name: 'Hellgrau',        hex: '#D3D3D3', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-hellgrau-lichtgrau-miniperl.jpg' },
+    { name: 'Staubgrau',       hex: '#A9A9A9', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-staubgrau-miniperl.jpg' },
+    { name: 'Schwarz matt',    hex: '#6F6F70', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-schwarz-matt-miniperl.jpg' },
+    { name: 'Beton hell',              hex: '#D0D0CF', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-beton-hell.jpg' },
+    { name: 'Beton grau natur',        hex: '#BDBDBC', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-beton-grau-natur.jpg' },
+    { name: 'Beton grau natur glatt',  hex: '#A9A7A5', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-beton-grau-natur-glatt.jpg' },
+    { name: 'Beton anthrazit',         hex: '#8D8D8D', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-beton-anthrazit.jpg' },
+    { name: 'Beton Bronze',            hex: '#7F7E7D', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-beton-bronze.jpg' },
+    { name: 'Rost Bronze',             hex: '#8B7E75', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-rost-bronze.jpg' },
+    { name: 'Naturstein grau hell',    hex: '#D2D2CF', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-naturstein-grau-hell.jpg' },
+    { name: 'Naturstein anthrazit',    hex: '#7A7876', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-naturstein-anthrazit.jpg' },
+    { name: 'Naturstein anthrazit dunkel', hex: '#6E6F6F', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-naturstein-anthrazit-dunkel.jpg' },
+    { name: 'Scivaro Schiefer natur',  hex: '#747474', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-scivaro-schiefer-natur.jpg' },
+    { name: 'Cupria Schiefer',         hex: '#656463', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-cupria-schiefer.jpg' }
   ],
+  /* Fliesenoptik weiß (Standard) + echte Folien-Dekore von resimdo.de (Stone + Single Color) */
   '--i-spritz': [
-    { name: 'Metro weiß',  hex: '#F6F4EF' },
-    { name: 'Metro salbei',hex: '#B9C8AF' },
-    { name: 'Metro sand',  hex: '#DFCFB4' },
-    { name: 'Metro terra', hex: '#C07A5D' },
-    { name: 'Metro schwarz',hex:'#3B3B37' }
+    { name: 'Metro weiß (Fliesenoptik)', hex: '#F6F4EF' },
+    { name: 'Rudis Vein', hex: '#464645', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st010-rudis-vein.jpg' },
+    { name: 'Nival', hex: '#b0afb4', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st057-nival.jpg' },
+    { name: 'Pavira', hex: '#7a7979', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st058-pavira.jpg' },
+    { name: 'Alvoro', hex: '#655d5a', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st060-alvoro.jpg' },
+    { name: 'Norvia', hex: '#bbb9b6', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st061-norvia.jpg' },
+    { name: 'Lumira', hex: '#a9a7a5', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st062-lumira.jpg' },
+    { name: 'Pale Aura', hex: '#887f74', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st063-pale-aura.jpg' },
+    { name: 'Olera', hex: '#51544f', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st064-olera.jpg' },
+    { name: 'Liora', hex: '#a7a099', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st111-liora.jpg' },
+    { name: 'Grava', hex: '#a1a1a2', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st112-grava.jpg' },
+    { name: 'Maris', hex: '#989492', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st113-maris.jpg' },
+    { name: 'Brava', hex: '#bcbcba', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st114-brava.jpg' },
+    { name: 'Teras', hex: '#aa9f94', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st116-teras.jpg' },
+    { name: 'Rock Veil', hex: '#a4998e', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st117-rock-veil.jpg' },
+    { name: 'Stone Veil', hex: '#c5c0b8', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st118-stone-veil.jpg' },
+    { name: 'Axial', hex: '#ae987f', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st119-axial.jpg' },
+    { name: 'Strix', hex: '#70563a', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st120-strix.jpg' },
+    { name: 'Velora', hex: '#c8c3be', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st166-velora.jpg' },
+    { name: 'Vellum', hex: '#c6c6c1', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st167-vellum.jpg' },
+    { name: 'Seris', hex: '#c8c8c7', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st168-seris.jpg' },
+    { name: 'Crystal Veil', hex: '#cacccd', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st169-crystal-veil.jpg' },
+    { name: 'Vena', hex: '#c6c7c9', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st170-vena.jpg' },
+    { name: 'Marmo', hex: '#c2c3c5', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st171-marmo.jpg' },
+    { name: 'Alcino', hex: '#c1c2be', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st172-alcino.jpg' },
+    { name: 'Luxe Vein', hex: '#c0b9b0', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st173-luxe-vein.jpg' },
+    { name: 'Obvia', hex: '#a39d99', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st174-obvia.jpg' },
+    { name: 'Obsid', hex: '#6c6f73', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st175-obsid.jpg' },
+    { name: 'Frost Quartz', hex: '#a6acaf', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st201-frost-quartz.jpg' },
+    { name: 'Nimbus Blue', hex: '#c7c9c9', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st202-nimbus-blue.jpg' },
+    { name: 'Snowpeak', hex: '#c5c7c5', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st203-snowpeak.jpg' },
+    { name: 'Cream Veil', hex: '#cacbcd', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st253-cream-veil.jpg' },
+    { name: 'Soft Chalk', hex: '#ccccca', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st254-soft-chalk.jpg' },
+    { name: 'Creta', hex: '#c2c4c4', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st255-creta.jpg' },
+    { name: 'Fiora', hex: '#b7b9b8', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st256-fiora.jpg' },
+    { name: 'Calm Stone', hex: '#9f9c97', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st257-calm-stone.jpg' },
+    { name: 'Cera', hex: '#83847f', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st258-cera.jpg' },
+    { name: 'Gravis', hex: '#b4b1ae', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st301-gravis.jpg' },
+    { name: 'Cavo', hex: '#c6c6c5', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st302-cavo.jpg' },
+    { name: 'Silex', hex: '#c5bfc2', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st305-silex.jpg' },
+    { name: 'Litus 2.0', hex: '#cec7bb', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st102-litus-2-0.jpg' },
+    { name: 'Fractura Grit 2.0', hex: '#cec5be', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st252-fractura-grit-2-0.jpg' },
+    { name: 'Petum Light 2.0', hex: '#868781', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st160-petum-light-2-0.jpg' },
+    { name: 'Rudis Light 2.0', hex: '#84817f', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st002-rudis-light-2-0.jpg' },
+    { name: 'Rudis Medio 2.0', hex: '#75706d', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st004-rudis-medio-2-0.jpg' },
+    { name: 'Rudis Dark 2.0', hex: '#585552', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st007-rudis-dark-2-0.jpg' },
+    { name: 'Onyx 2.0', hex: '#c8c7c5', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st155-onyx-2-0.jpg' },
+    { name: 'Travertin', hex: '#a1958a', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st103-travertin.jpg' },
+    { name: 'Pale Vein', hex: '#c7c6c1', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st115-pale-vein.jpg' },
+    { name: 'Arabos 2.0', hex: '#c6c7c9', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st153-arabos-2-0.jpg' },
+    { name: 'Vetus 2.0', hex: '#bcb8b0', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st156-vetus-2-0.jpg' },
+    { name: 'Scala Light 2.0', hex: '#b5b0a8', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st158-scala-light-2-0.jpg' },
+    { name: 'Scala Dark 2.0', hex: '#a5a29e', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st159-scala-dark-2-0.jpg' },
+    { name: 'Magusa Dark 2.0', hex: '#5b5c5e', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st163-magusa-dark-2-0.jpg' },
+    { name: 'Onyx', hex: '#c4c0bb', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st176-onyx.jpg' },
+    { name: 'Fractura Shell 2.0', hex: '#b5b2ae', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st251-fractura-shell-2-0.jpg' },
+    { name: 'Pallor', hex: '#8d8e93', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st304-pallor.jpg' },
+    { name: 'Estructa Light', hex: '#c1bfbc', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pnc44-estructa-light.jpg' },
+    { name: 'Aspero Beige', hex: '#9f9a96', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pnc43-aspero-beige.jpg' },
+    { name: 'Estructa Medium', hex: '#989693', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pnc45-estructa-medium.jpg' },
+    { name: 'Estructa Dark', hex: '#807975', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pnc46-estructa-dark.jpg' },
+    { name: 'Aspero Brown', hex: '#887262', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pnc41-aspero-brown.jpg' },
+    { name: 'Light Cement', hex: '#747371', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns703-light-cement.jpg' },
+    { name: 'Bright Concrete Beton', hex: '#84817f', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns401-bright-concrete-beton.jpg' },
+    { name: 'Middle Cement', hex: '#767370', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns704-middle-cement.jpg' },
+    { name: 'Middle Concrete Beton', hex: '#75706d', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns402-middle-concrete-beton.jpg' },
+    { name: 'Dark Cement', hex: '#6b6b6b', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns705-dark-cement.jpg' },
+    { name: 'Dark Basalt', hex: '#535353', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns707-dark-basalt.jpg' },
+    { name: 'Dark Concrete Beton', hex: '#585552', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns403-dark-concrete-beton.jpg' },
+    { name: 'Speckeld Stone', hex: '#4b4b4a', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-dm801-speckeld-stone.jpg' },
+    { name: 'Muras', hex: '#896f5d', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st009-muras.jpg' },
+    { name: 'Fractura White', hex: '#b5b2ae', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pnc49-fractura-white.jpg' },
+    { name: 'Travertine', hex: '#a1958a', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns806-travertine.jpg' },
+    { name: 'Velum Light', hex: '#83807d', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns711-velum-light.jpg' },
+    { name: 'Lapideo', hex: '#585853', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pm009-lapideo.jpg' },
+    { name: 'Velum Dark', hex: '#5a544e', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns710-velum-dark.jpg' },
+    { name: 'Natural Slate', hex: '#443a36', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns428-natural-slate.jpg' },
+    { name: 'Darco', hex: '#2b2b2b', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st109-darco.jpg' },
+    { name: 'Draculos', hex: '#1a1a1a', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st110-draculos.jpg' },
+    { name: 'Blanco Marquina', hex: '#c5c5c5', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns895-blanco-marquina.jpg' },
+    { name: 'Soft Arabesque', hex: '#bcbcba', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns814-soft-arabesque.jpg' },
+    { name: 'Intense Arabesque', hex: '#c1c1c1', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns815-intense-arabesque.jpg' },
+    { name: 'Bright Onyx', hex: '#c4c0bb', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pm003-bright-onyx.jpg' },
+    { name: 'Light Terrazzo', hex: '#9f998f', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pm008-light-terrazzo.jpg' },
+    { name: 'Dark Terrazzo', hex: '#827e78', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pm004-dark-terrazzo.jpg' },
+    { name: 'Dark Pretium', hex: '#75716e', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pm015-dark-pretium.jpg' },
+    { name: 'Grey Marble', hex: '#646461', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pm006-grey-marble.jpg' },
+    { name: 'Black Marble', hex: '#4d4c49', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pm007-black-marble.jpg' },
+    { name: 'Fantasy Marble', hex: '#807d7b', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-pm002-fantasy-marble.jpg' },
+    { name: 'Nero Marquina', hex: '#1f1f1f', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-ns804-nero-marquina.jpg' },
+    { name: 'Blossom', hex: '#dddddc', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc058-blossom.jpg' },
+    { name: 'Ivory Lux', hex: '#e1e1e3', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc062-ivory-lux.jpg' },
+    { name: 'Sable', hex: '#d3d3cf', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc112-sable.jpg' },
+    { name: 'Nimbus', hex: '#83838c', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc114-nimbus.jpg' },
+    { name: 'Raven', hex: '#22252c', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc116-raven.jpg' },
+    { name: 'Mesa', hex: '#b8a899', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc162-mesa.jpg' },
+    { name: 'Blush', hex: '#dbb7a8', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc163-blush.jpg' },
+    { name: 'Quartz', hex: '#e3ddd5', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc166-quartz.jpg' },
+    { name: 'Viridell', hex: '#d3d9d1', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc217-viridell.jpg' },
+    { name: 'Nymora', hex: '#d4dcd9', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc220-nymora.jpg' },
+    { name: 'Sprig', hex: '#cdc9c6', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc256-sprig.jpg' },
+    { name: 'Yella', hex: '#eadec5', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc357-yella.jpg' },
+    { name: 'Petaline', hex: '#e9b2ad', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc361-petaline.jpg' },
+    { name: 'Borealis', hex: '#114465', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc307-borealis.jpg' },
+    { name: 'Crystal', hex: '#caced1', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc064-crystal.jpg' },
+    { name: 'Papilo Sand 2.0', hex: '#cac6be', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc007-papilo-sand-2-0.jpg' },
+    { name: 'Diamond Nix', hex: '#dfdfdf', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc053-diamond-nix.jpg' },
+    { name: 'Lion 2.0', hex: '#d1c1aa', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc153-lion-2-0.jpg' },
+    { name: 'Caffora', hex: '#7a5b49', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc159-caffora.jpg' },
+    { name: 'Balm Ice 2.0', hex: '#9fc2cb', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc207-balm-ice-2-0.jpg' },
+    { name: 'Glacier 2.0', hex: '#a8c7dd', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc301-glacier-2-0.jpg' },
+    { name: 'Inuit 2.0', hex: '#2a4e6c', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc304-inuit-2-0.jpg' },
+    { name: 'Cream 2.0', hex: '#e3e0de', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc056-cream-2-0.jpg' },
+    { name: 'Turtle 2.0', hex: '#bbada4', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc157-turtle-2-0.jpg' },
+    { name: 'Cherry 2.0', hex: '#b61e39', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc356-cherry-2-0.jpg' },
+    { name: 'Sheep Lux', hex: '#e3e1e2', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc063-sheep-lux.jpg' },
+    { name: 'Galaxy 2.0', hex: '#414449', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc109-galaxy-2-0.jpg' },
+    { name: 'Pitch', hex: '#c5c4c0', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc113-pitch.jpg' },
+    { name: 'Smoke', hex: '#5e5955', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc115-smoke.jpg' },
+    { name: 'Chalk 2.0', hex: '#ddd7d1', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc152-chalk-2-0.jpg' },
+    { name: 'Sand 2.0', hex: '#d5d0cc', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc155-sand-2-0.jpg' },
+    { name: 'Grit 2.0', hex: '#d2cbc5', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc156-grit-2-0.jpg' },
+    { name: 'Dune', hex: '#dad4cd', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc160-dune.jpg' },
+    { name: 'Truffle', hex: '#8d725c', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc161-truffle.jpg' },
+    { name: 'Balm Tornado 2.0', hex: '#718e9d', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc213-balm-tornado-2-0.jpg' },
+    { name: 'Lumora', hex: '#a1c2ac', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc216-lumora.jpg' },
+    { name: 'Aurivine', hex: '#d5dfd6', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc218-aurivine.jpg' },
+    { name: 'Bravelle', hex: '#d9dcdb', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc219-bravelle.jpg' },
+    { name: 'Fableon', hex: '#c3d0d1', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc221-fableon.jpg' },
+    { name: 'Lichen', hex: '#cecbc0', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc257-lichen.jpg' },
+    { name: 'Tundral', hex: '#b6c9d7', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc306-tundral.jpg' },
+    { name: 'Apriora', hex: '#e97d31', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc358-apriora.jpg' },
+    { name: 'Tangerise', hex: '#e9653b', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc359-tangerise.jpg' },
+    { name: 'Rosu', hex: '#e3c9bc', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc362-rosu.jpg' },
+    { name: 'Bride 2.0', hex: '#e1e0e0', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc051-bride-2-0.jpg' },
+    { name: 'Natural 2.0', hex: '#e3e0df', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc055-natural-2-0.jpg' },
+    { name: 'Pearl', hex: '#e0dedf', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc057-pearl.jpg' },
+    { name: 'Eggshell 2.0', hex: '#e0e0df', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc059-eggshell-2-0.jpg' },
+    { name: 'Cotton 2.0', hex: '#e0deda', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc060-cotton-2-0.jpg' },
+    { name: 'Linen 2.0', hex: '#dddad9', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc061-linen-2-0.jpg' },
+    { name: 'Rosette', hex: '#d8c3b5', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc165-rosette.jpg' },
+    { name: 'Azurit 2.0', hex: '#367695', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc215-azurit-2-0.jpg' },
+    { name: 'Pond 2.0', hex: '#667a62', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc253-pond-2-0.jpg' },
+    { name: 'Ivy 2.0', hex: '#264538', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc255-ivy-2-0.jpg' },
+    { name: 'Pine', hex: '#cac9b8', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc258-pine.jpg' },
+    { name: 'Rosielle', hex: '#e8837f', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc360-rosielle.jpg' },
+    { name: 'Balm Rosé 2.0', hex: '#dcc3be', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc366-balm-rose-2-0.jpg' },
+    { name: 'Papilo Cotton Lux', hex: '#cdcbc6', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc012-papilo-cotton-lux.jpg' },
+    { name: 'Papilo Stone Lux', hex: '#a99a80', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc013-papilo-stone-lux.jpg' },
+    { name: 'Papilo Shark Lux', hex: '#c4c1bc', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc014-papilo-shark-lux.jpg' },
+    { name: 'Papilo Snow Lux', hex: '#d5d3cf', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc015-papilo-snow-lux.jpg' },
+    { name: 'Papilo Vella Lux', hex: '#d4d4d4', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc017-papilo-vella-lux.jpg' },
+    { name: 'Papilo Bone Lux', hex: '#6a6a6c', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc018-papilo-bone-lux.jpg' },
+    { name: 'Papilo Ossa Lux', hex: '#d6d5d1', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc019-papilo-ossa-lux.jpg' },
+    { name: 'Papilo Loxo Lux', hex: '#d1cbbd', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc020-papilo-loxo-lux.jpg' },
+    { name: 'Papilo Brisa Lux', hex: '#858176', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc021-papilo-brisa-lux.jpg' },
+    { name: 'Lana 2.0', hex: '#e2e0e1', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc052-lana-2-0.jpg' },
+    { name: 'Bone 2.0', hex: '#d7d4d0', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc101-bone-2-0.jpg' },
+    { name: 'Stone 2.0', hex: '#cdc8c4', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc102-stone-2-0.jpg' },
+    { name: 'Elephant 2.0', hex: '#b2b3ae', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc103-elephant-2-0.jpg' },
+    { name: 'Mouse 2.0', hex: '#6e6d75', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc106-mouse-2-0.jpg' },
+    { name: 'Shark 2.0', hex: '#515257', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc108-shark-2-0.jpg' },
+    { name: 'Pantera 2.0', hex: '#1d2227', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc110-pantera-2-0.jpg' },
+    { name: 'Balm Cloud 2.0', hex: '#a0a8af', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc205-balm-cloud-2-0.jpg' },
+    { name: 'Bahamas 2.0', hex: '#53919c', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc214-bahamas-2-0.jpg' },
+    { name: 'Basswood 2.0', hex: '#838578', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc251-basswood-2-0.jpg' },
+    { name: 'Polar 2.0', hex: '#0562a9', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc303-polar-2-0.jpg' },
+    { name: 'Deep Sea 2.0', hex: '#2a394e', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc305-deep-sea-2-0.jpg' },
+    { name: 'Beach 2.0', hex: '#e9cb83', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc351-beach-2-0.jpg' },
+    { name: 'Balm Cheese 2.0', hex: '#e8dbb6', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc364-balm-cheese-2-0.jpg' },
+    { name: 'Rosé 2.0', hex: '#e5c4b8', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc365-rose-2-0.jpg' },
+    { name: 'Canvas', hex: '#c3b2a7', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc167-canvas.jpg' },
+    { name: 'Silky Mat Light Grey', hex: '#afb0b0', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-smt13-silky-mat-light-grey.jpg' },
+    { name: 'Silky Mat Grey', hex: '#848484', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-smt05-silky-mat-grey.jpg' },
+    { name: 'Silky Mat Anthracite', hex: '#393939', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-smt06-silky-mat-anthracite.jpg' },
+    { name: 'Silky Mat Black', hex: '#0d0d0d', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-smt07-silky-mat-black.jpg' },
+    { name: 'Silky Mat White', hex: '#cccccc', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-smt01-silky-mat-white.jpg' },
+    { name: 'Silky Mat Light Beige', hex: '#bfb8b2', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-smt03-silky-mat-light-beige.jpg' },
+    { name: 'Silky Mat Dark Beige', hex: '#908c84', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-smt04-silky-mat-dark-beige.jpg' },
+    { name: 'Silky Mat Dark Brown', hex: '#605c56', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-smt15-silky-mat-dark-brown.jpg' },
+    { name: 'Silky Mat Green', hex: '#14352f', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-smt10-silky-mat-green.jpg' },
+    { name: 'Silky Mat Blue', hex: '#1b2034', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-smt11-silky-mat-blue.jpg' },
+    { name: 'Bride', hex: '#cfcfcf', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s243-bride.jpg' },
+    { name: 'Pure White', hex: '#cccccc', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s115-pure-white.jpg' },
+    { name: 'White Gloss', hex: '#cccccc', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-hs204-white-gloss.jpg' },
+    { name: 'Eggshell', hex: '#c4beb5', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s126-eggshell.jpg' },
+    { name: 'Cotton', hex: '#b8b1a9', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s179-cotton.jpg' },
+    { name: 'Linen', hex: '#b2aba3', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s128-linen.jpg' },
+    { name: 'Bone', hex: '#bcb8b5', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s158-bone.jpg' },
+    { name: 'Stone', hex: '#9a9694', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s209-stone.jpg' },
+    { name: 'Elephant', hex: '#888889', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s143-elephant.jpg' },
+    { name: 'Hippo', hex: '#929091', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s235-hippo.jpg' },
+    { name: 'Scratch Card', hex: '#777771', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s210-scratch-card.jpg' },
+    { name: 'Mouse', hex: '#5b5b5b', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s159-mouse.jpg' },
+    { name: 'Dirty Grey', hex: '#545454', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s231-dirty-grey.jpg' },
+    { name: 'Anthracite', hex: '#4d4d4b', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s149-anthracite.jpg' },
+    { name: 'Washed Black', hex: '#39383d', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s211-washed-black.jpg' },
+    { name: 'Pure Black', hex: '#1a1a1a', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s140-pure-black.jpg' },
+    { name: 'Black Gloss', hex: '#1b1b1b', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-hs205-black-gloss.jpg' },
+    { name: 'Pumice', hex: '#b7ac9b', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s127-pumice.jpg' },
+    { name: 'Chalk', hex: '#c3b9ad', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s141-chalk.jpg' },
+    { name: 'Root', hex: '#4f4034', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s145-root.jpg' },
+    { name: 'Sand', hex: '#a09e95', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s156-sand.jpg' },
+    { name: 'Grit', hex: '#9c958e', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s181-grit.jpg' },
+    { name: 'Mud', hex: '#686058', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s183-mud.jpg' },
+    { name: 'Silky Mat Light Brown', hex: '#80776e', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-smt14-silky-mat-light-brown.jpg' },
+    { name: 'Salmon', hex: '#ba7760', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s213-salmon.jpg' },
+    { name: 'Balm Yellow', hex: '#c3b590', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s241-balm-yellow.jpg' },
+    { name: 'Mint', hex: '#a9b4a7', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s214-mint.jpg' },
+    { name: 'Eucalyptus', hex: '#909590', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s239-eucalyptus.jpg' },
+    { name: 'Balm Cloud', hex: '#a0a8af', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s153-balm-cloud.jpg' },
+    { name: 'Balm Heaven', hex: '#95abca', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s185-balm-heaven.jpg' },
+    { name: 'Balm Sage', hex: '#728d95', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s195-balm-sage.jpg' },
+    { name: 'Orsa', hex: '#657d86', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc208-orsa.jpg' },
+    { name: 'Piggy', hex: '#cdb6b1', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s217-piggy.jpg' },
+    { name: 'Rosé', hex: '#b79798', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s238-rose.jpg' },
+    { name: 'Balm Rosé', hex: '#998989', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s207-balm-rose.jpg' },
+    { name: 'Balm Lavender', hex: '#4a596c', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s198-balm-lavender.jpg' },
+    { name: 'Balm Salbei', hex: '#3e646d', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s230-balm-salbei.jpg' },
+    { name: 'Basswood', hex: '#838578', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s212-basswood.jpg' },
+    { name: 'Alga', hex: '#86845e', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s200-alga.jpg' },
+    { name: 'Pond', hex: '#585f4e', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s201-pond.jpg' },
+    { name: 'Moss', hex: '#424e3a', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s202-moss.jpg' },
+    { name: 'Ivy', hex: '#1e3227', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s233-ivy.jpg' },
+    { name: 'Glacier', hex: '#5c8fb2', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s186-glacier.jpg' },
+    { name: 'Antarctic', hex: '#0252a1', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s173-antarctic.jpg' },
+    { name: 'Polar', hex: '#03376c', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s150-polar.jpg' },
+    { name: 'Deep Sea', hex: '#2c333b', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s197-deep-sea.jpg' },
+    { name: 'Beach', hex: '#bfa068', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s194-beach.jpg' },
+    { name: 'Sun', hex: '#c5a12a', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s188-sun.jpg' },
+    { name: 'Sunflower', hex: '#cb9930', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s146-sunflower.jpg' },
+    { name: 'Orange', hex: '#ca782d', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s169-orange.jpg' },
+    { name: 'Strawberry', hex: '#9c2726', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s147-strawberry.jpg' },
+    { name: 'Cherry', hex: '#5d2122', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s218-cherry.jpg' },
+    { name: 'Lemon', hex: '#b6b431', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s166-lemon.jpg' },
+    { name: 'Apple', hex: '#6c9627', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s189-apple.jpg' },
+    { name: 'Aqua', hex: '#0290b7', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s175-aqua.jpg' },
+    { name: 'Hibiscus', hex: '#cc92a8', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s232-hibiscus.jpg' },
+    { name: 'Papilo Tidal Lux', hex: '#3f4448', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc032-papilo-tidal-lux.jpg' },
   ],
   '--i-wand': [
     { name: 'Cremeweiß',   hex: '#F5F1E7' },
@@ -717,12 +1024,18 @@ function baueSwatches(gruppe, variable){
   reihe.className = 'sk-swatches';
 
   PALETTEN[variable].forEach((farbe, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'sk-sw-wrap';
+
     const knopf = document.createElement('button');
     knopf.type = 'button';
     knopf.className = 'sk-sw';
     knopf.setAttribute('aria-pressed', i === AUSWAHL[variable] ? 'true' : 'false');
     knopf.title = bezeichnung(farbe);
-    knopf.innerHTML = '<span class="sk-dot" style="background:' + farbe.hex + '"></span>'
+    const dotStyle = farbe.img
+      ? 'background-image:url(\'' + farbe.img + '\');background-size:cover;background-position:center;background-color:' + farbe.hex
+      : 'background:' + farbe.hex;
+    knopf.innerHTML = '<span class="sk-dot" style="' + dotStyle + '"></span>'
                     + '<span>' + farbe.name
                     + (farbe.ral ? '<em class="sk-ral">' + farbe.ral + '</em>' : '')
                     + '</span>';
@@ -734,7 +1047,22 @@ function baueSwatches(gruppe, variable){
       anwenden();
     });
 
-    reihe.appendChild(knopf);
+    wrap.appendChild(knopf);
+
+    if (farbe.img){
+      const zoom = document.createElement('button');
+      zoom.type = 'button';
+      zoom.className = 'sk-sw-zoom';
+      zoom.setAttribute('aria-label', 'Größeres Bild von ' + farbe.name + ' ansehen');
+      zoom.innerHTML = '&#128269;';
+      zoom.addEventListener('click', (e) => {
+        e.stopPropagation();
+        skLbOeffnen(variable, i);
+      });
+      wrap.appendChild(zoom);
+    }
+
+    reihe.appendChild(wrap);
   });
 
   gruppe.appendChild(reihe);
@@ -834,6 +1162,60 @@ Object.keys(tabs).forEach(id => {
       document.getElementById('ctrl-' + name).hidden = !aktiv;
     });
   });
+});
+
+/* ---- Dekor-Lightbox: größeres Foto, klickbar aus den Arbeitsplatte-Swatches ---- */
+const skLb        = document.getElementById('sk-lightbox');
+const skLbImg     = document.getElementById('sk-lb-img');
+const skLbTitle   = document.getElementById('sk-lb-title');
+const skLbCounter = document.getElementById('sk-lb-counter');
+let skLbVariable = null;
+let skLbIndex    = 0;
+let skLbAusloeser = null;
+
+function skLbBilder(){
+  return PALETTEN[skLbVariable].filter(f => f.img);
+}
+
+function skLbZeigen(i){
+  const bilder = skLbBilder();
+  if (!bilder.length) return;
+  skLbIndex = (i + bilder.length) % bilder.length;
+  const farbe = bilder[skLbIndex];
+  skLbImg.src = farbe.img;
+  skLbImg.alt = farbe.name;
+  skLbTitle.textContent = farbe.name;
+  skLbCounter.textContent = (skLbIndex + 1) + ' / ' + bilder.length;
+}
+
+function skLbOeffnen(variable, paletteIndex){
+  skLbVariable = variable;
+  const bilder = skLbBilder();
+  const startFarbe = PALETTEN[variable][paletteIndex];
+  const startIndex = bilder.indexOf(startFarbe);
+  skLbAusloeser = document.activeElement;
+  skLb.hidden = false;
+  document.body.style.overflow = 'hidden';
+  skLbZeigen(startIndex >= 0 ? startIndex : 0);
+  document.getElementById('sk-lb-close').focus();
+}
+
+function skLbSchliessen(){
+  skLb.hidden = true;
+  skLbImg.src = '';
+  document.body.style.overflow = '';
+  if (skLbAusloeser) { skLbAusloeser.focus(); skLbAusloeser = null; }
+}
+
+document.getElementById('sk-lb-close').addEventListener('click', skLbSchliessen);
+document.getElementById('sk-lb-prev').addEventListener('click', () => skLbZeigen(skLbIndex - 1));
+document.getElementById('sk-lb-next').addEventListener('click', () => skLbZeigen(skLbIndex + 1));
+skLb.addEventListener('click', (e) => { if (e.target === skLb) skLbSchliessen(); });
+document.addEventListener('keydown', (e) => {
+  if (skLb.hidden) return;
+  if (e.key === 'Escape')     skLbSchliessen();
+  if (e.key === 'ArrowLeft')  skLbZeigen(skLbIndex - 1);
+  if (e.key === 'ArrowRight') skLbZeigen(skLbIndex + 1);
 });
 
 anwenden();
