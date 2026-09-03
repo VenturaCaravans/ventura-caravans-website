@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 727 290" role="img" aria-label="Grundriss: Rundsitzgruppe im Heck, Küchenzeile und Bad in der Mitte, Querbett 140 cm im Bug">
+  <title>Grundriss mit Querbett 140 cm</title>
+  <defs>
+    <pattern id="schrankHatch140" width="9" height="9" patternUnits="userSpaceOnUse">
+      <rect width="9" height="9" fill="#dfceb2"/>
+      <line x1="4.5" y1="0" x2="4.5" y2="9" stroke="#706e5c" stroke-width="1.6"/>
+    </pattern>
+  </defs>
+
+  <!-- Deichsel -->
+  <path d="M595,112 L689,133 V152 L595,173 Z" fill="#706e5c" fill-opacity="0.28" stroke="#403f2b" stroke-width="2.5" stroke-linejoin="round"/>
+  <line x1="689" y1="142" x2="717" y2="142" stroke="#403f2b" stroke-width="4" stroke-linecap="round"/>
+  <path d="M709,134 q12,8 0,16" fill="none" stroke="#403f2b" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Aufbau -->
+  <rect x="10" y="12" width="591" height="262" rx="26" fill="#fefaf0" stroke="#403f2b" stroke-width="5"/>
+
+  <!-- Rundsitzgruppe: umlaufende Polsterbank, offen zum Gang -->
+  <path d="M32,24 H168 V76 H96 Q68,76 68,106 V180 Q68,210 96,210 H168 V262 H32 Q22,262 22,252 V34 Q22,24 32,24 Z"
+        fill="#62979f" fill-opacity="0.55" stroke="#403f2b" stroke-width="2.5" stroke-linejoin="round"/>
+  <g stroke="#403f2b" stroke-width="1.6" stroke-opacity="0.5">
+    <line x1="68" y1="24" x2="68" y2="76"/>
+    <line x1="120" y1="24" x2="120" y2="76"/>
+    <line x1="68" y1="210" x2="68" y2="262"/>
+    <line x1="120" y1="210" x2="120" y2="262"/>
+    <line x1="22" y1="143" x2="68" y2="143"/>
+  </g>
+  <rect x="86" y="98" width="82" height="90" rx="10" fill="#f7f0dd" stroke="#403f2b" stroke-width="2.5"/>
+
+  <!-- Küchenzeile -->
+  <rect x="166" y="24" width="98" height="62" fill="#f7f0dd" stroke="#403f2b" stroke-width="2.5"/>
+  <circle cx="184" cy="44" r="9" fill="none" stroke="#403f2b" stroke-width="2"/>
+  <circle cx="206" cy="44" r="9" fill="none" stroke="#403f2b" stroke-width="2"/>
+  <circle cx="228" cy="44" r="9" fill="none" stroke="#403f2b" stroke-width="2"/>
+  <circle cx="196" cy="70" r="3" fill="#403f2b"/>
+  <circle cx="208" cy="70" r="3" fill="#403f2b"/>
+  <circle cx="220" cy="70" r="3" fill="#403f2b"/>
+  <rect x="238" y="32" width="20" height="46" rx="5" fill="#fefaf0" stroke="#403f2b" stroke-width="2"/>
+
+  <!-- Kühlschrank -->
+  <rect x="264" y="24" width="52" height="62" fill="#dfceb2" fill-opacity="0.55" stroke="#403f2b" stroke-width="2.5"/>
+  <g stroke="#403f2b" stroke-width="2.2" stroke-linecap="round">
+    <line x1="290" y1="43" x2="290" y2="67"/>
+    <line x1="279" y1="49" x2="301" y2="61"/>
+    <line x1="301" y1="49" x2="279" y2="61"/>
+  </g>
+
+  <!-- Kleiderschrank -->
+  <rect x="316" y="24" width="56" height="62" fill="url(#schrankHatch140)" stroke="#403f2b" stroke-width="2.5"/>
+
+  <!-- Bad -->
+  <path d="M262,262 V198 Q262,158 302,158 H374 V262 Z" fill="#f7f0dd" stroke="#403f2b" stroke-width="2.5"/>
+  <path d="M296,254 V206 Q296,182 320,182 H366 V254 Z" fill="#fefaf0" stroke="#403f2b" stroke-width="2"/>
+  <ellipse cx="286" cy="228" rx="22" ry="17" fill="#fefaf0" stroke="#403f2b" stroke-width="2.2"/>
+  <ellipse cx="286" cy="228" rx="12" ry="9" fill="none" stroke="#403f2b" stroke-width="1.8"/>
+  <circle cx="340" cy="230" r="14" fill="#fefaf0" stroke="#403f2b" stroke-width="2.2"/>
+  <g stroke="#706e5c" stroke-width="2" stroke-linecap="round">
+    <line x1="366" y1="196" x2="366" y2="216"/>
+    <line x1="370" y1="196" x2="370" y2="216"/>
+  </g>
+
+  <!-- Badtür (offen) -->
+  <line x1="374" y1="88" x2="374" y2="158" stroke="#403f2b" stroke-width="3.5"/>
+
+  <!-- Querbett 140 cm -->
+  <rect x="378" y="24" width="185" height="238" rx="4" fill="#dfceb2" stroke="#403f2b" stroke-width="2.5"/>
+  <path d="M410,36 Q441,49 472,36 Q459,60 472,84 Q441,71 410,84 Q423,60 410,36 Z"
+        fill="#706e5c" fill-opacity="0.55" stroke="#403f2b" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M480,36 Q511,49 542,36 Q529,60 542,84 Q511,71 480,84 Q493,60 480,36 Z"
+        fill="#706e5c" fill-opacity="0.55" stroke="#403f2b" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M390,104 Q470,122 551,104" fill="none" stroke="#403f2b" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- Frontschrank -->
+  <rect x="563" y="24" width="26" height="238" rx="4" fill="#f7f0dd" stroke="#403f2b" stroke-width="2.5"/>
+
+  <!-- Fenster -->
+  <g fill="#fefaf0" stroke="#403f2b" stroke-width="2.5">
+    <!-- Heck -->
+    <rect x="2" y="78" width="16" height="134"/>
+    <!-- Sitzgruppe, beide Seiten -->
+    <rect x="54" y="4" width="88" height="16"/>
+    <rect x="54" y="266" width="88" height="16"/>
+    <!-- Küche -->
+    <rect x="192" y="4" width="52" height="16"/>
+    <!-- Bett, beide Seiten -->
+    <rect x="423" y="4" width="95" height="16"/>
+    <rect x="423" y="266" width="95" height="16"/>
+    <!-- Front -->
+    <rect x="593" y="68" width="16" height="154"/>
+  </g>
+
+  <!-- Eingangstür -->
+  <rect x="182" y="270" width="62" height="8" fill="#fefaf0"/>
+  <line x1="244" y1="272" x2="186" y2="288" stroke="#403f2b" stroke-width="3" stroke-linecap="round"/>
+</svg>

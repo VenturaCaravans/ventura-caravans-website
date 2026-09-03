@@ -795,6 +795,63 @@
   outline: 1.5px solid var(--sand);
 
 }
+   .chip.has-accessories{
+  flex-wrap: wrap;
+
+}
+   .chip-accessories{
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(255,255,255,0.18);
+
+}
+   .chip-accessory{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: rgba(243,240,232,0.9);
+  cursor: pointer;
+
+}
+   .chip-accessory input[type="checkbox"]{
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  accent-color: var(--sand);
+  cursor: pointer;
+
+}
+   .chip-accessory .acc-name{
+  flex: 1;
+
+}
+   .chip-accessory .acc-price{
+  color: var(--sand);
+  font-weight: 600;
+  white-space: nowrap;
+
+}
+   .acc-variant-select{
+  font-family:'Space Grotesk', sans-serif;
+  font-size: 11px;
+  background: rgba(0,0,0,0.28);
+  color: #f3f0e8;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 4px;
+  padding: 3px 5px;
+  cursor: pointer;
+  max-width: 200px;
+
+}
+   .acc-variant-select:focus{
+  outline: 1.5px solid var(--sand);
+
+}
    .chip-qty{
   display: flex;
   align-items: center;
@@ -1374,31 +1431,103 @@ margin:-6px 0 16px">Basis auswählen, dann unten Extras dazu klicken — eure Au
 </span>  <div class="model-name">Basis M</div>  <div class="model-length">bis 6 m Aufbau</div>  <div class="model-price">16.500 €<span>ab, inkl. Gebrauchtwagen</span>
 </div>  </div>  <div class="model-card l" data-name="Basis L (bis 8 m Aufbau)" data-price="17500">  <span class="check">&#10003;
 </span>  <div class="model-name">Basis L</div>  <div class="model-length">bis 8 m Aufbau</div>  <div class="model-price">17.500 €<span>ab, inkl. Gebrauchtwagen</span>
-</div>  </div>  </div>   <div class="stage">  <div class="stage-label">Extras – separat wählbar</div>  </div>  <div class="extras">  <div class="extras-head">  <div>  <h3>Sonderausstattung nach Wahl</h3>  <p class="note">Zusätzlich zum Basisausbau frei kombinierbar</p>  </div>  <span class="count">42 Extras</span>  </div>  <div class="extras-categories">  <details class="extras-cat">  <summary class="extras-cat-title">Rangierhilfe<span class="cat-toggle">+</span></summary>  <div class="chips">  <div class="chip" data-name="Rangierhilfe (Mover) inkl. Lithium-Batterie" data-price="1500" data-variants='[{"label":"Titanium 2.0, halbautomatisch, inkl. Anbau","price":1500,"source":"https://www.fritz-berger.de/artikel/berger-titanium-2.0-platinum-rangierhilfe-lifepo4-lithium-batterie-eco-100-ah-12-v-im-set-505323?varid=504807"},{"label":"Platinum, vollautomatisch, inkl. Anbau","price":1700,"source":"https://www.fritz-berger.de/artikel/berger-titanium-2.0-platinum-rangierhilfe-lifepo4-lithium-batterie-eco-100-ah-12-v-im-set-505323?varid=506983"}]' data-images="assets/konfigurator/media_pimg_00_001025_thumbs_1857738_9993150.jpg|assets/konfigurator/media_pimg_00_001025_thumbs_1856931_9990381.jpg|assets/konfigurator/media_pimg_00_001025_thumbs_1877452_10108450.jpg|assets/konfigurator/media_pimg_00_001025_thumbs_1856916_9990435.jpg|assets/konfigurator/media_pimg_00_001025_thumbs_1856913_9990417.jpg|assets/konfigurator/media_pimg_00_001025_thumbs_1856910_9990426.jpg" data-description="Praktisches Technik-Set aus Rangierhilfe und LiFePO4-Batterie. Ob steile Hänge, morastiges Terrain oder sandiger Untergrund – die Berger Rangierhilfen bieten die Möglichkeit, selbst schwerere Wohnwagen (Einachser bis zu 2.250 kg, Tandemachser bis zu 3.500 kg) präzise zu manövrieren. Eine Rangierhilfe (2 Motoreneinheiten) pro Achse: Bei einem Tandemachser benötigst du 2 Rangierhilfen (also insgesamt 4 Motoreneinheiten), die sich dennoch mit einer benutzerfreundlichen Fernbedienung sowie einer Steuerbox kombiniert steuern lassen. Moderne elektronische Steuerung sorgt für sanftes Anfahren, präzise Kontrolle und optimale Manövrierbarkeit. Das hochwertige Leichtmetallgetriebe überzeugt durch starke, zuverlässige und langlebige Performance – für besonders effizienten Betrieb und einen geringen Energieverbrauch.">  <span class="chip-check">&#10003;
+</div>  </div>  </div>   <div class="stage">  <div class="stage-label">Extras – separat wählbar</div>  </div>  <div class="extras">  <div class="extras-head">  <div>  <h3>Sonderausstattung nach Wahl</h3>  <p class="note">Zusätzlich zum Basisausbau frei kombinierbar</p>  </div>  <span class="count">40 Extras</span>  </div>  <div class="extras-categories">  <details class="extras-cat" open>  <summary class="extras-cat-title">Empfohlene Extras<span class="cat-toggle">+</span></summary>  <div class="chips">  <div class="chip" data-name="Berger CEE-Kabeltrommel 25 m" data-price="79.99" data-images="assets/konfigurator/media_pimg_17_176333_thumbs_1200235_7095289.jpg|assets/konfigurator/media_pimg_17_176333_thumbs_1200238_7095295.jpg" data-highlights="CEE-Kabeltrommel als CEE-Verlängerung – stabiler Metallrahmen|Ideale Ergänzung für dein Strommanagement unterwegs – handlicher Tragegriff" data-description="Robuste Kabeltrommel mit CEE-Stecker für Innen- und Außenbereich
+
+Die schwarze Kabeltrommel mit CEE-Stecker und -Buchse bietet bei einer Kabellänge von 25 Meter viel Bewegungsfreiheit. Das stabile Gehäuse und der Metallrahmen sorgen für Langlebigkeit, während die integrierte Kabelführung eine einfache Handhabung ermöglicht. Die Kabeltrommel ist spritzwassergeschützt und damit ideal für anspruchsvolle Umgebungen.
+
+Technische Daten:
+Kabellänge (steckerseitig): 1,8 m
+Nennspannungsbereich: 200-250 V~
+Max. Stromstärke: 16 A
+Kabeltyp: H07RN-F3G2.5
+Schutzart: IP44
+Maße (LxBxH): 28 x 23 x 36,4 cm
+Material: Polyamid 66 (PA66), Polypropylen (PP), Polycarbonat (PC), Kupfer, Gummi
+
+Lieferumfang:
+1 x Kabeltrommel
+
+Hinweis: Die kupplungsseitige Kabellänge beträgt 25 Meter.">  <span class="chip-check">&#10003;
+</span>  <img src="assets/konfigurator/media_pimg_17_176333_1200235_101_176333_A.jpg" alt="" loading="lazy">  <span class="chip-text">
+<span class="chip-name">Berger CEE-Kabeltrommel 25 m<span class="chip-badge">Empfohlen</span></span>
+<span class="price">79,99 &euro;</span>
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-cee-kabeltrommel-25-m-426769?varid=426034" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Antischlingerkupplung inkl. Anbau" data-price="349" data-variants='[{"label":"Knott KS30","price":349,"source":"https://www.fritz-berger.de/artikel/knott-ks30-antischlingerkupplung-fuer-zugrohre-mit-35-40-45-50-mm-durchmesser-464359?varid=463549"},{"label":"AL-KO AKS 3004","price":399,"source":"https://www.fritz-berger.de/artikel/al-ko-anti-schlingerkupplung-aks-3004-3903?varid=23577"}]' data-images="assets/konfigurator/media_pimg_pimg_pimg_thumbs_219238_1640623.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_219238_1640637.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_219238_1653316.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_219238_1640621.jpg" data-highlights="Zwei bewährte Modelle zur Auswahl: Knott KS30 oder AL-KO AKS 3004|Reduziert Schlingerbewegungen effektiv|Erhöht die Fahrstabilität des Gespanns" data-description="Antischlingerkupplung – für mehr Stabilität und Sicherheit beim Fahren mit Wohnwagen-Gespann. Reduziert Schlingerbewegungen wirkungsvoll und sorgt für ruhigeres Fahrverhalten.
+
+Zur Wahl stehen zwei bewährte Modelle:
+
+Knott KS30: Antischlingerkupplung mit integrierter Spurstabilisierung, Sicherheitsanzeige und Softdock. Für Zugrohre Ø 35, 40, 45 oder 50 mm, ausgelegt für Gesamtgewichte bis 3000 kg und Stützlasten bis 300 kg (je nach Schraubenkombination). Inkl. Adapterblechen, Schrauben und Muttern zur Montage.
+
+AL-KO AKS 3004: Sicherheitskupplung mit Stabilisierungseinrichtung. Vier Reibbeläge pressen sich bei Betätigen des Stabilisierungsgriffs an die Anhängekugel (Bremsmoment bis 320 Nm) und unterdrücken Pendel- oder Nickbewegungen bereits im Ansatz. In Notsituationen lässt sich das Gespann schneller beruhigen, zudem erlaubt sie eine höhere theoretische Maximalgeschwindigkeit.">  <span class="chip-check">&#10003;
+</span>  <img src="assets/konfigurator/media_pimg_pimg_pimg_219238_0_238710.jpg" alt="" loading="lazy">  <span class="chip-text">
+<span class="chip-name">Antischlingerkupplung inkl. Anbau<span class="chip-badge">Empfohlen</span></span>
+<span class="price">349,00 &euro;</span>
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/knott-ks30-antischlingerkupplung-fuer-zugrohre-mit-35-40-45-50-mm-durchmesser-464359?varid=463549" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Beamer und Leinwand" data-price="199" data-images="assets/konfigurator/images_I_71YkyyrmLyL_AC_SX679.jpg" data-highlights="4K/1080p-Bildqualität, Ultra-Kurzdistanz – 60 Zoll Bild aus nur 1,5 m Entfernung|WLAN 6 &amp; Android 11 mit App Store (Streaming von YouTube etc.)|Integrierte Stereolautsprecher &amp; Bluetooth-Audio-Ausgang" data-description="Set aus mobilem Mini-Beamer und Leinwand fürs Kino-Feeling im Wohnwagen. Der Beamer unterstützt 4K/1080p-Bildqualität, Ultra-Kurzdistanz-Projektion (60 Zoll Bild aus nur 1,5 m Entfernung), WLAN 6 mit Android 11 App Store sowie automatische Trapezkorrektur und 220° drehbaren Standfuß. Integrierte Stereolautsprecher, alternativ Anschluss externer Lautsprecher per Bluetooth. Anschlüsse für TV-Stick, HDMI und USB.">  <span class="chip-check">&#10003;
+</span>  <img src="assets/konfigurator/images_I_71YkyyrmLyL_AC_SX679.jpg" alt="" loading="lazy">  <span class="chip-text">
+<span class="chip-name">Beamer und Leinwand<span class="chip-badge">Empfohlen</span></span>
+<span class="price">199,00 &euro;</span>
+</span>  <button type="button" class="chip-info" data-source="https://www.amazon.de/dp/B0G8Z68WHB" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Außendusche Capri" data-price="77.50" data-variants='[{"label":"Chrom","price":77.50,"source":"https://www.fritz-berger.de/artikel/comet-capri-einhebelmischer-mit-ausziehbarer-dusche-picchina-und-mikroschalter-chrom-1954?varid=11519"},{"label":"Schwarz","price":89.95,"source":"https://www.fritz-berger.de/artikel/comet-capri-einhebelmischer-mit-ausziehbarer-dusche-piccina-schwarz-407831?varid=391850"}]' data-images="assets/konfigurator/media_pimg_pimg_pimg_thumbs_342975_2401642.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_342975_3363176.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_342975_2617945.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_342975_2401639.jpg" data-highlights="Einhebelmischer mit ausziehbarer Picchina-Dusche|Heißwasserfest und druckwasserbeständig bis 3 bar|Mit Mikroschalter 3 A zur Pumpenansteuerung|Keramikkartusche für eine komfortable Bedienung" data-description="Einhebelmischer mit ausziehbarer Dusche
+
+Mit dem Comet Einhebelmischer Capri mit ausziehbarer Dusche Picchina erhältst Du eine praktische Kunststoffarmatur für Küche, Waschbereich oder Nasszelle in Wohnmobil, Wohnwagen und Caravan. Die Armatur eignet sich für waagerechte, schräge und senkrechte Montage und lässt sich flexibel in mobile Wasserinstallationen integrieren.
+
+Der integrierte Mikroschalter kann zur Ansteuerung einer passenden 12-V-Wasserpumpe genutzt werden. Die Wassermenge ist fein regulierbar, während die Keramikkartusche eine komfortable Bedienung unterstützt. Die ausziehbare Dusche Picchina erweitert den Nutzungsbereich beim Spülen, Waschen oder Reinigen.
+
+Details:
+Einhebelmischer mit ausziehbarer Dusche Picchina
+Geeignet für Wohnmobil, Wohnwagen, Caravan und Campingausbau
+Für waagerechte, schräge und senkrechte Montage geeignet
+Mit Mikroschalter 3 A zur Pumpenansteuerung
+Kabellänge 30 cm
+Wassermenge fein regulierbar
+Mit Keramikkartusche
+Heißwasserfest und druckwasserbeständig bis 3 bar
+Anschluss über Polyamid-Flexschläuche Ø 10 mm
+Ausziehbare Dusche für flexiblere Nutzung an Spüle oder Waschbecken
+
+Technische Daten:
+Produktart: Einhebelmischer / Mischbatterie mit ausziehbarer Dusche
+Farbe: Chrom
+Material: Kunststoff
+Kartusche: Keramikkartusche
+Mikroschalter: Ja, Schaltleistung 3 A
+Kabellänge: 30 cm
+Anschluss: für 8/10-mm-Wasserschläuche
+Anschlussleitung: Polyamid-Flexschläuche Ø 10 mm
+Ausziehbare Dusche: bis ca. 130 cm
+Montagebohrung: Ø 33 mm
+Aufbauhöhe: 140 mm
+Maximaler Druck: 3 bar
+Montage: waagerecht, schräg oder senkrecht
+
+Lieferumfang:
+1 x Comet Einhebelmischer Capri mit ausziehbarer Dusche Picchina">  <span class="chip-check">&#10003;
+</span>  <img src="assets/konfigurator/media_pimg_pimg_pimg_342975_0_210540.jpg" alt="" loading="lazy">  <span class="chip-text">
+<span class="chip-name">Außendusche Capri<span class="chip-badge">Empfohlen</span></span>
+<span class="price">77,50 &euro;</span>
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/comet-capri-einhebelmischer-mit-ausziehbarer-dusche-picchina-und-mikroschalter-chrom-1954?varid=11519" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="100-km/h-Zulassung (sofern technisch möglich)" data-price="49" data-images="assets/icon-100kmh.svg" data-highlights="Grundsätzlich sind Wohnwagen-Gespanne auf 80 km/h begrenzt|Mit dieser Zulassung sind bis zu 100 km/h erlaubt, sofern die technischen Voraussetzungen erfüllt sind" data-description="Im Normalfall darf ein Wohnwagen-Gespann nur mit 80 km/h gefahren werden. Mit der 100-km/h-Zulassung darfst du — sofern die technischen Voraussetzungen an Fahrzeug und Anhänger erfüllt sind — auch mit 100 km/h unterwegs sein.">  <span class="chip-check">&#10003;
+</span>  <img src="assets/icon-100kmh.svg" alt="" loading="lazy">  <span class="chip-text">
+<span class="chip-name">100-km/h-Zulassung (sofern technisch möglich)<span class="chip-badge">Empfohlen</span></span>
+<span class="price">49,00 &euro;</span>
+</span>  <button type="button" class="chip-info" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Dometic Rastrollo 3000 (pro Fenster, inkl. Anbau)" data-price="150" data-images="assets/konfigurator/media_pimg_11_119570_thumbs_1540299_8613981.png|assets/konfigurator/media_pimg_11_119570_thumbs_1540302_8613990.png|assets/konfigurator/media_pimg_11_119570_thumbs_1540305_8613999.png|assets/konfigurator/media_pimg_11_119570_thumbs_1540311_8614017.png|assets/konfigurator/media_pimg_11_119570_thumbs_1540314_8614026.png|assets/konfigurator/media_pimg_11_119570_thumbs_1543380_8622834.png|assets/konfigurator/media_pimg_11_119570_thumbs_1543383_8622843.png" data-description="Pauschalpreis pro Fenster/Rollo, unabhängig von der genauen Fenstergröße — die wird beim Aufmaß am Fahrzeug festgelegt. Mit dem Feld „Anzahl" oben legst du fest, wie viele Fenster ausgestattet werden sollen: Standard bei einem Wohnwagen sind 6 Fenster, es reichen aber z. B. auch 2 gegenüberliegende Fenster für Durchzug. Verdunkelungsrollo mit integriertem Fliegengitter für rahmenlose Fenster. Der Dometic Rastrollo 3000 lässt sich dank des federbetriebenen Mechanismus mit Geschwindigkeitskontrolle mühelos und gleichmäßig aufrollen. Verdunkelungsblende und Fliegengitter lassen sich separat verstellen und in verschiedenen Positionen arretieren. Die Aluminiumbeschichtung sorgt für eine ausgezeichnete Isolierung, integrierte Belüftungsschlitze halten auch bei heruntergelassenem Rollo für gute Luftzirkulation. Zum Einbau oberhalb der Fensteröffnung konzipiert – ideal für rahmenlose Fenster.">  <span class="chip-check">&#10003;
+</span>  <img src="assets/konfigurator/media_pimg_11_119570_thumbs_1543380_8622834.png" alt="" loading="lazy">  <span class="chip-text">
+<span class="chip-name">Dometic Rastrollo 3000 (pro Fenster, inkl. Anbau)<span class="chip-badge">Empfohlen</span></span>
+<span class="price">150,00 &euro;</span>
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/dometic-rastrollo-3000-5117?varid=9204" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  </div>  </details>  <details class="extras-cat">  <summary class="extras-cat-title">Rangierhilfe<span class="cat-toggle">+</span></summary>  <div class="chips">  <div class="chip" data-name="Rangierhilfe (Mover) inkl. Lithium-Batterie" data-price="1500" data-variants='[{"label":"Titanium 2.0, halbautomatisch, inkl. Anbau","price":1500,"source":"https://www.fritz-berger.de/artikel/berger-titanium-2.0-platinum-rangierhilfe-lifepo4-lithium-batterie-eco-100-ah-12-v-im-set-505323?varid=504807"},{"label":"Platinum, vollautomatisch, inkl. Anbau","price":1700,"source":"https://www.fritz-berger.de/artikel/berger-titanium-2.0-platinum-rangierhilfe-lifepo4-lithium-batterie-eco-100-ah-12-v-im-set-505323?varid=506983"}]' data-images="assets/konfigurator/media_pimg_00_001025_thumbs_1857738_9993150.jpg|assets/konfigurator/media_pimg_00_001025_thumbs_1856931_9990381.jpg|assets/konfigurator/media_pimg_00_001025_thumbs_1877452_10108450.jpg|assets/konfigurator/media_pimg_00_001025_thumbs_1856916_9990435.jpg|assets/konfigurator/media_pimg_00_001025_thumbs_1856913_9990417.jpg|assets/konfigurator/media_pimg_00_001025_thumbs_1856910_9990426.jpg" data-description="Praktisches Technik-Set aus Rangierhilfe und LiFePO4-Batterie. Ob steile Hänge, morastiges Terrain oder sandiger Untergrund – die Berger Rangierhilfen bieten die Möglichkeit, selbst schwerere Wohnwagen (Einachser bis zu 2.250 kg, Tandemachser bis zu 3.500 kg) präzise zu manövrieren. Eine Rangierhilfe (2 Motoreneinheiten) pro Achse: Bei einem Tandemachser benötigst du 2 Rangierhilfen (also insgesamt 4 Motoreneinheiten), die sich dennoch mit einer benutzerfreundlichen Fernbedienung sowie einer Steuerbox kombiniert steuern lassen. Moderne elektronische Steuerung sorgt für sanftes Anfahren, präzise Kontrolle und optimale Manövrierbarkeit. Das hochwertige Leichtmetallgetriebe überzeugt durch starke, zuverlässige und langlebige Performance – für besonders effizienten Betrieb und einen geringen Energieverbrauch.">  <span class="chip-check">&#10003;
 </span>  <img src="assets/konfigurator/media_pimg_00_001025_1857738_101_001025_A.jpg" alt="" loading="lazy">  <span class="chip-text">
 <span class="chip-name">Rangierhilfe (Mover) inkl. Lithium-Batterie</span>
 <span class="price">1.500,00 &euro;</span>
-</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-titanium-2.0-platinum-rangierhilfe-lifepo4-lithium-batterie-eco-100-ah-12-v-im-set-505323" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  </div>  </details>  <details class="extras-cat">  <summary class="extras-cat-title">Vorzelt &amp; Sonnenschutz<span class="cat-toggle">+</span></summary>  <div class="chips">  <div class="chip" data-name="Berger Sombra Air Pro Sonnenvordach" data-price="299" data-variants='[{"label":"300 cm","price":299,"source":"https://www.fritz-berger.de/artikel/berger-sombra-air-pro-aufblasbares-sonnenvordach-fuer-wohnwagen-489248?varid=479547"},{"label":"400 cm","price":319,"source":"https://www.fritz-berger.de/artikel/berger-sombra-air-pro-aufblasbares-sonnenvordach-fuer-wohnwagen-489248?varid=479577"}]' data-images="assets/konfigurator/media_pimg_26_261559_thumbs_1856343_9985506.jpg|assets/konfigurator/media_pimg_26_261559_thumbs_1857861_9993345.jpg|assets/konfigurator/media_pimg_26_261559_thumbs_1857855_9993327.jpg|assets/konfigurator/media_pimg_26_261559_thumbs_1857858_9993336.jpg" data-description="Neues Modell mit optionaler Vordertürverkleidung und Seitenfenstern. Das Sombra Air Pro Sonnenvordach macht das Aufbauen zum Kinderspiel: Durch Aufblasen des Luftschlauches mit der mitgelieferten Handpumpe steht das Sonnenvordach innerhalb weniger Minuten. Es bietet einen großen, schattigen Bereich zum Entspannen und enthält zwei aufrollbare Seitenteile mit blickdicht verschließbaren Fenstern für mehr Privatsphäre und Schutz vor Sonne oder Seitenwind. Die Seitenteile lassen sich bei Bedarf an beiden Seiten ganz einfach platzsparend nach hinten wegrollen. Das Sonnenvordach besteht aus robustem, PU-beschichtetem 100 % Polyester und wird mit einem stabilen Luftgestänge (Ø10 cm) aufgebaut.">  <span class="chip-check">&#10003;
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-titanium-2.0-platinum-rangierhilfe-lifepo4-lithium-batterie-eco-100-ah-12-v-im-set-505323" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  </div>  </details>  <details class="extras-cat">  <summary class="extras-cat-title">Vorzelt, Sonnenschutz &amp; Markise<span class="cat-toggle">+</span></summary>  <div class="chips">  <div class="chip" data-name="Thule Omnistor 6300 Dachmarkise" data-price="1500" data-color-options="Saphir Blue|Mystic Grey" data-variants='[{"label":"Standard 350 cm – Größe nach Absprache je nach Modell/Wohnwagen, inkl. Montageplatten und Anbau","price":1500,"source":"https://www.fritz-berger.de/artikel/thule-omnistor-6300-dachmarkise-weiss-113650?varid=109853"}]' data-images="assets/konfigurator/media_pimg_pimg_pimg_thumbs_825002_5331062.jpg|assets/konfigurator/media_pimg_17_173248_thumbs_855800_5462708.jpg|assets/konfigurator/media_pimg_17_173248_thumbs_838475_5391518.png|assets/konfigurator/media_pimg_pimg_pimg_thumbs_825008_5331056.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_825011_5331050.jpg|assets/konfigurator/media_pimg_17_173248_thumbs_825014_5331458.png|assets/konfigurator/media_pimg_pimg_pimg_thumbs_825017_5331044.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_825020_5331038.jpg" data-description="Die neue Thule Omnistor 6300 Dachmarkise weiß passt für nahezu alle Fahrzeugtypen, insbesondere Vans und Caravans. Hohe Zuverlässigkeit und Robustheit bei geringem Gewicht zeichnen die Thule 6300 aus. Ausgestattet mit Funktionen für höchsten Komfort, wie den stabilen Gelenkarmen für perfekte Tuchspannung. Optionale Schiene zur Anbringung des Markisenzelts und einem LED-Streifen. Der Ausfallwinkel ist je nach Bedarf ganz individuell einstellbar. Im Frontprofil der Thule Markise ist eine Art Entwässerungssystem eingearbeitet, damit Regenwasser optimal abfließen kann. Zahlreiche integrierte Lösungen für eine längere Haltbarkeit bei höchster Performance runden die Markise ab. Preis versteht sich inklusive der nötigen Montageplatten und des Anbaus.">  <span class="chip-check">&#10003;
+</span>  <img src="assets/konfigurator/media_pimg_pimg_pimg_825002_101_173248_G.jpg" alt="" loading="lazy">  <span class="chip-text">
+<span class="chip-name">Thule Omnistor 6300 Dachmarkise</span>
+<span class="price">1.500,00 &euro;</span>
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/thule-omnistor-6300-dachmarkise-weiss-113650?varid=204320" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger Sombra Air Pro Sonnenvordach" data-price="299" data-variants='[{"label":"300 cm","price":299,"source":"https://www.fritz-berger.de/artikel/berger-sombra-air-pro-aufblasbares-sonnenvordach-fuer-wohnwagen-489248?varid=479547"},{"label":"400 cm","price":319,"source":"https://www.fritz-berger.de/artikel/berger-sombra-air-pro-aufblasbares-sonnenvordach-fuer-wohnwagen-489248?varid=479577"}]' data-accessories='[{"name":"Front Vorderwand mit Fenster","priceByVariant":[79,89],"sourceByVariant":["https://www.fritz-berger.de/artikel/berger-sombra-air-pro-front-vorderwand-mit-fenster-488346?varid=479586","https://www.fritz-berger.de/artikel/berger-sombra-air-pro-front-vorderwand-mit-fenster-488346?varid=479565"]},{"name":"Teleskop-Mittelstange","price":29,"source":"https://www.fritz-berger.de/artikel/berger-sombra-air-pro-teleskop-mittelstange-481005?varid=480432"}]' data-images="assets/konfigurator/media_pimg_26_261559_thumbs_1856343_9985506.jpg|assets/konfigurator/media_pimg_26_261559_thumbs_1857861_9993345.jpg|assets/konfigurator/media_pimg_26_261559_thumbs_1857855_9993327.jpg|assets/konfigurator/media_pimg_26_261559_thumbs_1857858_9993336.jpg" data-description="Neues Modell mit optionaler Vordertürverkleidung und Seitenfenstern. Das Sombra Air Pro Sonnenvordach macht das Aufbauen zum Kinderspiel: Durch Aufblasen des Luftschlauches mit der mitgelieferten Handpumpe steht das Sonnenvordach innerhalb weniger Minuten. Es bietet einen großen, schattigen Bereich zum Entspannen und enthält zwei aufrollbare Seitenteile mit blickdicht verschließbaren Fenstern für mehr Privatsphäre und Schutz vor Sonne oder Seitenwind. Die Seitenteile lassen sich bei Bedarf an beiden Seiten ganz einfach platzsparend nach hinten wegrollen. Das Sonnenvordach besteht aus robustem, PU-beschichtetem 100 % Polyester und wird mit einem stabilen Luftgestänge (Ø10 cm) aufgebaut.">  <span class="chip-check">&#10003;
 </span>  <img src="assets/konfigurator/media_pimg_26_261559_thumbs_1856343_9985506.jpg" alt="" loading="lazy">  <span class="chip-text">
 <span class="chip-name">Berger Sombra Air Pro Sonnenvordach</span>
 <span class="price">299,00 &euro;</span>
-</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-sombra-air-pro-aufblasbares-sonnenvordach-fuer-wohnwagen-489248?varid=479547" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger Sombra Air Pro Front Vorderwand mit Fenster" data-price="79" data-variants='[{"label":"3 m","price":79,"source":"https://www.fritz-berger.de/artikel/berger-sombra-air-pro-front-vorderwand-mit-fenster-488346?varid=479586"},{"label":"4 m","price":89,"source":"https://www.fritz-berger.de/artikel/berger-sombra-air-pro-front-vorderwand-mit-fenster-488346?varid=479565"},{"label":"5 m","price":99,"source":"https://www.fritz-berger.de/artikel/berger-sombra-air-pro-front-vorderwand-mit-fenster-488346?varid=479592"}]' data-images="assets/konfigurator/media_pimg_83_836992_thumbs_1754537_9956171.jpg|assets/konfigurator/media_pimg_83_836992_thumbs_1869412_10072645.jpg|assets/konfigurator/media_pimg_83_836992_thumbs_1869415_10072654.jpg|assets/konfigurator/media_pimg_83_836992_thumbs_1869418_10072663.jpg|assets/konfigurator/media_pimg_83_836992_thumbs_1869421_10072672.jpg|assets/konfigurator/media_pimg_83_836992_thumbs_1869424_10072681.jpg|assets/konfigurator/media_pimg_83_836992_thumbs_1869427_10072690.jpg" data-description="Der gemütliche Vorzelt-Charakter für dein Sonnenvordach. Unsere hochwertige Vordertürverkleidung ist die ideale Ergänzung für dein Sombra Air Pro Sonnenvordach. Damit machst du aus deinem Sonnenvordach im Handumdrehen einen vollständig geschlossenen Vorzelt-Charakter. Sekundenschnell mit Reißverschluss am Sombra Air Pro befestigen und fertig! Für eine ordentliche Luftzirkulation sorgen die beiden aufrollbaren Abdeckungen mit Mesh. Das Material besteht aus 100 % Polyester, PU-beschichtet.">  <span class="chip-check">&#10003;
-</span>  <img src="assets/konfigurator/media_pimg_83_836992_1754537_101_836992_A.jpg" alt="" loading="lazy">  <span class="chip-text">
-<span class="chip-name">Berger Sombra Air Pro Front Vorderwand mit Fenster</span>
-<span class="price">79,00 &euro;</span>
-</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-sombra-air-pro-front-vorderwand-mit-fenster-488346?varid=479586" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger Sombra Air Pro Teleskop-Mittelstange" data-price="29" data-images="assets/konfigurator/media_pimg_79_794593_thumbs_1754255_9956179.jpg|assets/konfigurator/media_pimg_79_794593_thumbs_1754255_9956183.png|assets/konfigurator/media_pimg_79_794593_thumbs_1754255_9956185.png|assets/konfigurator/media_pimg_79_794593_thumbs_1754258_9956189.png|assets/konfigurator/media_pimg_79_794593_thumbs_1754258_9956191.jpg|assets/konfigurator/media_pimg_79_794593_thumbs_1754258_9956193.jpg" data-highlights="Teleskopierbar, Länge 140–270 cm|Passend für alle Sombra Air Pro Sonnenvordächer|Leichtes Aluminium, Ø19/22 mm" data-description="Sombra-Zubehör: ausziehbare Teleskop-Mittelstange für mehr Stabilität bei Wind und Wetter — verhindert effektiv Wassersäcke bei Regen auf dem Sombra Air Pro Sonnenvordach. Dank Teleskopfunktion passend für alle Sombra Air Pro Sonnenvordächer. Anbau denkbar einfach: die runden Enden in die vorgesehenen Ösen im Dachinneren klicken, Länge justieren, fertig. Material: 100 % Aluminium (Ø19/22 mm).">  <span class="chip-check">&#10003;
-</span>  <img src="assets/konfigurator/media_pimg_79_794593_thumbs_1754255_9956179.jpg" alt="" loading="lazy">  <span class="chip-text">
-<span class="chip-name">Berger Sombra Air Pro Teleskop-Mittelstange</span>
-<span class="price">29,00 &euro;</span>
-</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-sombra-air-pro-teleskop-mittelstange-481005?varid=480432" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger Garda Air Vorzelt" data-price="399" data-images="assets/konfigurator/media_pimg_84_849074_thumbs_1811642_9738809.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1414396_8026189.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1186963_7017283.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1331809_7638358.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1368091_7811302.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1368094_7811311.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_984164_6635054.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1368097_7811320.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1368100_7811329.jpg" data-description="Blitzschnell aufgebaut - jetzt mit verbessertem Luftgestänge. Mit dem Garda Air Reisevorzelt bist du flexibel und platzsparend unterwegs. Dank dem Luftgestänge hast du dein Zelt in wenigen Minuten aufgebaut! Alle Fenster lassen sich bei Bedarf blickdicht verschließen und schaffen so Privatsphäre. Die hinteren Seitenfenster sind zusätzlich mit Moskitonetzen ausgestattet. Auch die Vorderwand verfügt über Moskitonetze, während sich die Tür seitlich wegrollen lässt und den Innenraum großzügig öffnet. Ein zusätzlicher Eingang auf der rechten Seite sorgt für noch mehr Komfort im Alltag. Für eine passgenaue Verbindung mit dem Wohnwagen sorgen zwei fest angenähte Schaumstoffwulste, die sich sauber an die Fahrzeugwand anschmiegen und den Übergang zuverlässig abdichten.">  <span class="chip-check">&#10003;
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-sombra-air-pro-aufblasbares-sonnenvordach-fuer-wohnwagen-489248?varid=479547" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger Garda Air Vorzelt" data-price="399" data-accessories='[{"name":"Bodenwanne für Garda","price":69.99,"source":"https://www.fritz-berger.de/artikel/berger-bodenwanne-fuer-garda,-garda-air-und-garda-air-4-season-804?varid=25828"}]' data-images="assets/konfigurator/media_pimg_84_849074_thumbs_1811642_9738809.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1414396_8026189.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1186963_7017283.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1331809_7638358.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1368091_7811302.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1368094_7811311.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_984164_6635054.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1368097_7811320.jpg|assets/konfigurator/media_pimg_84_849074_thumbs_1368100_7811329.jpg" data-description="Blitzschnell aufgebaut - jetzt mit verbessertem Luftgestänge. Mit dem Garda Air Reisevorzelt bist du flexibel und platzsparend unterwegs. Dank dem Luftgestänge hast du dein Zelt in wenigen Minuten aufgebaut! Alle Fenster lassen sich bei Bedarf blickdicht verschließen und schaffen so Privatsphäre. Die hinteren Seitenfenster sind zusätzlich mit Moskitonetzen ausgestattet. Auch die Vorderwand verfügt über Moskitonetze, während sich die Tür seitlich wegrollen lässt und den Innenraum großzügig öffnet. Ein zusätzlicher Eingang auf der rechten Seite sorgt für noch mehr Komfort im Alltag. Für eine passgenaue Verbindung mit dem Wohnwagen sorgen zwei fest angenähte Schaumstoffwulste, die sich sauber an die Fahrzeugwand anschmiegen und den Übergang zuverlässig abdichten.">  <span class="chip-check">&#10003;
 </span>  <img src="assets/konfigurator/media_pimg_84_849074_1811642_101_849074_B.jpg" alt="" loading="lazy">  <span class="chip-text">
 <span class="chip-name">Berger Garda Air Vorzelt</span>
 <span class="price">399,00 &euro;</span>
-</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-garda-air-aufblasbares-vorzelt-fuer-wohnwagen,-anbauhoehe-240-255-cm-414839?varid=376982" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger Bodenwanne für Garda" data-price="69.99" data-images="assets/konfigurator/media_Produktbilder_24_246580_thumbs_44123_2282147.jpg|assets/konfigurator/media_Produktbilder_24_246580_thumbs_44123_2282153.jpg|assets/konfigurator/media_Produktbilder_24_246580_thumbs_44123_2282144.jpg" data-highlights="Passend für Garda, Garda Air oder Garda Air 4-Season|Wasserdicht und leicht zu reinigen|Minimales Zusatzgewicht" data-description="Garda-Zubehör: einhängbare Bodenwanne, hält Schmutz, Feuchtigkeit und Insekten aus dem Vorzelt fern. Passt genau in Garda, Garda Air oder Garda Air 4-Season. Material: 100 % Polyethylen, Maße 300 x 300 cm, Gewicht 1,5 kg.">  <span class="chip-check">&#10003;
-</span>  <img src="assets/konfigurator/media_Produktbilder_24_246580_thumbs_44123_2282147.jpg" alt="" loading="lazy">  <span class="chip-text">
-<span class="chip-name">Berger Bodenwanne für Garda</span>
-<span class="price">69,99 &euro;</span>
-</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-bodenwanne-fuer-garda,-garda-air-und-garda-air-4-season-804?varid=25828" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger Campione Pro Ganzjahres-Vorzelt" data-price="1319" data-variants='[{"label":"881–910 cm","price":1319,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475062"},{"label":"911–940 cm","price":1399,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475065"},{"label":"941–970 cm","price":1449,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475068"},{"label":"971–1000 cm","price":1479,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475071"},{"label":"1001–1030 cm","price":1519,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475074"},{"label":"1031–1060 cm","price":1549,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475077"},{"label":"1061–1090 cm","price":1579,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475080"}]' data-images="assets/konfigurator/media_pimg_00_000006_thumbs_1871782_10080511.jpg|assets/konfigurator/media_pimg_00_000006_thumbs_1585128_8865870.jpg|assets/konfigurator/media_pimg_00_000006_thumbs_1585131_8865882.jpg|assets/konfigurator/media_pimg_00_000006_thumbs_1585134_8865891.jpg" data-description="Hochwertiges Ganzjahresvorzelt für Wohnwagen inkl. passendem Gerüst. Das Campione Pro Gestängevorzelt wurde für den ganzjährigen Einsatz konzipiert. Durch den Kederschienen-Einzugsmechanismus lässt sich das Vorzelt schnell und unkompliziert aufbauen. Große Fensterflächen sorgen für ein helles, freundliches Innenraumklima, während Moskitonetz und herausnehmbare Vorhänge für individuelle Anpassung und Privatsphäre sorgen. Das Set enthält alle benötigten Stangen und Verbindungsstücke für einen einfachen Aufbau und eine stabile Konstruktion deines Vorzeltes.">  <span class="chip-check">&#10003;
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-garda-air-aufblasbares-vorzelt-fuer-wohnwagen,-anbauhoehe-240-255-cm-414839?varid=376982" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger Campione Pro Ganzjahres-Vorzelt" data-price="1319" data-variants='[{"label":"881–910 cm","price":1319,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475062"},{"label":"911–940 cm","price":1399,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475065"},{"label":"941–970 cm","price":1449,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475068"},{"label":"971–1000 cm","price":1479,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475071"},{"label":"1001–1030 cm","price":1519,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475074"},{"label":"1031–1060 cm","price":1549,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475077"},{"label":"1061–1090 cm","price":1579,"source":"https://www.fritz-berger.de/artikel/berger-campione-pro-ganzjahres-vorzelt-fuer-wohnwagen-inkl.-gestaenge-28-mm-stahl-479649?varid=475080"}]' data-images="assets/konfigurator/media_pimg_00_000006_thumbs_1871782_10080511.jpg|assets/konfigurator/media_pimg_00_000006_thumbs_1585128_8865870.jpg|assets/konfigurator/media_pimg_00_000006_thumbs_1585131_8865882.jpg|assets/konfigurator/media_pimg_00_000006_thumbs_1585134_8865891.jpg" data-description="Hochwertiges Ganzjahresvorzelt für Wohnwagen inkl. passendem Gerüst. Das Campione Pro Gestängevorzelt wurde für den ganzjährigen Einsatz konzipiert. Durch den Kederschienen-Einzugsmechanismus lässt sich das Vorzelt schnell und unkompliziert aufbauen. Große Fensterflächen sorgen für ein helles, freundliches Innenraumklima, während Moskitonetz und herausnehmbare Vorhänge für individuelle Anpassung und Privatsphäre sorgen. Das Set enthält alle benötigten Stangen und Verbindungsstücke für einen einfachen Aufbau und eine stabile Konstruktion deines Vorzeltes.">  <span class="chip-check">&#10003;
 </span>  <img src="assets/konfigurator/media_pimg_00_000006_1871782_101_000006_B.jpg" alt="" loading="lazy">  <span class="chip-text">
 <span class="chip-name">Berger Campione Pro Ganzjahres-Vorzelt</span>
 <span class="price">1.319,00 &euro;</span>
@@ -1406,11 +1535,7 @@ margin:-6px 0 16px">Basis auswählen, dann unten Extras dazu klicken — eure Au
 </span>  <img src="assets/konfigurator/media_pimg_37_378992910_1884472_101_378992910_H.jpg" alt="" loading="lazy">  <span class="chip-text">
 <span class="chip-name">Berger Vicenza Air All Season Pro</span>
 <span class="price">1.399,00 &euro;</span>
-</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-vicenza-air-all-season-pro-luft-vorzelt-fuer-wohnwagen-478029?varid=472071" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Thule Omnistor 6300 Dachmarkise" data-price="1500" data-color-options="Saphir Blue|Mystic Grey" data-variants='[{"label":"Standard 350 cm – Größe nach Absprache je nach Modell/Wohnwagen, inkl. Anbau","price":1500,"source":"https://www.fritz-berger.de/artikel/thule-omnistor-6300-dachmarkise-weiss-113650?varid=109853"}]' data-images="assets/konfigurator/media_pimg_pimg_pimg_thumbs_825002_5331062.jpg|assets/konfigurator/media_pimg_17_173248_thumbs_855800_5462708.jpg|assets/konfigurator/media_pimg_17_173248_thumbs_838475_5391518.png|assets/konfigurator/media_pimg_pimg_pimg_thumbs_825008_5331056.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_825011_5331050.jpg|assets/konfigurator/media_pimg_17_173248_thumbs_825014_5331458.png|assets/konfigurator/media_pimg_pimg_pimg_thumbs_825017_5331044.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_825020_5331038.jpg" data-description="Die neue Thule Omnistor 6300 Dachmarkise weiß passt für nahezu alle Fahrzeugtypen, insbesondere Vans und Caravans. Hohe Zuverlässigkeit und Robustheit bei geringem Gewicht zeichnen die Thule 6300 aus. Ausgestattet mit Funktionen für höchsten Komfort, wie den stabilen Gelenkarmen für perfekte Tuchspannung. Optionale Schiene zur Anbringung des Markisenzelts und einem LED-Streifen. Der Ausfallwinkel ist je nach Bedarf ganz individuell einstellbar. Im Frontprofil der Thule Markise ist eine Art Entwässerungssystem eingearbeitet, damit Regenwasser optimal abfließen kann. Zahlreiche integrierte Lösungen für eine längere Haltbarkeit bei höchster Performance runden die Markise ab.">  <span class="chip-check">&#10003;
-</span>  <img src="assets/konfigurator/media_pimg_pimg_pimg_825002_101_173248_G.jpg" alt="" loading="lazy">  <span class="chip-text">
-<span class="chip-name">Thule Omnistor 6300 Dachmarkise</span>
-<span class="price">1.500,00 &euro;</span>
-</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/thule-omnistor-6300-dachmarkise-weiss-113650?varid=204320" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger Square Vorzeltteppich" data-price="50" data-variants='[{"label":"250 x 250 cm","price":50,"source":"https://www.fritz-berger.de/artikel/berger-square-outdoormatte-vorzeltteppich-191526?varid=184164"},{"label":"300 x 300 cm","price":60,"source":"https://www.fritz-berger.de/artikel/berger-square-outdoormatte-vorzeltteppich-191526?varid=184167"}]' data-images="assets/konfigurator/media_pimg_pimg_pimg_thumbs_1198018_7061083.jpg|assets/konfigurator/media_pimg_52_525880_thumbs_1627296_9000621.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_1198021_7061092.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_1198024_7061101.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_1198027_7061119.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_1198030_7061128.jpg" data-description="Wendbare Outdoormatte. Die Square Outdoormatte ist eine robuste und vielseitig einsetzbare Outdoor-Unterlage für Vorzelte, Terrassen, Pavillons oder Picknicks im Freien. Die wendbare Matte mit modernem Grau- und Weißmotiv bietet zwei Nutzungsseiten und sorgt für zusätzlichen Komfort im Outdoor-Bereich. In zwei Größen erhältlich. Das Material besteht aus 100 % recyceltem Polypropylen mit einer Materialstärke von 380 g/m², im Lieferumfang enthalten ist zudem ein praktischer Tragegurt.">  <span class="chip-check">&#10003;
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-vicenza-air-all-season-pro-luft-vorzelt-fuer-wohnwagen-478029?varid=472071" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger Square Vorzeltteppich" data-price="50" data-variants='[{"label":"250 x 250 cm","price":50,"source":"https://www.fritz-berger.de/artikel/berger-square-outdoormatte-vorzeltteppich-191526?varid=184164"},{"label":"300 x 300 cm","price":60,"source":"https://www.fritz-berger.de/artikel/berger-square-outdoormatte-vorzeltteppich-191526?varid=184167"}]' data-images="assets/konfigurator/media_pimg_pimg_pimg_thumbs_1198018_7061083.jpg|assets/konfigurator/media_pimg_52_525880_thumbs_1627296_9000621.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_1198021_7061092.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_1198024_7061101.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_1198027_7061119.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_1198030_7061128.jpg" data-description="Wendbare Outdoormatte. Die Square Outdoormatte ist eine robuste und vielseitig einsetzbare Outdoor-Unterlage für Vorzelte, Terrassen, Pavillons oder Picknicks im Freien. Die wendbare Matte mit modernem Grau- und Weißmotiv bietet zwei Nutzungsseiten und sorgt für zusätzlichen Komfort im Outdoor-Bereich. In zwei Größen erhältlich. Das Material besteht aus 100 % recyceltem Polypropylen mit einer Materialstärke von 380 g/m², im Lieferumfang enthalten ist zudem ein praktischer Tragegurt.">  <span class="chip-check">&#10003;
 </span>  <img src="assets/konfigurator/media_pimg_pimg_pimg_1198018_101_525880_A.jpg" alt="" loading="lazy">  <span class="chip-text">
 <span class="chip-name">Berger Square Vorzeltteppich</span>
 <span class="price">50,00 &euro;</span>
@@ -1483,7 +1608,11 @@ Montagematerial
 </span>  <img src="assets/konfigurator/media_pimg_11_119570_thumbs_1543380_8622834.png" alt="" loading="lazy">  <span class="chip-text">
 <span class="chip-name">Dometic Rastrollo 3000 (pro Fenster, inkl. Anbau)<span class="chip-badge">Empfohlen</span></span>
 <span class="price">150,00 &euro;</span>
-</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/dometic-rastrollo-3000-5117?varid=9204" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  </div>  </details>  <details class="extras-cat">  <summary class="extras-cat-title">Strom &amp; Solar<span class="cat-toggle">+</span></summary>  <div class="chips">  <div class="chip" data-name="Solarpanel faltbar" data-price="49.99" data-variants='[{"label":"60 W","price":49.99,"source":"https://www.fritz-berger.de/artikel/berger-xt-faltbares-solarpanel-430777?varid=430747"},{"label":"100 W","price":99.99,"source":"https://www.fritz-berger.de/artikel/berger-xt-faltbares-solarpanel-430777?varid=430756"},{"label":"200 W","price":199,"source":"https://www.fritz-berger.de/artikel/berger-xt-faltbares-solarpanel-430777?varid=430753"},{"label":"300 W","price":289,"source":"https://www.fritz-berger.de/artikel/berger-xt-faltbares-solarpanel-430777?varid=430750"}]' data-images="assets/konfigurator/media_pimg_72_721064_thumbs_1393513_7909510.jpg|assets/konfigurator/media_pimg_72_721064_thumbs_1629567_9008187.jpg|assets/konfigurator/media_pimg_72_721064_thumbs_1393516_7909519.jpg|assets/konfigurator/media_pimg_72_721064_thumbs_1393519_7909528.jpg|assets/konfigurator/media_pimg_72_721064_thumbs_1393522_7909537.jpg|assets/konfigurator/media_pimg_72_721064_thumbs_1393525_7909546.jpg|assets/konfigurator/media_pimg_72_721064_thumbs_1223746_7194193.jpg" data-highlights="Extrem hoher Wirkungsgrad von ca. 24 % – leicht, kompakt und faltbar|Alle Varianten mit Standfüßen – kompaktes Packmaß|Hochwertige ETFE-Beschichtung für besonders hohe Witterungsbeständigkeit" data-description="Leicht, kompakt und extrem effizient
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/dometic-rastrollo-3000-5117?varid=9204" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger TrailView Ausstellfenster mit Moskitoschutz und Verdunkelungsrollo (pro Fenster, inkl. Einbau)" data-price="200" data-images="assets/konfigurator/media_pimg_30_304475_thumbs_981167_6041990.png|assets/konfigurator/media_pimg_30_304475_thumbs_1597143_8876643.png|assets/konfigurator/media_pimg_30_304475_thumbs_981170_6041996.png|assets/konfigurator/media_pimg_30_304475_thumbs_1466758_8323030.png|assets/konfigurator/media_pimg_30_304475_thumbs_1597146_8876652.png|assets/konfigurator/media_pimg_30_304475_thumbs_1597149_8876661.png|assets/konfigurator/media_pimg_30_304475_thumbs_1597152_8876670.png" data-highlights="Moskitonetz &amp; Verdunkelungsrollo bereits integriert|Getönte Scheibe für mehr Privatsphäre &amp; edle Optik|Stufenlos öffnen – perfekte Belüftung nach Bedarf|Zuverlässiger UV-Schutz für angenehmes Innenklima" data-description="Pauschalpreis pro neues Fenster, unabhängig von der genauen Größe — die passende Ausführung (16 Größen von 500 x 300 mm bis 1450 x 550 mm erhältlich) wird beim Aufmaß am Fahrzeug festgelegt. Mit dem Feld „Anzahl" oben legst du fest, wie viele Fenster getauscht bzw. neu eingebaut werden sollen. Hochwertiges Ausstellfenster mit pulverbeschichtetem Aluminiumrahmen und getönter, nach innen gewölbter Doppelacrylscheibe für edle Optik und zuverlässigen Schutz vor Sonne und neugierigen Blicken. Der Innenrahmen ist bereits mit Moskitonetz und Verdunkelungsrollo ausgestattet, die sich unabhängig voneinander verstellen lassen. Stufenlos verstellbarer Öffnungsmechanismus mit Gasfedern für flexible Belüftung. Ausgelegt für Wandstärken von 29–32 mm, mit separat erhältlichen Adapterrahmen bis 60 mm.">  <span class="chip-check">&#10003;
+</span>  <img src="assets/konfigurator/media_pimg_30_304475_thumbs_981167_6041990.png" alt="" loading="lazy">  <span class="chip-text">
+<span class="chip-name">Berger TrailView Ausstellfenster mit Moskitoschutz und Verdunkelungsrollo (pro Fenster, inkl. Einbau)</span>
+<span class="price">200,00 &euro;</span>
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/berger-trailview-ausstellfenster-mit-moskitoschutz-und-verdunkelungsrollo-369386?varid=370136" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  </div>  </details>  <details class="extras-cat">  <summary class="extras-cat-title">Strom &amp; Solar<span class="cat-toggle">+</span></summary>  <div class="chips">  <div class="chip" data-name="Solarpanel faltbar" data-price="49.99" data-variants='[{"label":"60 W","price":49.99,"source":"https://www.fritz-berger.de/artikel/berger-xt-faltbares-solarpanel-430777?varid=430747"},{"label":"100 W","price":99.99,"source":"https://www.fritz-berger.de/artikel/berger-xt-faltbares-solarpanel-430777?varid=430756"},{"label":"200 W","price":199,"source":"https://www.fritz-berger.de/artikel/berger-xt-faltbares-solarpanel-430777?varid=430753"},{"label":"300 W","price":289,"source":"https://www.fritz-berger.de/artikel/berger-xt-faltbares-solarpanel-430777?varid=430750"}]' data-images="assets/konfigurator/media_pimg_72_721064_thumbs_1393513_7909510.jpg|assets/konfigurator/media_pimg_72_721064_thumbs_1629567_9008187.jpg|assets/konfigurator/media_pimg_72_721064_thumbs_1393516_7909519.jpg|assets/konfigurator/media_pimg_72_721064_thumbs_1393519_7909528.jpg|assets/konfigurator/media_pimg_72_721064_thumbs_1393522_7909537.jpg|assets/konfigurator/media_pimg_72_721064_thumbs_1393525_7909546.jpg|assets/konfigurator/media_pimg_72_721064_thumbs_1223746_7194193.jpg" data-highlights="Extrem hoher Wirkungsgrad von ca. 24 % – leicht, kompakt und faltbar|Alle Varianten mit Standfüßen – kompaktes Packmaß|Hochwertige ETFE-Beschichtung für besonders hohe Witterungsbeständigkeit" data-description="Leicht, kompakt und extrem effizient
 
 Unsere leichten und kompakt faltbaren Solarpanels überzeugen durch höchste Effizienz auf kleinstem Raum. Mit einem extrem hohen Wirkungsgrad von etwa 24 % maximieren die monokristallinen Zellen die Energieausbeute selbst bei schwachem Licht. Ideal geeignet zum Laden von Powerstationen und – in Kombination mit einem geeigneten Laderegler – auch Batterien. Die hochwertige ETFE-Beschichtung sorgt für eine besonders hohe Witterungsbeständigkeit.
 
@@ -1698,21 +1827,21 @@ Lieferumfang:
 </span>  <img src="assets/konfigurator/media_pimg_pimg_pimg_342975_0_210540.jpg" alt="" loading="lazy">  <span class="chip-text">
 <span class="chip-name">Außendusche Capri<span class="chip-badge">Empfohlen</span></span>
 <span class="price">77,50 &euro;</span>
-</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/comet-capri-einhebelmischer-mit-ausziehbarer-dusche-picchina-und-mikroschalter-chrom-1954?varid=11519" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  </div>  </details>  <details class="extras-cat">  <summary class="extras-cat-title">Sicherheit &amp; Fahrwerk<span class="cat-toggle">+</span></summary>  <div class="chips">  <div class="chip" data-name="Antischlingerkupplung inkl. Anbau" data-price="399" data-variants='[{"label":"AL-KO AKS 3004","price":399,"source":"https://www.fritz-berger.de/artikel/al-ko-anti-schlingerkupplung-aks-3004-3903?varid=23577"},{"label":"Knott KS30","price":349,"source":"https://www.fritz-berger.de/artikel/knott-ks30-antischlingerkupplung-fuer-zugrohre-mit-35-40-45-50-mm-durchmesser-464359?varid=463549"}]' data-images="assets/konfigurator/media_pimg_pimg_pimg_thumbs_219238_1640623.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_219238_1640637.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_219238_1653316.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_219238_1640621.jpg" data-highlights="Zwei bewährte Modelle zur Auswahl: AL-KO AKS 3004 oder Knott KS30|Reduziert Schlingerbewegungen effektiv|Erhöht die Fahrstabilität des Gespanns" data-description="Antischlingerkupplung – für mehr Stabilität und Sicherheit beim Fahren mit Wohnwagen-Gespann. Reduziert Schlingerbewegungen wirkungsvoll und sorgt für ruhigeres Fahrverhalten.
-
-Zur Wahl stehen zwei bewährte Modelle:
-
-AL-KO AKS 3004: Sicherheitskupplung mit Stabilisierungseinrichtung. Vier Reibbeläge pressen sich bei Betätigen des Stabilisierungsgriffs an die Anhängekugel (Bremsmoment bis 320 Nm) und unterdrücken Pendel- oder Nickbewegungen bereits im Ansatz. In Notsituationen lässt sich das Gespann schneller beruhigen, zudem erlaubt sie eine höhere theoretische Maximalgeschwindigkeit.
-
-Knott KS30: Antischlingerkupplung mit integrierter Spurstabilisierung, Sicherheitsanzeige und Softdock. Für Zugrohre Ø 35, 40, 45 oder 50 mm, ausgelegt für Gesamtgewichte bis 3000 kg und Stützlasten bis 300 kg (je nach Schraubenkombination). Inkl. Adapterblechen, Schrauben und Muttern zur Montage.">  <span class="chip-check">&#10003;
-</span>  <img src="assets/konfigurator/media_pimg_pimg_pimg_219238_0_238710.jpg" alt="" loading="lazy">  <span class="chip-text">
-<span class="chip-name">Antischlingerkupplung inkl. Anbau<span class="chip-badge">Empfohlen</span></span>
-<span class="price">399,00 &euro;</span>
-</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/al-ko-anti-schlingerkupplung-aks-3004-3903?varid=23577" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>    <div class="chip" data-name="100-km/h-Zulassung (sofern technisch möglich)" data-price="49" data-images="assets/icon-100kmh.svg" data-highlights="Grundsätzlich sind Wohnwagen-Gespanne auf 80 km/h begrenzt|Mit dieser Zulassung sind bis zu 100 km/h erlaubt, sofern die technischen Voraussetzungen erfüllt sind" data-description="Im Normalfall darf ein Wohnwagen-Gespann nur mit 80 km/h gefahren werden. Mit der 100-km/h-Zulassung darfst du — sofern die technischen Voraussetzungen an Fahrzeug und Anhänger erfüllt sind — auch mit 100 km/h unterwegs sein.">  <span class="chip-check">&#10003;
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/comet-capri-einhebelmischer-mit-ausziehbarer-dusche-picchina-und-mikroschalter-chrom-1954?varid=11519" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  </div>  </details>  <details class="extras-cat">  <summary class="extras-cat-title">Sicherheit &amp; Fahrwerk<span class="cat-toggle">+</span></summary>  <div class="chips">  <div class="chip" data-name="100-km/h-Zulassung (sofern technisch möglich)" data-price="49" data-images="assets/icon-100kmh.svg" data-highlights="Grundsätzlich sind Wohnwagen-Gespanne auf 80 km/h begrenzt|Mit dieser Zulassung sind bis zu 100 km/h erlaubt, sofern die technischen Voraussetzungen erfüllt sind" data-description="Im Normalfall darf ein Wohnwagen-Gespann nur mit 80 km/h gefahren werden. Mit der 100-km/h-Zulassung darfst du — sofern die technischen Voraussetzungen an Fahrzeug und Anhänger erfüllt sind — auch mit 100 km/h unterwegs sein.">  <span class="chip-check">&#10003;
 </span>  <img src="assets/icon-100kmh.svg" alt="" loading="lazy">  <span class="chip-text">
 <span class="chip-name">100-km/h-Zulassung (sofern technisch möglich)<span class="chip-badge">Empfohlen</span></span>
 <span class="price">49,00 &euro;</span>
-</span>  <button type="button" class="chip-info" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger StrongProtect Plus Schutzhülle für Wohnwagen 550–600 cm" data-price="199" data-images="assets/konfigurator/media_pimg_42_429466_thumbs_1644857_9105077.jpg|assets/konfigurator/media_pimg_42_429466_thumbs_1644860_9107123.jpg|assets/konfigurator/media_pimg_42_429466_thumbs_1646399_9108755.jpg|assets/konfigurator/media_pimg_42_429466_thumbs_1646402_9108764.jpg|assets/konfigurator/media_pimg_42_429466_thumbs_1646405_9108773.jpg|assets/konfigurator/media_pimg_42_429466_thumbs_1646408_9108782.jpg" data-highlights="4-lagiges Vliesgewebe mit Baumwoll-Innenseite oben, 3-lagig an den Seiten|Besonders schonend zum Fahrzeuglack|Wasserabweisend, atmungsaktiv und UV-beständig|Inkl. Packtasche und Reparaturset" data-description="Nur in Größe 550–600 cm. Robuste Schutzhülle für deinen Wohnwagen — besonders schonend, wetterfest und atmungsaktiv. Gefertigt aus robustem, mehrlagigem Vliesstoff mit schonender Baumwollmischung auf der Innenseite, schützt sie effektiv vor Kratzern und äußeren Einflüssen. Das wasserabweisende, atmungsaktive und UV-beständige Material sorgt für optimale Belüftung und reduziert Feuchtigkeitsbildung. Inkl. Packtasche, Reparaturset und bequemem Zugang zum Wohnwagen.">  <span class="chip-check">&#10003;
+</span>  <button type="button" class="chip-info" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Antischlingerkupplung inkl. Anbau" data-price="349" data-variants='[{"label":"Knott KS30","price":349,"source":"https://www.fritz-berger.de/artikel/knott-ks30-antischlingerkupplung-fuer-zugrohre-mit-35-40-45-50-mm-durchmesser-464359?varid=463549"},{"label":"AL-KO AKS 3004","price":399,"source":"https://www.fritz-berger.de/artikel/al-ko-anti-schlingerkupplung-aks-3004-3903?varid=23577"}]' data-images="assets/konfigurator/media_pimg_pimg_pimg_thumbs_219238_1640623.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_219238_1640637.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_219238_1653316.jpg|assets/konfigurator/media_pimg_pimg_pimg_thumbs_219238_1640621.jpg" data-highlights="Zwei bewährte Modelle zur Auswahl: Knott KS30 oder AL-KO AKS 3004|Reduziert Schlingerbewegungen effektiv|Erhöht die Fahrstabilität des Gespanns" data-description="Antischlingerkupplung – für mehr Stabilität und Sicherheit beim Fahren mit Wohnwagen-Gespann. Reduziert Schlingerbewegungen wirkungsvoll und sorgt für ruhigeres Fahrverhalten.
+
+Zur Wahl stehen zwei bewährte Modelle:
+
+Knott KS30: Antischlingerkupplung mit integrierter Spurstabilisierung, Sicherheitsanzeige und Softdock. Für Zugrohre Ø 35, 40, 45 oder 50 mm, ausgelegt für Gesamtgewichte bis 3000 kg und Stützlasten bis 300 kg (je nach Schraubenkombination). Inkl. Adapterblechen, Schrauben und Muttern zur Montage.
+
+AL-KO AKS 3004: Sicherheitskupplung mit Stabilisierungseinrichtung. Vier Reibbeläge pressen sich bei Betätigen des Stabilisierungsgriffs an die Anhängekugel (Bremsmoment bis 320 Nm) und unterdrücken Pendel- oder Nickbewegungen bereits im Ansatz. In Notsituationen lässt sich das Gespann schneller beruhigen, zudem erlaubt sie eine höhere theoretische Maximalgeschwindigkeit.">  <span class="chip-check">&#10003;
+</span>  <img src="assets/konfigurator/media_pimg_pimg_pimg_219238_0_238710.jpg" alt="" loading="lazy">  <span class="chip-text">
+<span class="chip-name">Antischlingerkupplung inkl. Anbau<span class="chip-badge">Empfohlen</span></span>
+<span class="price">349,00 &euro;</span>
+</span>  <button type="button" class="chip-info" data-source="https://www.fritz-berger.de/artikel/knott-ks30-antischlingerkupplung-fuer-zugrohre-mit-35-40-45-50-mm-durchmesser-464359?varid=463549" aria-label="Details ansehen" onclick="event.stopPropagation()">i</button>  </div>  <div class="chip" data-name="Berger StrongProtect Plus Schutzhülle für Wohnwagen 550–600 cm" data-price="199" data-images="assets/konfigurator/media_pimg_42_429466_thumbs_1644857_9105077.jpg|assets/konfigurator/media_pimg_42_429466_thumbs_1644860_9107123.jpg|assets/konfigurator/media_pimg_42_429466_thumbs_1646399_9108755.jpg|assets/konfigurator/media_pimg_42_429466_thumbs_1646402_9108764.jpg|assets/konfigurator/media_pimg_42_429466_thumbs_1646405_9108773.jpg|assets/konfigurator/media_pimg_42_429466_thumbs_1646408_9108782.jpg" data-highlights="4-lagiges Vliesgewebe mit Baumwoll-Innenseite oben, 3-lagig an den Seiten|Besonders schonend zum Fahrzeuglack|Wasserabweisend, atmungsaktiv und UV-beständig|Inkl. Packtasche und Reparaturset" data-description="Nur in Größe 550–600 cm. Robuste Schutzhülle für deinen Wohnwagen — besonders schonend, wetterfest und atmungsaktiv. Gefertigt aus robustem, mehrlagigem Vliesstoff mit schonender Baumwollmischung auf der Innenseite, schützt sie effektiv vor Kratzern und äußeren Einflüssen. Das wasserabweisende, atmungsaktive und UV-beständige Material sorgt für optimale Belüftung und reduziert Feuchtigkeitsbildung. Inkl. Packtasche, Reparaturset und bequemem Zugang zum Wohnwagen.">  <span class="chip-check">&#10003;
 </span>  <img src="assets/konfigurator/media_pimg_42_429466_thumbs_1644857_9105077.jpg" alt="" loading="lazy">  <span class="chip-text">
 <span class="chip-name">Berger StrongProtect Plus Schutzhülle für Wohnwagen 550–600 cm</span>
 <span class="price">199,00 &euro;</span>
@@ -2010,6 +2139,7 @@ hasRequestItems ? '<span class="note">zzgl. Positionen „auf Anfrage"</span>' :
   chip.dataset.qty = '1';
   const qtyValueEl = chip.querySelector('.qty-value');
   if (qtyValueEl) qtyValueEl.textContent = '1';
+  if (chip._resetAccessories) chip._resetAccessories();
 
 }
   render();
@@ -2184,19 +2314,23 @@ hasRequestItems ? '<span class="note">zzgl. Positionen „auf Anfrage"</span>' :
     render();
   });
 
-  document.querySelectorAll('.chip[data-variants]').forEach(chip => {
-    const variants = JSON.parse(chip.dataset.variants);
+  document.querySelectorAll('.chip[data-variants], .chip[data-accessories]').forEach(chip => {
+    const variants = chip.dataset.variants ? JSON.parse(chip.dataset.variants) : null;
+    const basePrice = parseFloat(chip.dataset.price);
     const baseName = chip.dataset.name;
     const priceEl = chip.querySelector('.price');
     const infoBtn = chip.querySelector('.chip-info');
-    const select = document.createElement('select');
-    select.className = 'chip-variant-select';
-    variants.forEach((v, i) => {
-      const opt = document.createElement('option');
-      opt.value = i;
-      opt.textContent = `${v.label} — ${fmtEuro(v.price)}`;
-      select.appendChild(opt);
-    });
+    let select = null;
+    if (variants){
+      select = document.createElement('select');
+      select.className = 'chip-variant-select';
+      variants.forEach((v, i) => {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `${v.label} — ${fmtEuro(v.price)}`;
+        select.appendChild(opt);
+      });
+    }
 
     const colorOptions = chip.dataset.colorOptions ? chip.dataset.colorOptions.split('|').filter(Boolean) : null;
     let colorLabel = colorOptions ? colorOptions[0] : null;
@@ -2212,30 +2346,114 @@ hasRequestItems ? '<span class="note">zzgl. Positionen „auf Anfrage"</span>' :
       });
     }
 
+    const accessories = chip.dataset.accessories ? JSON.parse(chip.dataset.accessories) : null;
+    const accessoryState = accessories ? accessories.map(() => ({ checked: false, variantIndex: 0 })) : null;
+    let currentVariantIndex = 0;
+
     function applyVariant(i){
-      const v = variants[i];
-      const suffix = colorLabel ? `${v.label}, ${colorLabel}` : v.label;
-      chip.dataset.name = `${baseName} (${suffix})`;
-      chip.dataset.price = v.price;
+      currentVariantIndex = i;
+      const v = variants ? variants[i] : { price: basePrice, source: null, label: null };
+      const suffix = variants ? (colorLabel ? `${v.label}, ${colorLabel}` : v.label) : null;
+      let name = suffix ? `${baseName} (${suffix})` : baseName;
+      let price = v.price;
+      if (accessories){
+        const extras = [];
+        accessories.forEach((acc, idx) => {
+          const st = accessoryState[idx];
+          let av;
+          if (acc.variants) av = acc.variants[st.variantIndex];
+          else if (acc.priceByVariant) av = { label: variants ? variants[currentVariantIndex].label : null, price: acc.priceByVariant[currentVariantIndex] };
+          else av = { label: null, price: acc.price };
+          if (acc._priceSpan) acc._priceSpan.textContent = fmtEuro(av.price);
+          if (!st.checked) return;
+          price += av.price;
+          extras.push(av.label ? `${acc.name} (${av.label})` : acc.name);
+        });
+        if (extras.length) name += `, inkl. ${extras.join(', ')}`;
+      }
+      chip.dataset.name = name;
+      chip.dataset.price = price;
       if (infoBtn && v.source) infoBtn.dataset.source = v.source;
-      if (priceEl) priceEl.textContent = fmtEuro(v.price);
+      if (priceEl) priceEl.textContent = fmtEuro(price);
       if (modalChip === chip) openModal(chip);
     }
-    select.addEventListener('click', e => e.stopPropagation());
-    select.addEventListener('change', () => {
-      applyVariant(Number(select.value));
-      if (chip.classList.contains('selected')) render();
-    });
-    if (variants.length > 1) chip.querySelector('.chip-text').appendChild(select);
+    if (select){
+      select.addEventListener('click', e => e.stopPropagation());
+      select.addEventListener('change', () => {
+        applyVariant(Number(select.value));
+        if (chip.classList.contains('selected')) render();
+      });
+      if (variants.length > 1) chip.querySelector('.chip-text').appendChild(select);
+    }
     if (colorSelect){
       colorSelect.addEventListener('click', e => e.stopPropagation());
       colorSelect.addEventListener('change', () => {
         colorLabel = colorOptions[Number(colorSelect.value)];
-        applyVariant(Number(select.value));
+        applyVariant(currentVariantIndex);
         if (chip.classList.contains('selected')) render();
       });
       chip.querySelector('.chip-text').appendChild(colorSelect);
     }
+
+    if (accessories){
+      chip.classList.add('has-accessories');
+      const accWrap = document.createElement('div');
+      accWrap.className = 'chip-accessories';
+      accWrap.addEventListener('click', e => e.stopPropagation());
+      const checkboxes = [];
+      accessories.forEach((acc, idx) => {
+        const st = accessoryState[idx];
+        const row = document.createElement('label');
+        row.className = 'chip-accessory';
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        checkboxes.push(cb);
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'acc-name';
+        nameSpan.textContent = '+ ' + acc.name;
+        row.appendChild(cb);
+        row.appendChild(nameSpan);
+        if (acc.variants){
+          const accSelect = document.createElement('select');
+          accSelect.className = 'acc-variant-select';
+          acc.variants.forEach((v, i) => {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = `${v.label} — ${fmtEuro(v.price)}`;
+            accSelect.appendChild(opt);
+          });
+          accSelect.addEventListener('click', e => e.stopPropagation());
+          accSelect.addEventListener('change', () => {
+            st.variantIndex = Number(accSelect.value);
+            applyVariant(currentVariantIndex);
+            if (chip.classList.contains('selected')) render();
+          });
+          row.appendChild(accSelect);
+        } else {
+          const priceSpan = document.createElement('span');
+          priceSpan.className = 'acc-price';
+          priceSpan.textContent = fmtEuro(acc.priceByVariant ? acc.priceByVariant[currentVariantIndex] : acc.price);
+          row.appendChild(priceSpan);
+          if (acc.priceByVariant) acc._priceSpan = priceSpan;
+        }
+        cb.addEventListener('change', () => {
+          st.checked = cb.checked;
+          if (cb.checked && !chip.classList.contains('selected')){
+            chip.classList.add('selected');
+          }
+          applyVariant(currentVariantIndex);
+          render();
+        });
+        accWrap.appendChild(row);
+      });
+      chip.appendChild(accWrap);
+      chip._resetAccessories = () => {
+        accessoryState.forEach(s => { s.checked = false; s.variantIndex = 0; });
+        checkboxes.forEach(cb => cb.checked = false);
+        applyVariant(currentVariantIndex);
+      };
+    }
+
     applyVariant(0);
   });
 

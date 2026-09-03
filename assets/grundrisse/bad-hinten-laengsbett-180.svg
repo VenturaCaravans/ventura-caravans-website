@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 290" role="img" aria-label="Grundriss: Bad hinten links, Eckküche über Eck, Mittelsitzgruppe mit Tisch, Kühlschrank und Kleiderschrank gegenüber, Bett 180 × 200 cm im Bug">
+  <title>Grundriss mit Bad im Heck und Bett 180 × 200 cm</title>
+  <defs>
+    <pattern id="schrankHatchC" width="10" height="10" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#dfceb2"/>
+      <line x1="5" y1="0" x2="5" y2="10" stroke="#706e5c" stroke-width="1.8"/>
+    </pattern>
+  </defs>
+
+  <!-- Deichsel -->
+  <path d="M648,112 L742,133 V152 L648,173 Z" fill="#706e5c" fill-opacity="0.28" stroke="#403f2b" stroke-width="2.5" stroke-linejoin="round"/>
+  <line x1="742" y1="142" x2="770" y2="142" stroke="#403f2b" stroke-width="4" stroke-linecap="round"/>
+  <path d="M762,134 q12,8 0,16" fill="none" stroke="#403f2b" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Aufbau -->
+  <rect x="10" y="12" width="644" height="262" rx="26" fill="#fefaf0" stroke="#403f2b" stroke-width="5"/>
+
+  <!-- Bad hinten links, mit abgeschrägter Ecke -->
+  <path d="M30,26 H160 V104 L88,140 H30 Z" fill="#fefaf0" stroke="#403f2b" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="88" y="32" width="68" height="76" rx="6" fill="#fefaf0" stroke="#403f2b" stroke-width="2"/>
+  <circle cx="150" cy="40" r="3" fill="#403f2b"/>
+  <ellipse cx="62" cy="62" rx="24" ry="26" fill="#fefaf0" stroke="#403f2b" stroke-width="2.2"/>
+  <circle cx="62" cy="118" r="22" fill="#fefaf0" stroke="#403f2b" stroke-width="2.2"/>
+  <circle cx="62" cy="118" r="3" fill="#403f2b"/>
+  <line x1="90" y1="138" x2="128" y2="118" stroke="#403f2b" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Küche über Eck -->
+  <path d="M22,140 H84 V222 H210 V262 H22 Z" fill="#dfceb2" fill-opacity="0.5" stroke="#403f2b" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="34" y="178" width="38" height="34" rx="5" fill="#fefaf0" stroke="#403f2b" stroke-width="2"/>
+  <line x1="42" y1="212" x2="64" y2="204" stroke="#403f2b" stroke-width="2.2" stroke-linecap="round"/>
+  <rect x="128" y="232" width="58" height="26" rx="3" fill="#403f2b"/>
+  <circle cx="143" cy="245" r="8" fill="none" stroke="#fefaf0" stroke-width="2"/>
+  <circle cx="171" cy="245" r="8" fill="none" stroke="#fefaf0" stroke-width="2"/>
+
+  <!-- Mittelsitzgruppe: zwei Bänke mit Tisch dazwischen -->
+  <rect x="163" y="26" width="66" height="84" rx="3" fill="#62979f" fill-opacity="0.5" stroke="#403f2b" stroke-width="2.5"/>
+  <rect x="233" y="28" width="74" height="80" rx="8" fill="#f7f0dd" stroke="#403f2b" stroke-width="2.5"/>
+  <rect x="311" y="26" width="46" height="84" rx="3" fill="#62979f" fill-opacity="0.5" stroke="#403f2b" stroke-width="2.5"/>
+  <rect x="359" y="26" width="22" height="84" rx="3" fill="#62979f" fill-opacity="0.5" stroke="#403f2b" stroke-width="2.5"/>
+
+  <!-- Kühlschrank -->
+  <rect x="241" y="192" width="58" height="70" rx="3" fill="#f7f0dd" stroke="#403f2b" stroke-width="2.5"/>
+  <g stroke="#403f2b" stroke-width="2" stroke-linecap="round">
+    <line x1="270" y1="216" x2="270" y2="238"/>
+    <line x1="260" y1="221" x2="280" y2="233"/>
+    <line x1="280" y1="221" x2="260" y2="233"/>
+  </g>
+
+  <!-- Kleiderschrank mit Dachschräge -->
+  <path d="M299,262 V190 L340,170 L381,190 V262 Z" fill="url(#schrankHatchC)" stroke="#403f2b" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Bett 180 x 200 cm, Kopfende zur Deichsel -->
+  <rect x="383" y="26" width="227" height="236" rx="4" fill="#dfceb2" stroke="#403f2b" stroke-width="2.5"/>
+  <path d="M556,64 Q578,76 600,64 Q588,98 600,132 Q578,120 556,132 Q568,98 556,64 Z"
+        fill="#706e5c" fill-opacity="0.55" stroke="#403f2b" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M556,156 Q578,168 600,156 Q588,190 600,224 Q578,212 556,224 Q568,190 556,156 Z"
+        fill="#706e5c" fill-opacity="0.55" stroke="#403f2b" stroke-width="2.2" stroke-linejoin="round"/>
+
+  <!-- Frontschrank -->
+  <rect x="610" y="26" width="26" height="236" rx="4" fill="#f7f0dd" stroke="#403f2b" stroke-width="2.5"/>
+
+  <!-- Fenster -->
+  <g fill="#fefaf0" stroke="#403f2b" stroke-width="2.5">
+    <rect x="42" y="4" width="68" height="16"/>
+    <rect x="200" y="4" width="136" height="16"/>
+    <rect x="436" y="4" width="110" height="16"/>
+    <rect x="424" y="266" width="116" height="16"/>
+    <rect x="2" y="142" width="16" height="80"/>
+    <rect x="646" y="72" width="16" height="142"/>
+  </g>
+
+  <!-- Eingangstür -->
+  <rect x="156" y="270" width="72" height="8" fill="#fefaf0"/>
+  <line x1="228" y1="272" x2="170" y2="288" stroke="#403f2b" stroke-width="3" stroke-linecap="round"/>
+</svg>

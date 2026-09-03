@@ -43,8 +43,25 @@
     font-family:Inter, sans-serif; font-size:12.5px; font-weight:600;
     text-transform:uppercase; letter-spacing:.07em; color:var(--olive);
     margin:0 0 10px;
+    display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+  }
+  .sk-count{
+    font-weight:400; font-size:11px; letter-spacing:0; text-transform:none;
+    color:var(--ink-soft); white-space:nowrap;
   }
   .sk-swatches{ display:flex; flex-wrap:wrap; gap:10px; }
+  /* Lange Dekor-Listen scrollen, statt die Seite endlos zu strecken */
+  .sk-swatches.is-scroll{
+    max-height:300px; overflow-y:auto; padding:12px 10px;
+    border:1px solid var(--line); border-radius:8px;
+    background:rgba(255,255,255,.5);
+    scrollbar-width:thin; scrollbar-color:rgba(64,63,43,.35) transparent;
+  }
+  .sk-swatches.is-scroll::-webkit-scrollbar{ width:8px; }
+  .sk-swatches.is-scroll::-webkit-scrollbar-thumb{
+    background:rgba(64,63,43,.28); border-radius:4px;
+  }
+  .sk-swatches.is-scroll::-webkit-scrollbar-thumb:hover{ background:rgba(64,63,43,.45); }
   .sk-sw{
     cursor:pointer; border:none; background:none; padding:0;
     width:76px; text-align:center; font:inherit;
@@ -70,6 +87,19 @@
     box-shadow:0 1px 3px rgba(0,0,0,.18); transition:transform .12s ease;
   }
   .sk-sw-zoom:hover{ transform:scale(1.1); }
+
+  /* ---- Zone ohne Auswahl (Karosserie oben ist immer weiß) ---- */
+  .sk-fest{
+    display:flex; align-items:center; gap:12px;
+    border:1px solid var(--line); border-radius:8px; padding:10px 12px;
+    background:rgba(255,255,255,.5);
+  }
+  .sk-fest .sk-dot{ width:34px; height:34px; margin:0; flex:none; }
+  .sk-fest-text strong{ display:block; font-size:12.5px; font-weight:600; color:var(--ink); }
+  .sk-fest-text em{
+    display:block; font-style:normal; font-size:11.5px;
+    color:var(--ink-soft); margin-top:2px;
+  }
 
   /* ---- RAL-Liste (durchsuchbar, ersetzt Swatch-Kacheln für Außenfarben) ---- */
   .sk-ral-search{
@@ -662,6 +692,8 @@ const RAL_FARBEN = [
   { name: 'Papyrusweiß',     ral: 'RAL 9018', hex: '#CFD3CD' }
 ];
 const RAL_VARS = ['--a-oben', '--a-unten'];
+/* Zonen ohne Auswahl: der Oberteil der Karosserie bleibt serienmäßig weiß */
+const FEST_VARS = ['--a-oben'];
 
 /* --- INNEN: Materialien (Fronten, Arbeitsplatte, Boden ...), keine RAL-Töne --- */
 const PALETTEN = {
@@ -991,7 +1023,7 @@ const PALETTEN = {
 
 /* Startzustand = unser typischer Look (wie z. B. bei Sandy / Christa) */
 const AUSWAHL = {
-  '--a-oben': RAL_FARBEN.findIndex(f => f.ral === 'RAL 9001'),
+  '--a-oben': RAL_FARBEN.findIndex(f => f.ral === 'RAL 9010'),
   '--a-unten': RAL_FARBEN.findIndex(f => f.ral === 'RAL 1024'),
   '--i-front': 0, '--i-platte': 0, '--i-spritz': 0, '--i-wand': 0, '--i-boden': 0
 };
@@ -1010,9 +1042,18 @@ document.querySelectorAll('.sk-group').forEach(gruppe => {
   const variable = gruppe.dataset.var;
   const titel = document.createElement('h3');
   titel.textContent = gruppe.dataset.label;
+  const palette = PALETTEN[variable];
+  if (!RAL_VARS.includes(variable) && palette && palette.length > 1){
+    const anzahl = document.createElement('span');
+    anzahl.className = 'sk-count';
+    anzahl.textContent = palette.length + ' ' + (palette.some(f => f.img) ? 'Dekore' : 'Farben');
+    titel.appendChild(anzahl);
+  }
   gruppe.appendChild(titel);
 
-  if (RAL_VARS.includes(variable)) {
+  if (FEST_VARS.includes(variable)) {
+    baueFesteFarbe(gruppe, variable);
+  } else if (RAL_VARS.includes(variable)) {
     baueRalListe(gruppe, variable);
   } else {
     baueSwatches(gruppe, variable);
@@ -1065,7 +1106,27 @@ function baueSwatches(gruppe, variable){
     reihe.appendChild(wrap);
   });
 
+  // Ab einer gewissen Menge scrollen statt die Seite zu strecken
+  if (PALETTEN[variable].length > 12) reihe.classList.add('is-scroll');
+
   gruppe.appendChild(reihe);
+
+  // Bei langen Listen die aktuelle Auswahl sichtbar machen
+  if (reihe.classList.contains('is-scroll')){
+    const aktiv = reihe.querySelector('.sk-sw[aria-pressed="true"]');
+    if (aktiv) reihe.scrollTop = Math.max(0, aktiv.closest('.sk-sw-wrap').offsetTop - 12);
+  }
+}
+
+/* Zone ohne Auswahl: zeigt die feste Farbe samt kurzer Begründung statt einer Liste */
+function baueFesteFarbe(gruppe, variable){
+  const farbe = paletteFuer(variable)[AUSWAHL[variable]];
+  const box = document.createElement('div');
+  box.className = 'sk-fest';
+  box.innerHTML = '<span class="sk-dot" style="background:' + farbe.hex + '"></span>'
+                + '<span class="sk-fest-text"><strong>' + bezeichnung(farbe) + '</strong>'
+                + '<em>Serienmäßig weiß — farbig lackiert wird nur der untere Teil.</em></span>';
+  gruppe.appendChild(box);
 }
 
 function baueRalListe(gruppe, variable){
