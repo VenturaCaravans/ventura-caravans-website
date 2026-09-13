@@ -99,19 +99,24 @@ p{ margin:0 0 1em; }
 .header-aktionen{ display:flex; align-items:center; flex-shrink:0; }
 .header-aktionen .btn-header-wa{ display:inline-flex; align-items:center; gap:7px; }
 .btn-header-wa svg{ width:16px; height:16px; flex-shrink:0; }
-/* Handy: nur das Symbol, quadratisch */
-@media (max-width:480px){
+/* Handy: nur das Symbol, quadratisch (bis 560 px, sonst wird es neben dem größeren Schriftzug eng) */
+@media (max-width:560px){
   .header-aktionen .btn-header-wa{ width:36px; height:36px; padding:0; justify-content:center; }
   .btn-header-wa span{ display:none; }
   .btn-header-wa svg{ width:19px; height:19px; }
 }
 @media (max-width:420px){
   .brand{ gap:9px !important; }
-  .brand span{ font-size:16px !important; }
-  .brand img{ height:44px !important; width:44px !important; }
+  .brand span{ font-size:18px !important; }
+  .brand img{ height:50px !important; width:50px !important; }
 }
-@media (max-width:350px){
-  .brand span{ font-size:15px !important; }
+@media (max-width:374px){
+  .brand span{ font-size:16.5px !important; }
+  .brand img{ height:46px !important; width:46px !important; }
+}
+@media (max-width:340px){
+  .brand{ gap:7px !important; }
+  .brand span{ font-size:14.5px !important; }
   .brand img{ height:40px !important; width:40px !important; }
 }
 
@@ -179,8 +184,8 @@ p{ margin:0 0 1em; }
   /* Kopfzeile so abstimmen, dass Logo + Schriftzug auf eine Zeile passen */
   .site-header .container{ gap:10px; }
   .brand{ gap:10px; min-width:0; }
-  .brand img{ height:48px; width:48px; }
-  .brand span{ font-size:18px; white-space:nowrap; }
+  .brand img{ height:54px; width:54px; }
+  .brand span{ font-size:20px; white-space:nowrap; }
   .btn-header{ padding:8px 12px; font-size:13px; }
   .header-aktionen{ margin-left:auto; }
   .main-nav{
