@@ -310,9 +310,11 @@ p{ margin:0 0 1em; }
   .hero-zwei .hero-wahl{ grid-template-columns:1fr; gap:64px; }
   .hero-zwei .hero-kopf{ padding-bottom:84px; }
 }
+/* Handy: Platz unter dem Button für den Wohnwagen. Ein kompakterer Versuch ohne diese Fläche
+   gefiel Norman nicht (14.09.2026) — stattdessen sind die Wohnwagen hier größer (vorher 150 px). */
 @media (max-width:520px){
-  .hero-zwei .hero-karte{ padding-bottom:84px; }
-  .hero-zwei .hero-karte-bild{ width:150px; right:-8px; bottom:-34px; }
+  .hero-zwei .hero-karte{ padding-bottom:92px; }
+  .hero-zwei .hero-karte-bild{ width:185px; right:-10px; bottom:-40px; }
 }
 @media (max-width:780px){
   .hero-wahl{ grid-template-columns:1fr; gap:14px; }
