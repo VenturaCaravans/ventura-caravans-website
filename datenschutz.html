@@ -27,20 +27,27 @@
     <nav class="main-nav" id="main-nav">
       <ul>
         <li><a href="index.html">Start</a></li>
-        <li><a href="leistungen.html">Leistungen</a></li>
-        <li><a href="vermietung.html">Vermietung</a></li>
-        <li><a href="projekte.html">Projekte</a></li>
         <li class="has-dropdown">
-          <a href="konfigurator.html">Konfigurator <span class="caret">▾</span></a>
+          <a href="verkauf.html">Verkauf <span class="caret">▾</span></a>
           <ul class="dropdown-menu">
-            <li><a href="konfigurator.html">Preiskonfigurator</a></li>
-            <li><a href="stil-konfigurator.html">Stilkonfigurator</a></li>
+            <li><a href="refurbished.html">Gebrauchte Basismodelle <small class="dropdown-zusatz">verschiedene Modelle</small></a></li>
+            <li><a href="neufahrzeuge.html">Neue Basismodelle <small class="dropdown-zusatz">LMC e:dero-Serie</small></a></li>
           </ul>
         </li>
+        <li class="has-dropdown">
+          <a href="vermietung.html">Vermietung <span class="caret">▾</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="vermietung-sandy.html">Sandy <small class="dropdown-zusatz">bis 2 Erwachsene + 1 Kleinkind</small></a></li>
+            <li><a href="vermietung-flo.html">Flo <small class="dropdown-zusatz">bis 2 Erwachsene + 2 Kinder</small></a></li>
+          </ul>
+        </li>
+        <li><a href="projekte.html">Projekte</a></li>
         <li><a href="ueber-uns.html">Über uns</a></li>
       </ul>
     </nav>
-    <a href="kontakt.html" class="btn btn-primary btn-header">Kontakt</a>
+    <div class="header-aktionen">
+      <a href="https://wa.me/4917656032460" class="btn btn-primary btn-header btn-header-wa" target="_blank" rel="noopener" aria-label="Per WhatsApp schreiben"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.310l-.34-.2-3.56.93.95-3.47-.22-.36a9.39 9.39 0 0 1-1.44-5.01c0-5.19 4.23-9.41 9.42-9.41 2.51 0 4.88.98 6.65 2.76a9.35 9.35 0 0 1 2.75 6.66c0 5.19-4.23 9.41-9.41 9.41zm8.01-17.42A11.26 11.26 0 0 0 12.05.75C5.8.75.72 5.83.72 12.08c0 2 .52 3.95 1.52 5.66L.62 23.25l5.65-1.48a11.3 11.3 0 0 0 5.78 1.47h.01c6.24 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.01z"/></svg><span>WhatsApp</span></a>
+    </div>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="main-nav">
       <span></span><span></span><span></span>
     </button>
@@ -79,6 +86,7 @@
 
     <h2>7. Konfigurator: Anfragen &amp; PDF</h2>
     <p>Eure Auswahl im Konfigurator (Basisausbau, Extras, Mengen, Varianten, Notiz) kann technisch über die localStorage-Funktion eures Browsers zwischengespeichert werden. Diese Daten verbleiben ausschließlich lokal auf eurem Gerät, werden nicht an uns oder Dritte übertragen und können jederzeit über die Browser-Einstellungen gelöscht werden. Aktuell ist diese Wiederherstellung deaktiviert — die Seite startet bei jedem Aufruf leer.</p>
+    <p>Wenn ihr im Stil-Konfigurator Farben und Materialien auswählt und anschließend zum Preis-Konfigurator weitergeht, wird diese Stil-Auswahl über die sessionStorage-Funktion eures Browsers an den nächsten Schritt übergeben, damit sie in der Zusammenfassung, im PDF und in eurer Anfrage erscheint. Auch diese Daten bleiben ausschließlich lokal auf eurem Gerät und werden automatisch gelöscht, sobald ihr den Browser-Tab schließt. An uns gelangen sie nur, wenn ihr selbst eine Anfrage per E-Mail oder WhatsApp absendet.</p>
     <p>Die Zusammenfassung eurer Konfiguration könnt ihr euch als PDF herunterladen. Die Datei wird vollständig lokal in eurem Browser erzeugt (mittels der von unserem eigenen Server ausgelieferten JavaScript-Bibliothek jsPDF); dabei findet keine Übertragung an uns oder Dritte statt.</p>
     <p>Der Button „Anfrage per E-Mail senden" öffnet, wie beim Kontaktformular, euer eigenes E-Mail-Programm mit einer vorausgefüllten Nachricht — auch hier erfolgt keine automatische Übertragung an einen Server dieser Website.</p>
     <p>Der Button „Anfrage per WhatsApp senden" öffnet je nach Gerät die WhatsApp-App oder WhatsApp Web mit einer vorausgefüllten Nachricht an unsere Geschäftsnummer; auf mobilen Geräten kann die PDF-Datei zusätzlich über die Web-Share-Funktion eures Betriebssystems als Anhang mitgegeben werden. Der Versand erfolgt erst, wenn ihr die Nachricht in WhatsApp aktiv abschickt. WhatsApp wird von WhatsApp Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland (Meta-Konzern) betrieben; für die Verarbeitung eurer Daten innerhalb von WhatsApp gilt ausschließlich deren eigene Datenschutzerklärung (<a href="https://www.whatsapp.com/legal/privacy-policy-eea" target="_blank" rel="noopener">whatsapp.com/legal/privacy-policy-eea</a>), auf die wir keinen Einfluss haben.</p>
@@ -109,6 +117,11 @@
   </div>
 </section>
 
+<section class="partner-band am-footer" aria-label="Unsere Partner">
+  <p class="partner-titel">Wir arbeiten mit starken Herstellern und Partnern zusammen</p>
+  <div class="partner-leiste"></div>
+</section>
+
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
@@ -120,6 +133,7 @@
         <h4>Leistungen</h4>
         <ul>
           <li><a href="verkauf.html">Verkauf</a></li>
+          <li><a href="refurbished.html">Gebrauchte Basismodelle</a></li>
           <li><a href="vermietung.html">Vermietung</a></li>
           <li><a href="individuelle-gestaltung.html">Individuelle Gestaltung</a></li>
           <li><a href="ankauf-raeumung.html">Ankauf &amp; Räumung</a></li>
@@ -128,13 +142,15 @@
       <div>
         <h4>Kontakt</h4>
         <ul>
+          <li><a href="kontakt.html">Kontaktseite &amp; Formular</a></li>
+          <li><a href="https://wa.me/4917656032460" target="_blank" rel="noopener">WhatsApp</a></li>
           <li><a href="mailto:info@ventura-caravans.de">info@ventura-caravans.de</a></li>
           <li><a href="ueber-uns.html">Über uns</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-funding">
-      <img src="assets/foerderbanner-transparent.png" alt="Kofinanziert von der Europäischen Union und dem Land Sachsen-Anhalt">
+      <img src="assets/foerderbanner-eu-sachsen-anhalt.png" alt="Kofinanziert von der Europäischen Union und dem Land Sachsen-Anhalt">
     </div>    <div class="footer-bottom">
       <span>© <span id="year"></span> Ventura Caravans</span>
       <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="agb.html">AGB</a></span>
@@ -171,8 +187,9 @@
 
   // Menü schließen, wenn ein Punkt angetippt oder auf Desktop-Breite gewechselt wird
   nav.addEventListener('click', (e) => { if (e.target.closest('a')) closeNav(); });
-  window.addEventListener('resize', () => { if (window.innerWidth > 980 && nav.classList.contains('open')) closeNav(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 900 && nav.classList.contains('open')) closeNav(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('open')) closeNav(); });
 </script>
+<script src="js/partner.js"></script>
 </body>
 </html>

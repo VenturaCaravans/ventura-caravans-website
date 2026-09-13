@@ -35,6 +35,9 @@
     padding:10px; overflow:hidden;
   }
   .sk-canvas svg{ display:block; width:100%; height:auto; }
+  /* Neufahrzeug-Modus: Foto statt Zeichnung. multiply lässt den weißen Fotohintergrund
+     in der Cremefläche verschwinden, die Folienfarben bleiben kräftig. */
+  .sk-foto{ display:block; width:100%; height:auto; mix-blend-mode:multiply; }
   .sk-view[hidden]{ display:none; }
 
   /* ---- Steuerung ---- */
@@ -157,25 +160,38 @@
     <nav class="main-nav" id="main-nav">
       <ul>
         <li><a href="index.html">Start</a></li>
-        <li><a href="leistungen.html">Leistungen</a></li>
-        <li><a href="vermietung.html">Vermietung</a></li>
-        <li><a href="projekte.html">Projekte</a></li>
         <li class="has-dropdown">
-          <a href="konfigurator.html" class="nav-active">Konfigurator <span class="caret">▾</span></a>
+          <a href="verkauf.html" class="nav-active">Verkauf <span class="caret">▾</span></a>
           <ul class="dropdown-menu">
-            <li><a href="konfigurator.html">Preiskonfigurator</a></li>
-            <li><a href="stil-konfigurator.html" aria-current="page">Stilkonfigurator</a></li>
+            <li><a href="refurbished.html">Gebrauchte Basismodelle <small class="dropdown-zusatz">verschiedene Modelle</small></a></li>
+            <li><a href="neufahrzeuge.html">Neue Basismodelle <small class="dropdown-zusatz">LMC e:dero-Serie</small></a></li>
           </ul>
         </li>
+        <li class="has-dropdown">
+          <a href="vermietung.html">Vermietung <span class="caret">▾</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="vermietung-sandy.html">Sandy <small class="dropdown-zusatz">bis 2 Erwachsene + 1 Kleinkind</small></a></li>
+            <li><a href="vermietung-flo.html">Flo <small class="dropdown-zusatz">bis 2 Erwachsene + 2 Kinder</small></a></li>
+          </ul>
+        </li>
+        <li><a href="projekte.html">Projekte</a></li>
         <li><a href="ueber-uns.html">Über uns</a></li>
       </ul>
     </nav>
-    <a href="kontakt.html" class="btn btn-primary btn-header">Kontakt</a>
+    <div class="header-aktionen">
+      <a href="https://wa.me/4917656032460" class="btn btn-primary btn-header btn-header-wa" target="_blank" rel="noopener" aria-label="Per WhatsApp schreiben"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.310l-.34-.2-3.56.93.95-3.47-.22-.36a9.39 9.39 0 0 1-1.44-5.01c0-5.19 4.23-9.41 9.42-9.41 2.51 0 4.88.98 6.65 2.76a9.35 9.35 0 0 1 2.75 6.66c0 5.19-4.23 9.41-9.41 9.41zm8.01-17.42A11.26 11.26 0 0 0 12.05.75C5.8.75.72 5.83.72 12.08c0 2 .52 3.95 1.52 5.66L.62 23.25l5.65-1.48a11.3 11.3 0 0 0 5.78 1.47h.01c6.24 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.01z"/></svg><span>WhatsApp</span></a>
+    </div>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="main-nav">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
+
+<div class="ablauf-band">
+  <div class="container">
+    <nav class="ablauf" data-ablauf="refurbished" data-schritt="stil" aria-label="Ablauf Gebrauchte Basismodelle"></nav>
+  </div>
+</div>
 
 <div class="lightbox" id="sk-lightbox" role="dialog" aria-modal="true" aria-label="Dekor-Ansicht" hidden>
   <button type="button" class="lb-close" id="sk-lb-close" aria-label="Schließen">&#10005;</button>
@@ -190,7 +206,7 @@
 <section class="section">
   <div class="container">
     <div class="section-head">
-      <p class="eyebrow">Stil-Konfigurator</p>
+      <p class="eyebrow">Schritt 1 · Stil gestalten</p>
       <h1 style="font-size:clamp(30px,4.4vw,46px)">Wie soll euer Wohnwagen aussehen?</h1>
       <p class="lede" style="max-width:62ch">Wählt Farben für außen und innen — ihr seht sofort, wie die Kombination wirkt. Alle Töne stammen aus unserem typischen Stil, so wie ihr ihn aus unseren Projekten kennt.</p>
     </div>
@@ -413,14 +429,19 @@
           <h3>Eure Zusammenstellung</h3>
           <dl id="summary"></dl>
           <div class="sk-actions">
-            <a href="#" class="btn btn-primary" id="anfrage">Diesen Stil anfragen</a>
-            <a href="konfigurator.html" class="btn btn-outline">Zum Preis-Konfigurator</a>
+            <a href="konfigurator.html" class="btn btn-primary" id="weiter-preis">Weiter zu Schritt 2: Preis &amp; Extras →</a>
+            <a href="#" class="btn btn-outline" id="anfrage">Nur den Stil anfragen</a>
           </div>
         </div>
       </div>
 
     </div>
   </div>
+</section>
+
+<section class="partner-band am-footer" aria-label="Unsere Partner">
+  <p class="partner-titel">Wir arbeiten mit starken Herstellern und Partnern zusammen</p>
+  <div class="partner-leiste"></div>
 </section>
 
 <footer class="site-footer">
@@ -434,6 +455,7 @@
         <h4>Leistungen</h4>
         <ul>
           <li><a href="verkauf.html">Verkauf</a></li>
+          <li><a href="refurbished.html">Gebrauchte Basismodelle</a></li>
           <li><a href="vermietung.html">Vermietung</a></li>
           <li><a href="individuelle-gestaltung.html">Individuelle Gestaltung</a></li>
           <li><a href="ankauf-raeumung.html">Ankauf &amp; Räumung</a></li>
@@ -442,13 +464,15 @@
       <div>
         <h4>Kontakt</h4>
         <ul>
+          <li><a href="kontakt.html">Kontaktseite &amp; Formular</a></li>
+          <li><a href="https://wa.me/4917656032460" target="_blank" rel="noopener">WhatsApp</a></li>
           <li><a href="mailto:info@ventura-caravans.de">info@ventura-caravans.de</a></li>
           <li><a href="ueber-uns.html">Über uns</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-funding">
-      <img src="assets/foerderbanner-transparent.png" alt="Kofinanziert von der Europäischen Union und dem Land Sachsen-Anhalt">
+      <img src="assets/foerderbanner-eu-sachsen-anhalt.png" alt="Kofinanziert von der Europäischen Union und dem Land Sachsen-Anhalt">
     </div>    <div class="footer-bottom">
       <span>© <span id="year"></span> Ventura Caravans</span>
       <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="agb.html">AGB</a></span>
@@ -481,7 +505,7 @@
     document.body.style.overflow = open ? 'hidden' : '';
   });
   nav.addEventListener('click', (e) => { if (e.target.closest('a')) closeNav(); });
-  window.addEventListener('resize', () => { if (window.innerWidth > 980 && nav.classList.contains('open')) closeNav(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 900 && nav.classList.contains('open')) closeNav(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('open')) closeNav(); });
 </script>
 
@@ -1028,6 +1052,99 @@ const AUSWAHL = {
   '--i-front': 0, '--i-platte': 0, '--i-spritz': 0, '--i-wand': 0, '--i-boden': 0
 };
 
+/* ---- Modus Neufahrzeug: stil-konfigurator.html?fahrzeug=neu ----
+   Dieselbe Seite dient als Schritt 1 für den LMC e:dero. Unterschiede:
+   - Außen: echtes Foto statt Zeichnung, gewählt wird die FOLIERUNG (Neufahrzeuge werden
+     foliert, nicht lackiert). Fotos unter assets/neufahrzeuge/folierung/, von Norman geliefert.
+     hex = per Pixelprobe gemessene Farbe der Folienfläche (nur für den Farbpunkt).
+   - Innen: dieselben Zonen wie bei Refurbished.
+   - Eigener Speicher (ventura-stil-neu-v1), „Weiter" führt in den Neufahrzeug-Konfigurator. */
+const MODUS_NEU = new URLSearchParams(location.search).get('fahrzeug') === 'neu';
+const FOLIE_ORDNER = 'assets/neufahrzeuge/folierung/edero-folie-';
+const FOLIEN = [
+  { name: 'Orange',             hex: '#EA922A', foto: FOLIE_ORDNER + '01-orange-standard.jpg' },
+  { name: 'Rot',                hex: '#B72124', foto: FOLIE_ORDNER + '02-rot.jpg' },
+  { name: 'Orange kräftig',     hex: '#FC660C', foto: FOLIE_ORDNER + '03-orange-kraeftig.jpg' },
+  { name: 'Gelb',               hex: '#FADE11', foto: FOLIE_ORDNER + '04-gelb.jpg' },
+  { name: 'Grün',               hex: '#4F9A38', foto: FOLIE_ORDNER + '05-gruen.jpg' },
+  { name: 'Blau',               hex: '#0A72E9', foto: FOLIE_ORDNER + '06-blau.jpg' },
+  { name: 'Indigo',             hex: '#3B4189', foto: FOLIE_ORDNER + '07-indigo.jpg' },
+  { name: 'Violett',            hex: '#896DC6', foto: FOLIE_ORDNER + '08-violett.jpg' },
+  { name: 'Beige',              hex: '#CEB79D', foto: FOLIE_ORDNER + '09-beige.jpg' },
+  { name: 'Beige hell',         hex: '#CBBAA5', foto: FOLIE_ORDNER + '10-beige-alternative.jpg' },
+  { name: 'Taupe',              hex: '#ACA59E', foto: FOLIE_ORDNER + '11-taupe.jpg' },
+  { name: 'Taupe dunkel',       hex: '#9E9790', foto: FOLIE_ORDNER + '12-taupe-alternative.jpg' },
+  { name: 'Salbeigrün',         hex: '#859A79', foto: FOLIE_ORDNER + '13-salbeigruen.jpg' },
+  { name: 'Petrol',             hex: '#0C5F6B', foto: FOLIE_ORDNER + '14-petrol.jpg' },
+  { name: 'Türkis',             hex: '#3CCBCC', foto: FOLIE_ORDNER + '15-tuerkis.jpg' },
+  { name: 'Anthrazit',          hex: '#4F5253', foto: FOLIE_ORDNER + '16-anthrazit.jpg' }
+];
+
+if (MODUS_NEU) {
+  PALETTEN['--a-folie'] = FOLIEN;
+  AUSWAHL['--a-folie'] = 0;
+  delete AUSWAHL['--a-oben'];
+  delete AUSWAHL['--a-unten'];
+
+  // Außenansicht: Foto statt Zeichnung, eine Auswahlgruppe „Folierung außen"
+  document.getElementById('view-aussen').innerHTML =
+    '<img class="sk-foto" id="sk-folie-foto" src="' + FOLIEN[0].foto + '" alt="LMC e:dero mit Folierung ' + FOLIEN[0].name + '">';
+  document.getElementById('ctrl-aussen').innerHTML =
+    '<div class="sk-group" data-var="--a-folie" data-label="Folierung außen"></div>';
+
+  // Texte knapp halten — direkt zur Sache
+  document.title = 'Stil gestalten: LMC e:dero — Ventura Caravans';
+  document.querySelector('.section-head .eyebrow').textContent = 'Neue Basismodelle · Schritt 1 · Stil gestalten';
+  document.querySelector('.section-head h1').textContent = 'Wie soll euer e:dero aussehen?';
+  document.querySelector('.section-head .lede').textContent = 'Folierung außen antippen, innen die Materialien wählen — ihr seht es sofort.';
+  const hinweis = document.querySelector('.sk-note');
+  if (hinweis) hinweis.remove();
+
+  // Schrittleiste und Weiter-Button auf den Neufahrzeug-Ablauf umstellen
+  const leiste = document.querySelector('nav.ablauf');
+  if (leiste) { leiste.dataset.ablauf = 'neu'; leiste.setAttribute('aria-label', 'Ablauf Neufahrzeuge'); }
+  // Modell aus der Modellkarte (?modell=350d) mitnehmen: in der Überschrift nennen und
+  // an den Konfigurator weiterreichen, damit es dort schon ausgewählt ist
+  const MODELL_NAMEN = { '350d': '350 D', '470k': '470 K', '400c': '400 C' };
+  const modellWahl = (new URLSearchParams(location.search).get('modell') || '').toLowerCase();
+  if (MODELL_NAMEN[modellWahl]) {
+    document.querySelector('.section-head h1').textContent = 'Wie soll euer e:dero ' + MODELL_NAMEN[modellWahl] + ' aussehen?';
+  }
+  const weiter = document.getElementById('weiter-preis');
+  weiter.href = 'neufahrzeug-konfigurator.html';
+  if (MODELL_NAMEN[modellWahl]) weiter.href = 'neufahrzeug-konfigurator.html?modell=' + modellWahl + '#modellwahl';
+  weiter.innerHTML = 'Weiter zu Schritt 2: Modell, Extras &amp; Preis →';
+
+  // Alle Fotos vorladen, damit der Wechsel ohne Flackern läuft
+  window.addEventListener('load', () => FOLIEN.forEach(f => { new Image().src = f.foto; }));
+}
+
+/* ---- Übergabe an Schritt 2 (Preis-Konfigurator) ----
+   Die Auswahl liegt in sessionStorage unter STIL_SPEICHER: nur für diesen Browser-Tab,
+   nichts verlässt das Gerät. konfigurator.html / neufahrzeug-konfigurator.html lesen dort
+   die fertigen Textzeilen und zeigen sie in Zusammenfassung, PDF und Anfrage. Beim
+   Zurückkommen aus Schritt 2 wird die Auswahl hier wiederhergestellt. */
+const STIL_SPEICHER = MODUS_NEU ? 'ventura-stil-neu-v1' : 'ventura-stil-v1';
+let stilGemerkt = false;   // erst speichern, wenn jemand wirklich etwas ausgewählt hat
+try {
+  const gespeichert = JSON.parse(sessionStorage.getItem(STIL_SPEICHER) || 'null');
+  if (gespeichert && gespeichert.auswahl) {
+    Object.keys(AUSWAHL).forEach(v => {
+      const i = gespeichert.auswahl[v];
+      const palette = RAL_VARS.includes(v) ? RAL_FARBEN : PALETTEN[v];
+      if (Number.isInteger(i) && palette && i >= 0 && i < palette.length && !FEST_VARS.includes(v)) AUSWAHL[v] = i;
+    });
+    stilGemerkt = true;
+  }
+} catch (e) {}
+
+/* Neufahrzeug: Folierung aus der Vorschau auf neufahrzeuge.html übernehmen (?folie=1…16) —
+   hat Vorrang vor einer gespeicherten Auswahl, weil sie gerade eben angetippt wurde */
+if (MODUS_NEU) {
+  const folieNr = parseInt(new URLSearchParams(location.search).get('folie'), 10);
+  if (folieNr >= 1 && folieNr <= FOLIEN.length) { AUSWAHL['--a-folie'] = folieNr - 1; stilGemerkt = true; }
+}
+
 const wurzel = document.documentElement;
 const summary = document.getElementById('summary');
 
@@ -1107,7 +1224,8 @@ function baueSwatches(gruppe, variable){
   });
 
   // Ab einer gewissen Menge scrollen statt die Seite zu strecken
-  if (PALETTEN[variable].length > 12) reihe.classList.add('is-scroll');
+  // (reine Farbpaletten wie die 16 Folien bleiben offen — dort gibt es keine Fotos zum Durchscrollen)
+  if (PALETTEN[variable].length > 12 && PALETTEN[variable].some(f => f.img)) reihe.classList.add('is-scroll');
 
   gruppe.appendChild(reihe);
 
@@ -1184,7 +1302,8 @@ function baueRalListe(gruppe, variable){
 }
 
 /* ---- Farben auf die Zeichnung übertragen + Zusammenfassung ---- */
-function anwenden(){
+function anwenden(beimStart){
+  if (!beimStart) stilGemerkt = true;
   summary.innerHTML = '';
   document.querySelectorAll('.sk-group').forEach(gruppe => {
     const variable = gruppe.dataset.var;
@@ -1196,15 +1315,32 @@ function anwenden(){
     zeile.innerHTML = '<dt>' + gruppe.dataset.label + '</dt><dd>' + bezeichnung(farbe) + '</dd>';
     summary.appendChild(zeile);
   });
+  if (MODUS_NEU) {
+    const folie = FOLIEN[AUSWAHL['--a-folie']];
+    const foto = document.getElementById('sk-folie-foto');
+    if (foto && foto.getAttribute('src') !== folie.foto) { foto.src = folie.foto; foto.alt = 'LMC e:dero mit Folierung ' + folie.name; }
+  }
   mailtoAktualisieren();
+  if (stilGemerkt) stilSpeichern();
 }
+
+function stilSpeichern(){
+  const zeilen = [...document.querySelectorAll('.sk-group')].map(gruppe => ({
+    label: gruppe.dataset.label,
+    wert: bezeichnung(paletteFuer(gruppe.dataset.var)[AUSWAHL[gruppe.dataset.var]])
+  }));
+  try { sessionStorage.setItem(STIL_SPEICHER, JSON.stringify({ auswahl: AUSWAHL, zeilen })); } catch (e) {}
+}
+
+/* „Weiter zu Schritt 2" übernimmt die Auswahl immer — auch wenn der Vorschlags-Look unverändert bleibt */
+document.getElementById('weiter-preis').addEventListener('click', stilSpeichern);
 
 function mailtoAktualisieren(){
   const zeilen = [...document.querySelectorAll('.sk-group')].map(gruppe => {
     const farbe = paletteFuer(gruppe.dataset.var)[AUSWAHL[gruppe.dataset.var]];
     return gruppe.dataset.label + ': ' + bezeichnung(farbe);
   });
-  const text = 'Hallo Ventura Caravans,\n\nich habe im Stil-Konfigurator folgende Kombination zusammengestellt:\n\n'
+  const text = 'Hallo Ventura Caravans,\n\nich habe im Stil-Konfigurator' + (MODUS_NEU ? ' für einen LMC e:dero (neues Basismodell)' : '') + ' folgende Kombination zusammengestellt:\n\n'
              + zeilen.join('\n')
              + '\n\nBitte meldet euch bei mir.\n\nViele Grüße';
   document.getElementById('anfrage').href =
@@ -1279,7 +1415,9 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') skLbZeigen(skLbIndex + 1);
 });
 
-anwenden();
+anwenden(true);
 </script>
+<script src="js/ablauf.js"></script>
+<script src="js/partner.js"></script>
 </body>
 </html>
