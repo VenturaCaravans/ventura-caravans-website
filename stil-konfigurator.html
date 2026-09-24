@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stil-Konfigurator — Ventura Caravans</title>
-<meta name="description" content="Stellt die Optik eures Wohnwagens zusammen — Außenfarben, Möbelfronten, Arbeitsplatte und mehr, sofort sichtbar.">
+<meta name="description" content="Stellt die Optik eures Wohnwagens zusammen — Außenfarben, Schranktüren, Arbeitsplatte und mehr, sofort sichtbar.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -42,6 +42,30 @@
 
   /* ---- Steuerung ---- */
   .sk-group{ margin-bottom:26px; }
+  /* Aufklapper je Zone (Inhalt aus dem Skript) */
+  .sk-acc{ border:1px solid var(--line); border-radius:10px; background:var(--cream); overflow:hidden; }
+  .sk-acc + .sk-acc{ margin-top:10px; }
+  .sk-acc > summary{
+    list-style:none; cursor:pointer; display:flex; align-items:center; gap:10px;
+    padding:12px 14px; font-family:Inter, sans-serif; font-size:12.5px; font-weight:600;
+    text-transform:uppercase; letter-spacing:.07em; color:var(--olive);
+  }
+  .sk-acc > summary::-webkit-details-marker{ display:none; }
+  .sk-acc[open] > summary{ border-bottom:1px solid var(--line); background:var(--cream-2); }
+  .sk-acc-titel{ flex-shrink:0; }
+  .sk-acc-wert{
+    margin-left:auto; text-transform:none; letter-spacing:0; font-size:12.5px; font-weight:600;
+    color:var(--ink); text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .sk-acc-pfeil{ flex-shrink:0; font-size:15px; font-weight:400; color:var(--ink-soft); transition:transform .2s ease; }
+  .sk-acc[open] .sk-acc-pfeil{ transform:rotate(45deg); }
+  .sk-acc-body{ padding:14px; }
+  .sk-acc-body .sk-count{ display:block; text-align:right; margin:-4px 0 8px; }
+  /* Handy: Zeichnung bleibt beim Auswählen sichtbar */
+  @media (max-width:980px){
+    .sk-stage{ position:sticky; top:var(--header-h, 80px); z-index:5; background:var(--cream); padding-bottom:8px; }
+    .sk-stage svg{ max-height:34vh; width:100%; }
+  }
   .sk-group h3{
     font-family:Inter, sans-serif; font-size:12.5px; font-weight:600;
     text-transform:uppercase; letter-spacing:.07em; color:var(--olive);
@@ -81,6 +105,13 @@
   }
   .sk-sw span{ font-size:10.5px; line-height:1.25; color:var(--ink-soft); display:block; }
   .sk-sw[aria-pressed="true"] span{ color:var(--ink); font-weight:600; }
+  /* Standard-Dekor bzw. Aufpreis direkt an der Kachel */
+  .sk-preis{ display:block; font-style:normal; font-size:9px; font-weight:600; margin-top:2px; color:var(--teal-deep); }
+  .sk-preis.is-aufpreis{ color:var(--ink-soft); font-weight:400; }
+  .sk-hinweis-preis{
+    margin:-4px 0 10px; font-size:11.5px; line-height:1.45; color:var(--ink-soft);
+    border-left:3px solid var(--sand); padding:2px 0 2px 10px;
+  }
   .sk-ral{ display:block; font-style:normal; font-size:9px; font-weight:400; opacity:.6; margin-top:1px; }
   .sk-sw-wrap{ position:relative; width:76px; }
   .sk-sw-zoom{
@@ -135,9 +166,17 @@
   /* ---- Zusammenfassung ---- */
   .sk-summary{
     border:1px solid var(--line); border-radius:12px; padding:20px 22px;
-    background:rgba(255,255,255,.5); margin-top:8px;
+    background:rgba(255,255,255,.5); margin:8px 0 14px;
   }
   .sk-summary h3{ margin:0 0 12px; font-size:12.5px; }
+  .sk-summary > summary{
+    list-style:none; cursor:pointer; display:flex; align-items:center; gap:10px; margin:0 0 12px;
+    font-family:Inter, sans-serif; font-size:12.5px; font-weight:600; text-transform:uppercase;
+    letter-spacing:.07em; color:var(--olive);
+  }
+  .sk-summary > summary::-webkit-details-marker{ display:none; }
+  .sk-summary > summary .sk-acc-pfeil{ margin-left:auto; }
+  .sk-summary[open] > summary .sk-acc-pfeil{ transform:rotate(45deg); }
   .sk-summary dl{ margin:0; font-size:14px; }
   .sk-summary .row{
     display:flex; justify-content:space-between; gap:16px;
@@ -323,85 +362,111 @@
           <div class="sk-view" id="view-innen" role="tabpanel" aria-labelledby="tab-innen" hidden>
             <svg viewBox="0 0 900 470" role="img" aria-label="Stilisierte Innenansicht der Küchenzeile">
               <defs>
-                <pattern id="fliesen" width="46" height="24" patternUnits="userSpaceOnUse">
-                  <rect width="46" height="24" fill="var(--i-spritz)"/>
-                  <path d="M0 24 H46 M23 0 V24" stroke="#000" stroke-opacity=".13" stroke-width="1.5"/>
+                <!-- Metro-Fliesen im Verband (halbversetzte Reihen) wie bei unseren Umbauten -->
+                <pattern id="fliesen" width="84" height="40" patternUnits="userSpaceOnUse">
+                  <rect width="84" height="40" fill="var(--i-spritz)"/>
+                  <g stroke="#000" stroke-opacity=".13" stroke-width="1.6">
+                    <line x1="0" y1="20" x2="84" y2="20"/>
+                    <line x1="0" y1="40" x2="84" y2="40"/>
+                    <line x1="42" y1="0" x2="42" y2="20"/>
+                    <line x1="0" y1="20" x2="0" y2="40"/>
+                    <line x1="84" y1="20" x2="84" y2="40"/>
+                  </g>
                 </pattern>
                 <linearGradient id="raumlicht" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stop-color="#fff" stop-opacity=".22"/>
                   <stop offset="1" stop-color="#000" stop-opacity=".08"/>
                 </linearGradient>
+                <!-- Kassettenfront mit Bogen + flacher Bügelgriff, per <use> viermal gesetzt -->
+                <g id="tuer-bogen">
+                  <rect width="168" height="92" rx="5" fill="var(--i-front)" stroke="#000" stroke-opacity=".16" stroke-width="2"/>
+                  <path d="M18 82 V38 C18 24 44 17 84 17 C124 17 150 24 150 38 V82 Z"
+                        fill="none" stroke="#000" stroke-opacity=".20" stroke-width="2"/>
+                  <path d="M27 78 V40 C27 29 52 24 84 24 C116 24 141 29 141 40 V78 Z"
+                        fill="none" stroke="#000" stroke-opacity=".09" stroke-width="2"/>
+                  <rect x="62" y="84" width="44" height="5" rx="2.5" fill="#2b2b28"/>
+                </g>
               </defs>
 
               <!-- Wand -->
               <rect x="0" y="0" width="900" height="470" fill="var(--i-wand)"/>
 
-              <!-- Oberschränke -->
+              <!-- Oberschränke: Korpus in der Grundlackierung, Türen in der Türfarbe -->
               <g>
-                <rect x="48" y="26" width="804" height="126" rx="7" fill="var(--i-front)" stroke="#000" stroke-opacity=".12" stroke-width="2"/>
-                <g fill="none" stroke="#000" stroke-opacity=".13" stroke-width="2">
-                  <line x1="249" y1="26" x2="249" y2="152"/>
-                  <line x1="450" y1="26" x2="450" y2="152"/>
-                  <line x1="651" y1="26" x2="651" y2="152"/>
-                  <rect x="70" y="46" width="157" height="86" rx="14"/>
-                  <rect x="271" y="46" width="157" height="86" rx="14"/>
-                  <rect x="472" y="46" width="157" height="86" rx="14"/>
-                  <rect x="673" y="46" width="157" height="86" rx="14"/>
-                </g>
-                <g fill="#2b2b28">
-                  <rect x="128" y="138" width="42" height="7" rx="3.5"/>
-                  <rect x="329" y="138" width="42" height="7" rx="3.5"/>
-                  <rect x="530" y="138" width="42" height="7" rx="3.5"/>
-                  <rect x="731" y="138" width="42" height="7" rx="3.5"/>
+                <rect x="40" y="14" width="820" height="116" rx="6" fill="var(--i-korpus)" stroke="#000" stroke-opacity=".14" stroke-width="2"/>
+                <use href="#tuer-bogen" x="56" y="26"/>
+                <use href="#tuer-bogen" x="256" y="26"/>
+                <use href="#tuer-bogen" x="456" y="26"/>
+                <use href="#tuer-bogen" x="656" y="26"/>
+                <!-- Unterbauleuchten -->
+                <g fill="#2b2b28" opacity=".85">
+                  <rect x="150" y="130" width="34" height="7" rx="3.5"/>
+                  <rect x="430" y="130" width="34" height="7" rx="3.5"/>
+                  <rect x="710" y="130" width="34" height="7" rx="3.5"/>
                 </g>
               </g>
 
               <!-- Spritzschutz -->
-              <rect x="48" y="152" width="804" height="106" fill="url(#fliesen)"/>
+              <rect id="sk-spritzflaeche" x="0" y="130" width="900" height="136" fill="url(#fliesen)"/>
 
-              <!-- Fenster in der Fliesenwand -->
+              <!-- Fenster mit dunklem Rahmen -->
               <g>
-                <rect x="470" y="158" width="250" height="66" rx="16" fill="#2b2b28"/>
-                <rect x="478" y="166" width="234" height="50" rx="11" fill="#c3d3d8" opacity=".8"/>
+                <rect x="452" y="150" width="286" height="94" rx="10" fill="#2b2b28"/>
+                <rect x="461" y="159" width="268" height="76" rx="6" fill="#c3d3d8" opacity=".85"/>
+                <path d="M461 235 L548 159 L590 159 L503 235 Z" fill="#fff" opacity=".22"/>
               </g>
 
-              <!-- Arbeitsplatte -->
-              <rect x="40" y="258" width="820" height="26" rx="5" fill="var(--i-platte)" stroke="#000" stroke-opacity=".14" stroke-width="2"/>
-              <rect x="40" y="278" width="820" height="7" fill="#000" fill-opacity=".10"/>
-
-              <!-- Spüle + Armatur -->
-              <rect x="520" y="262" width="150" height="18" rx="5" fill="#2b2b28"/>
-              <path d="M600 262 v-22 a14 14 0 0 1 28 0 v8" fill="none" stroke="#2b2b28" stroke-width="7" stroke-linecap="round"/>
-
-              <!-- Unterschränke -->
+              <!-- Regalbrett rechts an der Fliesenwand -->
               <g>
-                <rect x="48" y="285" width="804" height="122" fill="var(--i-front)" stroke="#000" stroke-opacity=".12" stroke-width="2"/>
-                <g fill="none" stroke="#000" stroke-opacity=".13" stroke-width="2">
-                  <rect x="68" y="299" width="180" height="30" rx="7"/>
-                  <rect x="68" y="337" width="180" height="30" rx="7"/>
-                  <rect x="68" y="375" width="180" height="22" rx="7"/>
-                  <rect x="286" y="299" width="176" height="98" rx="10"/>
-                  <rect x="486" y="299" width="176" height="98" rx="10"/>
-                  <rect x="686" y="299" width="146" height="98" rx="10"/>
-                </g>
-                <g fill="#2b2b28">
-                  <rect x="138" y="310" width="40" height="6" rx="3"/>
-                  <rect x="138" y="348" width="40" height="6" rx="3"/>
-                  <rect x="354" y="340" width="40" height="6" rx="3"/>
-                  <rect x="554" y="340" width="40" height="6" rx="3"/>
-                  <rect x="739" y="340" width="40" height="6" rx="3"/>
-                </g>
+                <rect x="770" y="176" width="92" height="7" rx="3" fill="#2b2b28"/>
+                <rect x="786" y="150" width="26" height="26" rx="4" fill="#8f9694" opacity=".8"/>
+                <rect x="822" y="156" width="22" height="20" rx="4" fill="#8f9694" opacity=".55"/>
               </g>
 
-              <!-- Boden -->
-              <rect x="0" y="407" width="900" height="63" fill="var(--i-boden)"/>
+              <!-- Arbeitsplatte mit sichtbarer Vorderkante -->
+              <rect x="20" y="266" width="860" height="26" rx="4" fill="var(--i-platte)" stroke="#000" stroke-opacity=".16" stroke-width="2"/>
+              <rect x="20" y="286" width="860" height="9" rx="3" fill="#000" fill-opacity=".13"/>
+
+              <!-- Schwarze Spüle + Chrom-Armatur -->
+              <g>
+                <rect x="546" y="268" width="196" height="20" rx="4" fill="#232322"/>
+                <rect x="554" y="272" width="180" height="12" rx="3" fill="#000" fill-opacity=".35"/>
+                <path d="M640 268 v-42 a16 16 0 0 1 32 0 v16" fill="none" stroke="#9aa0a3" stroke-width="7" stroke-linecap="round"/>
+              </g>
+
+              <!-- Unterschrank-Zeile: links Kühlschrank, rechts zwei glatte Türen -->
+              <g>
+                <rect x="40" y="295" width="820" height="118" fill="var(--i-korpus)" stroke="#000" stroke-opacity=".14" stroke-width="2"/>
+
+                <!-- Kühlschrank (Gerät, bleibt weiß) -->
+                <rect x="54" y="302" width="248" height="104" rx="6" fill="#f4f3ef" stroke="#000" stroke-opacity=".20" stroke-width="2"/>
+                <line x1="54" y1="316" x2="302" y2="316" stroke="#000" stroke-opacity=".10" stroke-width="2"/>
+                <rect x="284" y="330" width="6" height="44" rx="3" fill="#c4c2bc"/>
+
+                <!-- Zwei glatte Türen mit rundem Knopfgriff -->
+                <rect x="318" y="302" width="262" height="104" rx="5" fill="var(--i-front)" stroke="#000" stroke-opacity=".16" stroke-width="2"/>
+                <rect x="596" y="302" width="248" height="104" rx="5" fill="var(--i-front)" stroke="#000" stroke-opacity=".16" stroke-width="2"/>
+                <circle cx="562" cy="322" r="7" fill="#2b2b28"/>
+                <circle cx="616" cy="322" r="7" fill="#2b2b28"/>
+
+                <!-- Schwarze Handtuchstange auf der linken Tür -->
+                <g stroke="#2b2b28" stroke-width="5" stroke-linecap="round" fill="none">
+                  <path d="M356 316 v14"/>
+                  <path d="M512 316 v14"/>
+                  <line x1="356" y1="330" x2="512" y2="330"/>
+                </g>
+                <path d="M402 330 h42 v62 q-21 8 -42 0 Z" fill="#e7ded0" stroke="#000" stroke-opacity=".12" stroke-width="1.5"/>
+              </g>
+
+              <!-- Boden in Dielenoptik -->
+              <rect x="0" y="413" width="900" height="57" fill="var(--i-boden)"/>
               <g stroke="#000" stroke-opacity=".10" stroke-width="2">
-                <line x1="0" y1="428" x2="900" y2="428"/>
-                <line x1="0" y1="450" x2="900" y2="450"/>
-                <line x1="150" y1="407" x2="150" y2="428"/>
-                <line x1="470" y1="407" x2="470" y2="428"/>
-                <line x1="300" y1="428" x2="300" y2="450"/>
-                <line x1="700" y1="428" x2="700" y2="450"/>
+                <line x1="0" y1="432" x2="900" y2="432"/>
+                <line x1="0" y1="453" x2="900" y2="453"/>
+                <line x1="150" y1="413" x2="150" y2="432"/>
+                <line x1="470" y1="413" x2="470" y2="432"/>
+                <line x1="300" y1="432" x2="300" y2="453"/>
+                <line x1="700" y1="432" x2="700" y2="453"/>
               </g>
 
               <rect x="0" y="0" width="900" height="470" fill="url(#raumlicht)" pointer-events="none"/>
@@ -418,20 +483,20 @@
         </div>
 
         <div id="ctrl-innen" hidden>
-          <div class="sk-group" data-var="--i-front" data-label="Möbelfronten"></div>
-          <div class="sk-group" data-var="--i-platte" data-label="Arbeitsplatte"></div>
+          <div class="sk-group" data-var="--i-basis" data-label="Grundlackierung"></div>
+          <div class="sk-group" data-var="--i-front" data-label="Schranktüren"></div>
           <div class="sk-group" data-var="--i-spritz" data-label="Spritzschutz"></div>
-          <div class="sk-group" data-var="--i-wand" data-label="Wandfarbe"></div>
+          <div class="sk-group" data-var="--i-platte" data-label="Arbeitsplatte"></div>
           <div class="sk-group" data-var="--i-boden" data-label="Bodenbelag"></div>
         </div>
 
-        <div class="sk-summary">
-          <h3>Eure Zusammenstellung</h3>
+        <!-- Zusammenfassung bewusst zugeklappt: beim Auswählen zählt die Zeichnung, am Ende schaut man rein -->
+        <details class="sk-summary">
+          <summary><span class="sk-acc-titel">Eure Zusammenstellung ansehen</span><span class="sk-acc-pfeil" aria-hidden="true">+</span></summary>
           <dl id="summary"></dl>
-          <div class="sk-actions">
-            <a href="konfigurator.html" class="btn btn-primary" id="weiter-preis">Weiter zu Schritt 2: Preis &amp; Extras →</a>
-            <a href="#" class="btn btn-outline" id="anfrage">Nur den Stil anfragen</a>
-          </div>
+        </details>
+        <div class="sk-actions">
+          <a href="konfigurator.html" class="btn btn-primary" id="weiter-preis">Weiter zu Schritt 2: Preis &amp; Extras →</a>
         </div>
       </div>
 
@@ -513,7 +578,7 @@
 /* =========================================================================
    Farbpaletten. Arbeitsplatte (--i-platte) nutzt echte Dekore von
    expresszuschnitt.de (Spanplatten-Zuschnitt) inkl. Fotos zum Vergrößern.
-   Möbelfronten/Spritzschutz/Wand/Boden sind noch aus den echten Projektfotos
+   Grundlackierung (--i-basis, nur Reinweiß/Sandbeige), Schranktüren/Spritzschutz/Boden sind noch aus den Projektfotos
    abgeleitete Platzhalter — werden ersetzt, sobald die tatsächlichen Lacke
    (Lackseite) vorliegen: einfach die jeweiligen Einträge tauschen, der Rest
    der Seite passt sich automatisch an.
@@ -709,29 +774,36 @@ const RAL_FARBEN = [
   { name: 'Tiefschwarz',     ral: 'RAL 9005', hex: '#0A0A0D' },
   { name: 'Weißaluminium',   ral: 'RAL 9006', hex: '#A5A8A6' },
   { name: 'Graualuminium',   ral: 'RAL 9007', hex: '#8F8F8C' },
-  { name: 'Reinweiß',        ral: 'RAL 9010', hex: '#F7F9EF' },
+  { name: 'Reinweiß',        ral: 'RAL 9010', hex: '#FBFBF7' },
   { name: 'Graphitschwarz',  ral: 'RAL 9011', hex: '#27292B' },
   { name: 'Verkehrsweiß',    ral: 'RAL 9016', hex: '#F1F0EA' },
   { name: 'Verkehrsschwarz', ral: 'RAL 9017', hex: '#2A2A2A' },
   { name: 'Papyrusweiß',     ral: 'RAL 9018', hex: '#CFD3CD' }
 ];
-const RAL_VARS = ['--a-oben', '--a-unten'];
+/* Aufpreis je Zone: alles außer dem als standard:true markierten Dekor kostet diesen Betrag extra.
+   Vorgabe Norman (18.09.2026): Arbeitsplatte „Eiche astig natur" ist im Preis, jedes andere Dekor +100 €.
+   Weitere Zone mit Aufpreis = hier eintragen und in der Palette ein standard:true setzen. */
+const AUFPREIS = { '--i-platte': 100, '--i-spritz': 50, '--i-front': 100, '--i-boden': 100 , '--a-folie': 1000 };
+/* Bei RAL-Zonen kennzeichnet kein standard:true den Serienton — hier steht, welcher RAL-Ton im Preis ist */
+const STANDARD_RAL = { '--i-front': 'RAL 9010' };
+/* Kurze Erklärungen über einzelnen Auswahlreihen */
+const HINWEISE = {
+  '--i-basis': 'Die Grundlackierung gilt für <strong>Wände und Schränke</strong> — beides wird komplett in diesem Ton lackiert. Die Schranktüren könnt ihr darunter abweichend wählen.',
+  '--i-front': '<strong>Reinweiß (RAL 9010)</strong> ist im Preis enthalten — jeder andere RAL-Ton kostet 100 € Aufpreis und wird passend angemischt.'
+};
+/* Zonen, die aus der RAL-Liste gewählt werden: Außenlack und die Schranktüren
+   (Norman 18.09.2026: Türen werden lackiert, Hornbach mischt jeden RAL-Ton an). */
+const RAL_VARS = ['--a-oben', '--a-unten', '--i-front'];
 /* Zonen ohne Auswahl: der Oberteil der Karosserie bleibt serienmäßig weiß */
 const FEST_VARS = ['--a-oben'];
 
 /* --- INNEN: Materialien (Fronten, Arbeitsplatte, Boden ...), keine RAL-Töne --- */
 const PALETTEN = {
-  '--i-front': [
-    { name: 'Cremeweiß',   hex: '#F4F0E6' },
-    { name: 'Reinweiß',    hex: '#FCFBF8' },
-    { name: 'Salbeigrün',  hex: '#A8B79B' },
-    { name: 'Taupe',       hex: '#C4B7A4' },
-    { name: 'Anthrazit',   hex: '#54544E' }
-  ],
   /* Echte Arbeitsplatten-Dekore, Spanplatten-Zuschnitt von expresszuschnitt.de */
   '--i-platte': [
+    /* Standard: im Preis enthalten. Alle anderen Dekore kosten AUFPREIS (siehe unten) extra. */
+    { name: 'Eiche astig natur',             hex: '#C6B3A1', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-astig-natur.jpg', standard: true },
     { name: 'Sonoma Eiche natur',            hex: '#CCBFB1', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-sonoma-eiche-natur.jpg' },
-    { name: 'Eiche astig natur',             hex: '#C6B3A1', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-astig-natur.jpg' },
     { name: 'Halifax Eiche rustikal natur',  hex: '#C1B7A5', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-halifax-eiche-rustikal-natur.jpg' },
     { name: 'Casella Eiche natur',           hex: '#BAA899', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-casella-eiche-natur.jpg' },
     { name: 'Eiche strukturiert Weiß',       hex: '#E5E3DF', img: 'assets/stil-konfigurator/arbeitsplatte/arbeitsplatte-eiche-strukturiert-weiss.jpg' },
@@ -791,7 +863,8 @@ const PALETTEN = {
   ],
   /* Fliesenoptik weiß (Standard) + echte Folien-Dekore von resimdo.de (Stone + Single Color) */
   '--i-spritz': [
-    { name: 'Metro weiß (Fliesenoptik)', hex: '#F6F4EF' },
+    /* Standard: im Preis enthalten, alle anderen Folien-Dekore +50 € (AUFPREIS) */
+    { name: 'Retro weiß (Fliesenoptik)', hex: '#FBFAF6', standard: true },
     { name: 'Rudis Vein', hex: '#464645', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st010-rudis-vein.jpg' },
     { name: 'Nival', hex: '#b0afb4', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st057-nival.jpg' },
     { name: 'Pavira', hex: '#7a7979', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-st058-pavira.jpg' },
@@ -1031,17 +1104,104 @@ const PALETTEN = {
     { name: 'Hibiscus', hex: '#cc92a8', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-s232-hibiscus.jpg' },
     { name: 'Papilo Tidal Lux', hex: '#3f4448', img: 'assets/stil-konfigurator/spritzschutz/spritzschutz-sc032-papilo-tidal-lux.jpg' },
   ],
-  '--i-wand': [
-    { name: 'Cremeweiß',   hex: '#F5F1E7' },
-    { name: 'Reinweiß',    hex: '#FDFCFA' },
-    { name: 'Salbei hell', hex: '#DCE3D6' },
-    { name: 'Sandbeige',   hex: '#E8DCC7' }
+  /* Grundlackierung innen: Wände UND Schränke werden komplett in einem Ton lackiert.
+     Nur Weiß oder Beige (Vorgabe Norman, 18.09.2026) — die Schranktüren (--i-front) sind davon
+     unabhängig frei wählbar. Setzt beim Anwenden --i-wand und --i-korpus auf denselben Wert. */
+  '--i-basis': [
+    { name: 'Reinweiß',  hex: '#FBFBF7' },   /* identisch mit RAL 9010 bei den Schranktüren */
+    { name: 'Sandbeige', hex: '#E8DCC7' }
   ],
   '--i-boden': [
-    { name: 'Eiche hell',  hex: '#CBA372' },
-    { name: 'Eiche rustik',hex: '#A97B4A' },
-    { name: 'Nussbaum',    hex: '#6F4B2E' },
-    { name: 'Grau gekälkt',hex: '#B7B2A7' }
+    /* 85 PVC-Bodenbelaege von hornbach.de: Meterware, genau 300 cm breit UND aktuell verfuegbar
+       (Filter f.fixbreite001=300.0 + „nur verfuegbare anzeigen"). Fotos lokal unter assets/stil-konfigurator/boden/. */
+    /* Standard (im Preis): Hornbach Art.-Nr. 10715696, Gerflor Booster — alle anderen +100 €.
+       hex bewusst an die Standard-Arbeitsplatte „Eiche astig natur" (#C6B3A1) angeglichen, damit Boden und
+       Platte in der Zeichnung zusammenpassen (Wunsch Norman); das Produktfoto zeigt den echten Ton. */
+    { name: 'Booster Holzdielenoptik braun eiche', hex: '#C0AC96', img: 'assets/stil-konfigurator/boden/boden-booster-holzdielenoptik-braun-eiche.jpg', standard: true },
+    { name: 'Bingo Fliesenoptik schwarz', hex: '#25241F', img: 'assets/stil-konfigurator/boden/boden-bingo-fliesenoptik-schwarz.jpg' },
+    { name: 'Bingo Holzdielenoptik dunkelgrau', hex: '#181E1E', img: 'assets/stil-konfigurator/boden/boden-bingo-holzdielenoptik-dunkelgrau.jpg' },
+    { name: 'Bingo Holzdielenoptik grau', hex: '#838175', img: 'assets/stil-konfigurator/boden/boden-bingo-holzdielenoptik-grau.jpg' },
+    { name: 'Bingo Holzdielenoptik natur', hex: '#89725B', img: 'assets/stil-konfigurator/boden/boden-bingo-holzdielenoptik-natur.jpg' },
+    { name: 'Booster Holzdielenoptik Hudson Blond', hex: '#C7B8A4', img: 'assets/stil-konfigurator/boden/boden-booster-holzdielenoptik-hudson-blond.jpg' },
+    { name: 'Castle Holzdielenoptik dunkelbraun FB566', hex: '#7E6241', img: 'assets/stil-konfigurator/boden/boden-castle-holzdielenoptik-dunkelbraun-fb566.jpg' },
+    { name: 'Charlotte Fliesenoptik anthrazit FB599', hex: '#3E3B39', img: 'assets/stil-konfigurator/boden/boden-charlotte-fliesenoptik-anthrazit-fb599.jpg' },
+    { name: 'Cube Holzdielenoptik Eiche graubraun FB584', hex: '#8E887E', img: 'assets/stil-konfigurator/boden/boden-cube-holzdielenoptik-eiche-graubraun-fb584.jpg' },
+    { name: 'Cube Holzdielenoptik Eiche hellbraun FB543', hex: '#AA9576', img: 'assets/stil-konfigurator/boden/boden-cube-holzdielenoptik-eiche-hellbraun-fb543.jpg' },
+    { name: 'Easytex Fliesenoptik Verona', hex: '#575757', img: 'assets/stil-konfigurator/boden/boden-easytex-fliesenoptik-verona.jpg' },
+    { name: 'Easytex Holzdielenoptik cameo', hex: '#BBAE9D', img: 'assets/stil-konfigurator/boden/boden-easytex-holzdielenoptik-cameo.jpg' },
+    { name: 'Easytex Holzdielenoptik eiche', hex: '#AF9464', img: 'assets/stil-konfigurator/boden/boden-easytex-holzdielenoptik-eiche.jpg' },
+    { name: 'Elara Holzdielenoptik anthrazit metallic', hex: '#63615B', img: 'assets/stil-konfigurator/boden/boden-elara-holzdielenoptik-anthrazit-metallic.jpg' },
+    { name: 'Emoji Holzdielenoptik braun 296M', hex: '#B6A275', img: 'assets/stil-konfigurator/boden/boden-emoji-holzdielenoptik-braun-296m.jpg' },
+    { name: 'Faray Holzdielenoptik Rustikal braun FB544', hex: '#8C7455', img: 'assets/stil-konfigurator/boden/boden-faray-holzdielenoptik-rustikal-braun-fb544.jpg' },
+    { name: 'Faray meliert hellgrau FB583', hex: '#9D9A94', img: 'assets/stil-konfigurator/boden/boden-faray-meliert-hellgrau-fb583.jpg' },
+    { name: 'FlashTex Fischgrät-Optik dunkelgrau FB690D', hex: '#A59A85', img: 'assets/stil-konfigurator/boden/boden-flashtex-fischgraet-optik-dunkelgrau-fb690d.jpg' },
+    { name: 'FlashTex Fischgrät-Optik eiche FB126M', hex: '#C5AF8E', img: 'assets/stil-konfigurator/boden/boden-flashtex-fischgraet-optik-eiche-fb126m.jpg' },
+    { name: 'FlashTex Holzdielenoptik braun', hex: '#A78759', img: 'assets/stil-konfigurator/boden/boden-flashtex-holzdielenoptik-braun.jpg' },
+    { name: 'FlashTex Holzdielenoptik grau-braun', hex: '#B2A694', img: 'assets/stil-konfigurator/boden/boden-flashtex-holzdielenoptik-grau-braun.jpg' },
+    { name: 'FlashTex Holzdielenoptik hellgrau', hex: '#B3AE9F', img: 'assets/stil-konfigurator/boden/boden-flashtex-holzdielenoptik-hellgrau.jpg' },
+    { name: 'Forest Holzdielenoptik braun', hex: '#C0A884', img: 'assets/stil-konfigurator/boden/boden-forest-holzdielenoptik-braun.jpg' },
+    { name: 'Giant Fischgrät-Optik grau FB591', hex: '#949288', img: 'assets/stil-konfigurator/boden/boden-giant-fischgraet-optik-grau-fb591.jpg' },
+    { name: 'Giant Fischgrät-Optik natur FB532', hex: '#AC9B7A', img: 'assets/stil-konfigurator/boden/boden-giant-fischgraet-optik-natur-fb532.jpg' },
+    { name: 'Giant Holzdielenoptik ahorn FB735', hex: '#AA8C61', img: 'assets/stil-konfigurator/boden/boden-giant-holzdielenoptik-ahorn-fb735.jpg' },
+    { name: 'Giant Holzdielenoptik anthrazit FB593', hex: '#7E7B6F', img: 'assets/stil-konfigurator/boden/boden-giant-holzdielenoptik-anthrazit-fb593.jpg' },
+    { name: 'Giant Holzdielenoptik buche dunkel FB536', hex: '#A4865D', img: 'assets/stil-konfigurator/boden/boden-giant-holzdielenoptik-buche-dunkel-fb536.jpg' },
+    { name: 'Giant Holzdielenoptik buche FB535', hex: '#A0845E', img: 'assets/stil-konfigurator/boden/boden-giant-holzdielenoptik-buche-fb535.jpg' },
+    { name: 'Giant Holzdielenoptik buche hell FB532', hex: '#B79F75', img: 'assets/stil-konfigurator/boden/boden-giant-holzdielenoptik-buche-hell-fb532.jpg' },
+    { name: 'Giant Holzdielenoptik buche weiß FB509', hex: '#B9B197', img: 'assets/stil-konfigurator/boden/boden-giant-holzdielenoptik-buche-weiss-fb509.jpg' },
+    { name: 'Giant Holzdielenoptik dunkelgrau FB592', hex: '#736F62', img: 'assets/stil-konfigurator/boden/boden-giant-holzdielenoptik-dunkelgrau-fb592.jpg' },
+    { name: 'Giant Holzdielenoptik grau FB594', hex: '#ACAB9F', img: 'assets/stil-konfigurator/boden/boden-giant-holzdielenoptik-grau-fb594.jpg' },
+    { name: 'Giant Holzdielenoptik grau FB895', hex: '#A49C88', img: 'assets/stil-konfigurator/boden/boden-giant-holzdielenoptik-grau-fb895.jpg' },
+    { name: 'Giant Holzdielenoptik weiß-grau FB514', hex: '#BFBCAA', img: 'assets/stil-konfigurator/boden/boden-giant-holzdielenoptik-weiss-grau-fb514.jpg' },
+    { name: 'Gloria Fliesenoptik hellgrau FB591', hex: '#CACBC6', img: 'assets/stil-konfigurator/boden/boden-gloria-fliesenoptik-hellgrau-fb591.jpg' },
+    { name: 'Gloria Stein-Optik beige FB585', hex: '#CBC6B9', img: 'assets/stil-konfigurator/boden/boden-gloria-stein-optik-beige-fb585.jpg' },
+    { name: 'Gloria Stein-Optik grau FB596', hex: '#87847D', img: 'assets/stil-konfigurator/boden/boden-gloria-stein-optik-grau-fb596.jpg' },
+    { name: 'Gloria Stein-Optik hellgrau FB592', hex: '#BEBCB1', img: 'assets/stil-konfigurator/boden/boden-gloria-stein-optik-hellgrau-fb592.jpg' },
+    { name: 'Inspire Holzdielenoptik eiche', hex: '#A69068', img: 'assets/stil-konfigurator/boden/boden-inspire-holzdielenoptik-eiche.jpg' },
+    { name: 'Jackson Holzdielenoptik cameo FB616M', hex: '#8E7656', img: 'assets/stil-konfigurator/boden/boden-jackson-holzdielenoptik-cameo-fb616m.jpg' },
+    { name: 'Larissa Holzdielenoptik Eiche', hex: '#A08C73', img: 'assets/stil-konfigurator/boden/boden-larissa-holzdielenoptik-eiche.jpg' },
+    { name: 'Larissa Holzdielenoptik grau', hex: '#615952', img: 'assets/stil-konfigurator/boden/boden-larissa-holzdielenoptik-grau.jpg' },
+    { name: 'Larissa Holzdielenoptik weiß', hex: '#E1DBC9', img: 'assets/stil-konfigurator/boden/boden-larissa-holzdielenoptik-weiss.jpg' },
+    { name: 'Lord Marmor grau', hex: '#C2C1BF', img: 'assets/stil-konfigurator/boden/boden-lord-marmor-grau.jpg' },
+    { name: 'Lord Würfel Eiche', hex: '#AFA182', img: 'assets/stil-konfigurator/boden/boden-lord-wuerfel-eiche.jpg' },
+    { name: 'Massiv Fliesenoptik anthrazit FB598', hex: '#50514F', img: 'assets/stil-konfigurator/boden/boden-massiv-fliesenoptik-anthrazit-fb598.jpg' },
+    { name: 'Massiv Fliesenoptik blaugrau FB591', hex: '#B0AEA3', img: 'assets/stil-konfigurator/boden/boden-massiv-fliesenoptik-blaugrau-fb591.jpg' },
+    { name: 'Mimas Fliesenoptik anthrazit', hex: '#393735', img: 'assets/stil-konfigurator/boden/boden-mimas-fliesenoptik-anthrazit.jpg' },
+    { name: 'Mimas Fliesenoptik beige-grau', hex: '#A29785', img: 'assets/stil-konfigurator/boden/boden-mimas-fliesenoptik-beige-grau.jpg' },
+    { name: 'Mimas Holzdielenoptik dunkelbraun', hex: '#2F231D', img: 'assets/stil-konfigurator/boden/boden-mimas-holzdielenoptik-dunkelbraun.jpg' },
+    { name: 'Mimas Holzdielenoptik weiß', hex: '#9C9681', img: 'assets/stil-konfigurator/boden/boden-mimas-holzdielenoptik-weiss.jpg' },
+    { name: 'Narvi Fliesenoptik schwarz', hex: '#202022', img: 'assets/stil-konfigurator/boden/boden-narvi-fliesenoptik-schwarz.jpg' },
+    { name: 'Narvi Stein-Optik beige', hex: '#B1A58D', img: 'assets/stil-konfigurator/boden/boden-narvi-stein-optik-beige.jpg' },
+    { name: 'News Holzdielenoptik Aged Oak graubraun', hex: '#9D9D9F', img: 'assets/stil-konfigurator/boden/boden-news-holzdielenoptik-aged-oak-graubraun.jpg' },
+    { name: 'Prestige Holzdielenoptik grau', hex: '#7D786E', img: 'assets/stil-konfigurator/boden/boden-prestige-holzdielenoptik-grau.jpg' },
+    { name: 'Primetex Dune White Betonoptik beige', hex: '#DAD7CA', img: 'assets/stil-konfigurator/boden/boden-primetex-dune-white-betonoptik-beige.jpg' },
+    { name: 'Primetex Fliesenoptik Basal Haze grau', hex: '#C5C3BB', img: 'assets/stil-konfigurator/boden/boden-primetex-fliesenoptik-basal-haze-grau.jpg' },
+    { name: 'Primetex Holzdielenoptik Noma Cloud grau', hex: '#AFACA6', img: 'assets/stil-konfigurator/boden/boden-primetex-holzdielenoptik-noma-cloud-grau.jpg' },
+    { name: 'ProTough Allover beige FB191L', hex: '#E6DFCF', img: 'assets/stil-konfigurator/boden/boden-protough-allover-beige-fb191l.jpg' },
+    { name: 'ProTough Allover grau FB990M', hex: '#979895', img: 'assets/stil-konfigurator/boden/boden-protough-allover-grau-fb990m.jpg' },
+    { name: 'ProTough Fliesenoptik blau FB746M', hex: '#BABFBF', img: 'assets/stil-konfigurator/boden/boden-protough-fliesenoptik-blau-fb746m.jpg' },
+    { name: 'ProTough Fliesenoptik grau FB909L', hex: '#B7B6B0', img: 'assets/stil-konfigurator/boden/boden-protough-fliesenoptik-grau-fb909l.jpg' },
+    { name: 'ProTough Fliesenoptik grün FB472M', hex: '#ABACA4', img: 'assets/stil-konfigurator/boden/boden-protough-fliesenoptik-gruen-fb472m.jpg' },
+    { name: 'ProTough Granitoptik grau FB139L', hex: '#D3D0C5', img: 'assets/stil-konfigurator/boden/boden-protough-granitoptik-grau-fb139l.jpg' },
+    { name: 'ProTough Holzdielenoptik braun FB363M', hex: '#AC9972', img: 'assets/stil-konfigurator/boden/boden-protough-holzdielenoptik-braun-fb363m.jpg' },
+    { name: 'Puccini Holzdielenoptik braun FB846', hex: '#827265', img: 'assets/stil-konfigurator/boden/boden-puccini-holzdielenoptik-braun-fb846.jpg' },
+    { name: 'Puccini Holzdielenoptik braun-silber FB893', hex: '#797270', img: 'assets/stil-konfigurator/boden/boden-puccini-holzdielenoptik-braun-silber-fb893.jpg' },
+    { name: 'Puccini Holzdielenoptik grau FB892', hex: '#6E6A6B', img: 'assets/stil-konfigurator/boden/boden-puccini-holzdielenoptik-grau-fb892.jpg' },
+    { name: 'Puccini Holzdielenoptik nussbaum FB847', hex: '#45342D', img: 'assets/stil-konfigurator/boden/boden-puccini-holzdielenoptik-nussbaum-fb847.jpg' },
+    { name: 'Puccini Holzdielenoptik schwarz braun FB899', hex: '#342E29', img: 'assets/stil-konfigurator/boden/boden-puccini-holzdielenoptik-schwarz-braun-fb899.jpg' },
+    { name: 'Select Marmor anthrazit FB598', hex: '#393329', img: 'assets/stil-konfigurator/boden/boden-select-marmor-anthrazit-fb598.jpg' },
+    { name: 'Select Marmor beige FB509', hex: '#F6EDE0', img: 'assets/stil-konfigurator/boden/boden-select-marmor-beige-fb509.jpg' },
+    { name: 'Slash Betonoptik beige', hex: '#CEC1A9', img: 'assets/stil-konfigurator/boden/boden-slash-betonoptik-beige.jpg' },
+    { name: 'Slash Betonoptik coolgrey', hex: '#A7A398', img: 'assets/stil-konfigurator/boden/boden-slash-betonoptik-coolgrey.jpg' },
+    { name: 'Slash Betonoptik dunkelgrau', hex: '#7C7B77', img: 'assets/stil-konfigurator/boden/boden-slash-betonoptik-dunkelgrau.jpg' },
+    { name: 'Slash Betonoptik hellgrau', hex: '#CBC6B8', img: 'assets/stil-konfigurator/boden/boden-slash-betonoptik-hellgrau.jpg' },
+    { name: 'Slash Betonoptik mittelgrau', hex: '#98958B', img: 'assets/stil-konfigurator/boden/boden-slash-betonoptik-mittelgrau.jpg' },
+    { name: 'Slash Betonoptik schwarz', hex: '#5F5F5E', img: 'assets/stil-konfigurator/boden/boden-slash-betonoptik-schwarz.jpg' },
+    { name: 'Study Holzdielenoptik eiche hell', hex: '#7F6B59', img: 'assets/stil-konfigurator/boden/boden-study-holzdielenoptik-eiche-hell.jpg' },
+    { name: 'Terni Fischgrät-Optik braun FB585', hex: '#938678', img: 'assets/stil-konfigurator/boden/boden-terni-fischgraet-optik-braun-fb585.jpg' },
+    { name: 'Terni Holzdielenoptik grau FB592', hex: '#C0BCB0', img: 'assets/stil-konfigurator/boden/boden-terni-holzdielenoptik-grau-fb592.jpg' },
+    { name: 'Terni Holzdielenoptik nuss FB744', hex: '#A07D61', img: 'assets/stil-konfigurator/boden/boden-terni-holzdielenoptik-nuss-fb744.jpg' },
+    { name: 'Terni Holzdielenoptik weiß FB508', hex: '#E7E0D6', img: 'assets/stil-konfigurator/boden/boden-terni-holzdielenoptik-weiss-fb508.jpg' },
+    { name: 'Ultimate Fischgrät-Optik braun', hex: '#C8BBA3', img: 'assets/stil-konfigurator/boden/boden-ultimate-fischgraet-optik-braun.jpg' },
   ]
 };
 
@@ -1049,7 +1209,7 @@ const PALETTEN = {
 const AUSWAHL = {
   '--a-oben': RAL_FARBEN.findIndex(f => f.ral === 'RAL 9010'),
   '--a-unten': RAL_FARBEN.findIndex(f => f.ral === 'RAL 1024'),
-  '--i-front': 0, '--i-platte': 0, '--i-spritz': 0, '--i-wand': 0, '--i-boden': 0
+  '--i-basis': 0, '--i-front': RAL_FARBEN.findIndex(f => f.ral === 'RAL 9010'), '--i-platte': 0, '--i-spritz': 0, '--i-boden': 0
 };
 
 /* ---- Modus Neufahrzeug: stil-konfigurator.html?fahrzeug=neu ----
@@ -1062,6 +1222,8 @@ const AUSWAHL = {
 const MODUS_NEU = new URLSearchParams(location.search).get('fahrzeug') === 'neu';
 const FOLIE_ORDNER = 'assets/neufahrzeuge/folierung/edero-folie-';
 const FOLIEN = [
+  /* Standard: unfoliert weiß, im Preis enthalten — jede Farbfolierung kostet Aufpreis */
+  { name: 'Weiß (ohne Folierung)', hex: '#F2F2EF', foto: FOLIE_ORDNER + '00-weiss.jpg', standard: true },
   { name: 'Orange',             hex: '#EA922A', foto: FOLIE_ORDNER + '01-orange-standard.jpg' },
   { name: 'Rot',                hex: '#B72124', foto: FOLIE_ORDNER + '02-rot.jpg' },
   { name: 'Orange kräftig',     hex: '#FC660C', foto: FOLIE_ORDNER + '03-orange-kraeftig.jpg' },
@@ -1151,30 +1313,98 @@ const summary = document.getElementById('summary');
 /* Farbe als Text: „Ockergelb (RAL 1024)" bzw. nur der Name, wo es kein RAL gibt */
 const bezeichnung = (farbe) => farbe.ral ? farbe.name + ' (' + farbe.ral + ')' : farbe.name;
 
+/* Aufpreis einer Auswahl: 0 beim Standard-Dekor, sonst der Betrag aus AUFPREIS */
+const aufpreisFuer = (variable, farbe) => {
+  if (!farbe) return 0;
+  if (farbe.standard) return 0;
+  if (STANDARD_RAL[variable] && farbe.ral === STANDARD_RAL[variable]) return 0;
+  return AUFPREIS[variable] || 0;
+};
+/* Kurztext dazu — nur in Zonen, die überhaupt einen Aufpreis kennen */
+function preisText(variable, farbe){
+  if (!AUFPREIS[variable]) return '';
+  const auf = aufpreisFuer(variable, farbe);
+  return auf ? '+' + auf + ' €' : 'im Preis';
+}
+
 /* Liefert die passende Palette für eine Zone: RAL-Liste für Außenfarben, sonst Materialpalette */
 const paletteFuer = (variable) => RAL_VARS.includes(variable) ? RAL_FARBEN : PALETTEN[variable];
 
 /* ---- Steuerelemente aufbauen: RAL-Suchliste für Außenfarben, Swatch-Kacheln für Materialien ---- */
-document.querySelectorAll('.sk-group').forEach(gruppe => {
+/* Jede Zone ist ein Aufklapper (Norman 18.09.2026: sonst schiebt eine lange Dekorliste die
+   Zeichnung aus dem Bild). Im zugeklappten Zustand steht die aktuelle Auswahl rechts in der
+   Kopfzeile; es ist immer nur eine Zone offen. */
+document.querySelectorAll('.sk-group').forEach((gruppe, nr) => {
   const variable = gruppe.dataset.var;
-  const titel = document.createElement('h3');
-  titel.textContent = gruppe.dataset.label;
   const palette = PALETTEN[variable];
+
+  /* Feste Zonen (z. B. Karosserie oben) haben nichts zum Auswählen — die bleiben offen stehen */
+  if (FEST_VARS.includes(variable)) {
+    const titel = document.createElement('h3');
+    titel.textContent = gruppe.dataset.label;
+    gruppe.appendChild(titel);
+    baueFesteFarbe(gruppe, variable);
+    return;
+  }
+
+  const auf = document.createElement('details');
+  auf.className = 'sk-acc';
+  if (!gruppe.parentElement.querySelector('.sk-acc')) auf.open = true;
+
+  const kopf = document.createElement('summary');
+  kopf.innerHTML = '<span class="sk-acc-titel">' + gruppe.dataset.label + '</span>'
+                 + '<span class="sk-acc-wert" data-var="' + variable + '"></span>'
+                 + '<span class="sk-acc-pfeil" aria-hidden="true">+</span>';
+  auf.appendChild(kopf);
+
+  const koerper = document.createElement('div');
+  koerper.className = 'sk-acc-body';
+  auf.appendChild(koerper);
+  gruppe.appendChild(auf);
+
+  // Immer nur eine Zone offen lassen
+  auf.addEventListener('toggle', () => {
+    if (!auf.open) return;
+    gruppe.parentElement.querySelectorAll('.sk-acc[open]').forEach(a => { if (a !== auf) a.open = false; });
+  });
+
   if (!RAL_VARS.includes(variable) && palette && palette.length > 1){
     const anzahl = document.createElement('span');
     anzahl.className = 'sk-count';
     anzahl.textContent = palette.length + ' ' + (palette.some(f => f.img) ? 'Dekore' : 'Farben');
-    titel.appendChild(anzahl);
+    koerper.appendChild(anzahl);
   }
-  gruppe.appendChild(titel);
 
-  if (FEST_VARS.includes(variable)) {
-    baueFesteFarbe(gruppe, variable);
-  } else if (RAL_VARS.includes(variable)) {
-    baueRalListe(gruppe, variable);
-  } else {
-    baueSwatches(gruppe, variable);
+  // Erklärender Hinweis für einzelne Zonen
+  if (HINWEISE[variable]) {
+    const info = document.createElement('p');
+    info.className = 'sk-hinweis-preis';
+    info.innerHTML = HINWEISE[variable];
+    koerper.appendChild(info);
   }
+
+  // Zonen mit Aufpreis: Standard steht immer ganz oben in der Liste und ist im Preis enthalten
+  if (AUFPREIS[variable]) {
+    const std = palette ? palette.find(f => f.standard)
+                        : RAL_FARBEN.find(f => f.ral === STANDARD_RAL[variable]);
+    const hinweis = document.createElement('p');
+    hinweis.className = 'sk-hinweis-preis';
+    hinweis.innerHTML = '<strong>' + (std ? bezeichnung(std) : 'Der Standard') + '</strong> ist im Preis enthalten — '
+                      + 'jede andere Auswahl kostet ' + AUFPREIS[variable] + ' € Aufpreis.';
+    koerper.appendChild(hinweis);
+  }
+
+  if (RAL_VARS.includes(variable)) {
+    baueRalListe(koerper, variable);
+  } else {
+    baueSwatches(koerper, variable);
+  }
+});
+
+/* In jedem Bereich (außen / innen) startet die erste Zone offen */
+['#ctrl-aussen', '#ctrl-innen'].forEach(bereich => {
+  const erste = document.querySelector(bereich + ' .sk-acc');
+  if (erste) erste.open = true;
 });
 
 function baueSwatches(gruppe, variable){
@@ -1196,6 +1426,7 @@ function baueSwatches(gruppe, variable){
     knopf.innerHTML = '<span class="sk-dot" style="' + dotStyle + '"></span>'
                     + '<span>' + farbe.name
                     + (farbe.ral ? '<em class="sk-ral">' + farbe.ral + '</em>' : '')
+                    + (AUFPREIS[variable] ? '<em class="sk-preis' + (farbe.standard ? '' : ' is-aufpreis') + '">' + preisText(variable, farbe) + '</em>' : '')
                     + '</span>';
 
     knopf.addEventListener('click', () => {
@@ -1258,7 +1489,12 @@ function baueRalListe(gruppe, variable){
   liste.className = 'sk-ral-list';
   liste.setAttribute('role', 'listbox');
 
-  const zeilen = RAL_FARBEN.map((farbe, i) => {
+  /* Reihenfolge: der Standard-Ton dieser Zone (z. B. Reinweiß bei den Schranktüren) steht ganz oben */
+  const reihenfolge = RAL_FARBEN.map((farbe, i) => i);
+  const stdIndex = STANDARD_RAL[variable] ? RAL_FARBEN.findIndex(f => f.ral === STANDARD_RAL[variable]) : -1;
+  if (stdIndex > -1) reihenfolge.splice(0, 0, ...reihenfolge.splice(reihenfolge.indexOf(stdIndex), 1));
+  const zeilen = reihenfolge.map(i => {
+    const farbe = RAL_FARBEN[i];
     const zeile = document.createElement('button');
     zeile.type = 'button';
     zeile.className = 'sk-ral-item';
@@ -1267,7 +1503,8 @@ function baueRalListe(gruppe, variable){
     zeile.dataset.suchtext = (farbe.name + ' ' + farbe.ral).toLowerCase();
     zeile.innerHTML = '<span class="sk-ral-chip" style="background:' + farbe.hex + '"></span>'
                      + '<span>' + farbe.name + '</span>'
-                     + '<span class="sk-ral-code">' + farbe.ral + '</span>';
+                     + '<span class="sk-ral-code">' + farbe.ral
+                     + (AUFPREIS[variable] ? ' · ' + preisText(variable, farbe) : '') + '</span>';
 
     zeile.addEventListener('click', () => {
       AUSWAHL[variable] = i;
@@ -1309,10 +1546,24 @@ function anwenden(beimStart){
     const variable = gruppe.dataset.var;
     const farbe = paletteFuer(variable)[AUSWAHL[variable]];
     wurzel.style.setProperty(variable, farbe.hex);
+    // Der Grundton färbt Wände und Schrankkorpus gleichzeitig
+    if (variable === '--i-spritz') {
+      // Nur die Retro-Fliesen haben ein Fliesenmuster — alle anderen Dekore sind glatt
+      const flaeche = document.getElementById('sk-spritzflaeche');
+      if (flaeche) flaeche.setAttribute('fill', farbe.standard ? 'url(#fliesen)' : 'var(--i-spritz)');
+    }
+    if (variable === '--i-basis') {
+      wurzel.style.setProperty('--i-wand', farbe.hex);
+      wurzel.style.setProperty('--i-korpus', farbe.hex);
+    }
 
+    const kopfWert = document.querySelector('.sk-acc-wert[data-var="' + variable + '"]');
+    if (kopfWert) kopfWert.textContent = bezeichnung(farbe);
     const zeile = document.createElement('div');
     zeile.className = 'row';
-    zeile.innerHTML = '<dt>' + gruppe.dataset.label + '</dt><dd>' + bezeichnung(farbe) + '</dd>';
+    const preis = preisText(variable, farbe);
+    zeile.innerHTML = '<dt>' + gruppe.dataset.label + '</dt><dd>' + bezeichnung(farbe)
+                    + (preis ? ' <em style="font-style:normal;opacity:.7">(' + preis + ')</em>' : '') + '</dd>';
     summary.appendChild(zeile);
   });
   if (MODUS_NEU) {
@@ -1325,25 +1576,37 @@ function anwenden(beimStart){
 }
 
 function stilSpeichern(){
-  const zeilen = [...document.querySelectorAll('.sk-group')].map(gruppe => ({
-    label: gruppe.dataset.label,
-    wert: bezeichnung(paletteFuer(gruppe.dataset.var)[AUSWAHL[gruppe.dataset.var]])
-  }));
+  /* zeilen[].aufpreis = Betrag in Euro (0 beim Standard) — Schritt 2 rechnet ihn in die Gesamtsumme */
+  const zeilen = [...document.querySelectorAll('.sk-group')].map(gruppe => {
+    const v = gruppe.dataset.var;
+    const farbe = paletteFuer(v)[AUSWAHL[v]];
+    const preis = preisText(v, farbe);
+    return {
+      label: gruppe.dataset.label,
+      wert: bezeichnung(farbe) + (preis ? ' (' + preis + ')' : ''),
+      aufpreis: aufpreisFuer(v, farbe)
+    };
+  });
   try { sessionStorage.setItem(STIL_SPEICHER, JSON.stringify({ auswahl: AUSWAHL, zeilen })); } catch (e) {}
 }
 
 /* „Weiter zu Schritt 2" übernimmt die Auswahl immer — auch wenn der Vorschlags-Look unverändert bleibt */
 document.getElementById('weiter-preis').addEventListener('click', stilSpeichern);
 
+/* Der Button „Nur den Stil anfragen" ist am 18.09.2026 auf Normans Wunsch entfallen —
+   angefragt wird erst in Schritt 2 (Preis & Extras). */
 function mailtoAktualisieren(){
+  const knopf = document.getElementById('anfrage');
+  if (!knopf) return;
   const zeilen = [...document.querySelectorAll('.sk-group')].map(gruppe => {
     const farbe = paletteFuer(gruppe.dataset.var)[AUSWAHL[gruppe.dataset.var]];
-    return gruppe.dataset.label + ': ' + bezeichnung(farbe);
+    const preis = preisText(gruppe.dataset.var, farbe);
+    return gruppe.dataset.label + ': ' + bezeichnung(farbe) + (preis ? ' (' + preis + ')' : '');
   });
   const text = 'Hallo Ventura Caravans,\n\nich habe im Stil-Konfigurator' + (MODUS_NEU ? ' für einen LMC e:dero (neues Basismodell)' : '') + ' folgende Kombination zusammengestellt:\n\n'
              + zeilen.join('\n')
              + '\n\nBitte meldet euch bei mir.\n\nViele Grüße';
-  document.getElementById('anfrage').href =
+  knopf.href =
     'mailto:info@ventura-caravans.de?subject=' + encodeURIComponent('Anfrage Stil-Konfigurator')
     + '&body=' + encodeURIComponent(text);
 }

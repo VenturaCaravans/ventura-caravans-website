@@ -55,6 +55,32 @@
   }
   .nf-aus li{ margin-bottom:6px; }
 
+  /* Modelle als Aufklapper: beim Öffnen der Seite sieht man erst die drei Zeilen
+     (Name, Schlafplätze, Länge, Preis) und klappt das gewünschte Modell auf. */
+  .nf-modell-acc{
+    background:var(--cream-2); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    scroll-margin-top:calc(var(--header-h, 75px) + 16px);
+  }
+  .nf-modell-acc + .nf-modell-acc{ margin-top:16px; }
+  .nf-modell-kopf{
+    list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+    padding:20px 24px;
+  }
+  .nf-modell-kopf::-webkit-details-marker{ display:none; }
+  .nf-modell-acc[open] > .nf-modell-kopf{ border-bottom:1px solid var(--line); }
+  .nf-mk-serie{
+    font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--teal-deep);
+  }
+  .nf-mk-name{ font-family:var(--font-display); font-size:clamp(22px,2.6vw,30px); font-weight:700; line-height:1; }
+  .nf-mk-fakten{ font-size:14.5px; color:var(--ink-soft); }
+  .nf-mk-pfeil{ margin-left:auto; font-size:22px; font-weight:400; color:var(--ink-soft); transition:transform .2s ease; }
+  .nf-modell-acc[open] .nf-mk-pfeil{ transform:rotate(45deg); }
+  .nf-modell-acc > .nf-modell{ border:0; border-radius:0; background:transparent; }
+  @media (max-width:600px){
+    .nf-modell-kopf{ padding:16px; gap:8px 12px; }
+    .nf-mk-serie{ width:100%; }
+  }
+
   /* ---- Stil-Vorschau unter den Modellen ---- */
   .nf-stil-band{ padding:10px 0 70px; }
   .nf-stil{
@@ -139,7 +165,14 @@
   <div class="container">
     <div class="nf-modelle" id="modelle">
 
-      <article class="nf-modell" id="modell-350d">
+      <details class="nf-modell-acc" id="modell-350d">
+        <summary class="nf-modell-kopf">
+          <span class="nf-mk-serie">LMC e:dero</span>
+          <span class="nf-mk-name">350 D</span>
+          <span class="nf-mk-fakten">2 Schlafplätze · 4,79 m · ab 14.500 €</span>
+          <span class="nf-mk-pfeil" aria-hidden="true">+</span>
+        </summary>
+        <article class="nf-modell">
         <div class="nf-medien">
           <button type="button" class="nf-hauptbild" aria-label="Alle 10 Fotos vom LMC e:dero 350 D ansehen">
             <img src="assets/neufahrzeuge/edero-350d-aussen-1.jpg" alt="LMC e:dero 350 D auf einer Wiese (Bildmontage)">
@@ -155,11 +188,13 @@
         <div class="nf-info">
           <p class="nf-serie">LMC e:dero</p>
           <h3>350 D</h3>
-          <span class="nf-preis">ab 14.839 €</span>
+          <span class="nf-preis">ab 14.500 €</span>
           <dl class="nf-daten">
             <div><dt>Schlafplätze</dt><dd>2</dd></div>
             <div><dt>Länge</dt><dd>4,79 m</dd></div>
             <div><dt>zul. Gesamtgewicht</dt><dd>1.100 kg</dd></div>
+            <div><dt>Leergewicht</dt><dd>612 kg</dd></div>
+            <div><dt>Zuladung</dt><dd>bis 488 kg</dd></div>
             <div><dt>Aufteilung</dt><dd>Queensbett</dd></div>
           </dl>
           <figure class="nf-grundriss">
@@ -173,8 +208,16 @@
         </div>
         <div class="nf-serie-panel" id="serie-350d" hidden></div>
       </article>
+      </details>
 
-      <article class="nf-modell" id="modell-470k">
+      <details class="nf-modell-acc" id="modell-470k">
+        <summary class="nf-modell-kopf">
+          <span class="nf-mk-serie">LMC e:dero</span>
+          <span class="nf-mk-name">470 K</span>
+          <span class="nf-mk-fakten">4–5 Schlafplätze · 5,98 m · ab 15.500 €</span>
+          <span class="nf-mk-pfeil" aria-hidden="true">+</span>
+        </summary>
+        <article class="nf-modell">
         <div class="nf-medien">
           <button type="button" class="nf-hauptbild" aria-label="Alle 9 Fotos vom LMC e:dero 470 K ansehen">
             <img src="assets/neufahrzeuge/edero-470k-aussen-1.jpg" alt="LMC e:dero 470 K von der Seite auf einer Wiese (Bildmontage)" loading="lazy">
@@ -190,11 +233,13 @@
         <div class="nf-info">
           <p class="nf-serie">LMC e:dero</p>
           <h3>470 K</h3>
-          <span class="nf-preis">ab 16.489 €</span>
+          <span class="nf-preis">ab 15.500 €</span>
           <dl class="nf-daten">
             <div><dt>Schlafplätze</dt><dd>4–5</dd></div>
             <div><dt>Länge</dt><dd>5,98 m</dd></div>
             <div><dt>zul. Gesamtgewicht</dt><dd>1.100 kg</dd></div>
+            <div><dt>Leergewicht</dt><dd>748 kg</dd></div>
+            <div><dt>Zuladung</dt><dd>bis 352 kg</dd></div>
             <div><dt>Aufteilung</dt><dd>Stockbetten</dd></div>
           </dl>
           <figure class="nf-grundriss">
@@ -208,8 +253,16 @@
         </div>
         <div class="nf-serie-panel" id="serie-470k" hidden></div>
       </article>
+      </details>
 
-      <article class="nf-modell" id="modell-400c">
+      <details class="nf-modell-acc" id="modell-400c">
+        <summary class="nf-modell-kopf">
+          <span class="nf-mk-serie">LMC e:dero</span>
+          <span class="nf-mk-name">400 C</span>
+          <span class="nf-mk-fakten">3 Schlafplätze · 5,30 m · ab 15.000 €</span>
+          <span class="nf-mk-pfeil" aria-hidden="true">+</span>
+        </summary>
+        <article class="nf-modell">
         <div class="nf-medien">
           <button type="button" class="nf-hauptbild" aria-label="Alle 8 Fotos vom LMC e:dero 400 C ansehen">
             <img src="assets/neufahrzeuge/edero-400c-aussen-1.jpg" alt="LMC e:dero 400 C auf einer Wiese (Bildmontage)" loading="lazy">
@@ -225,11 +278,13 @@
         <div class="nf-info">
           <p class="nf-serie">LMC e:dero</p>
           <h3>400 C</h3>
-          <span class="nf-preis">ab 15.939 €</span>
+          <span class="nf-preis">ab 15.000 €</span>
           <dl class="nf-daten">
             <div><dt>Schlafplätze</dt><dd>3</dd></div>
             <div><dt>Länge</dt><dd>5,30 m</dd></div>
             <div><dt>zul. Gesamtgewicht</dt><dd>1.100 kg</dd></div>
+            <div><dt>Leergewicht</dt><dd>689 kg</dd></div>
+            <div><dt>Zuladung</dt><dd>bis 411 kg</dd></div>
             <div><dt>Aufteilung</dt><dd>Einzelbetten</dd></div>
           </dl>
           <figure class="nf-grundriss">
@@ -243,6 +298,7 @@
         </div>
         <div class="nf-serie-panel" id="serie-400c" hidden></div>
       </article>
+      </details>
 
     </div>
     <p class="nf-hinweis">Preise inkl. MwSt. für das Fahrzeug in Serienausstattung, zzgl. Überführung. Alle technischen Angaben nach Herstellerunterlagen, Stand Modelljahr 2027; Fotos und Grundrisse können Sonderausstattung enthalten; die ersten beiden Außenansichten jedes Modells sind Bildmontagen.</p>
@@ -261,14 +317,14 @@
             <li>Kurbelstützen Standard</li>
             <li>Stahlfelge inkl. Radnabendeckel mit Sommerreifen</li>
             <li>Pannenset</li>
-            <li>Stoßdämpfer (Voraussetzung für die 100-km/h-Zulassung)</li>
+            <li>Stoßdämpfer — die 100-km/h-Zulassung ist damit ab Werk dabei</li>
           </ul>
         </details>
   
         <details class="specs-toggle nf-aus">
           <summary>Außenausstattung <span class="plus">+</span></summary>
           <ul>
-            <li>Ausstellfenster inkl. Verdunklungsrollo und Insektenschutz</li>
+            <li>Ausstellfenster</li>
             <li>Dachhaube Klarglas 400 × 400 mm (Wohnbereich) inkl. Verdunklungsrollo und Insektenschutz</li>
             <li>Dachhaube Klarglas 280 × 280 mm (Kleiderschrank) inkl. Insektenschutz</li>
             <li>Seitenwände Hammerschlagblech</li>
@@ -332,10 +388,10 @@
       <div class="nf-stil-text">
         <p class="eyebrow">Schritt 1 · Stil gestalten</p>
         <h2>Welche Farbe soll euer e:dero tragen?</h2>
-        <p>16 Folierungen für außen, dazu Möbelfronten, Arbeitsplatte, Wand und Boden für innen. Tippt eine Farbe an — im Stilkonfigurator stellt ihr den kompletten Look zusammen.</p>
+        <p>16 Folierungen für außen, dazu Grundlackierung, Schranktüren, Arbeitsplatte und Boden. Tippt eine Farbe an — im Stilkonfigurator stellt ihr den kompletten Look zusammen.</p>
         <div class="nf-stil-farben" role="group" aria-label="Folierung auswählen"></div>
         <p class="nf-stil-name">Petrol</p>
-        <a class="btn btn-primary" id="nf-stil-los" href="stil-konfigurator.html?fahrzeug=neu&amp;folie=14">Jetzt Stil gestalten →</a>
+        <a class="btn btn-primary" id="nf-stil-los" href="stil-konfigurator.html?fahrzeug=neu&amp;folie=15">Jetzt Stil gestalten →</a>
       </div>
     </div>
   </div>
@@ -447,11 +503,12 @@
   });
 </script>
 <script>
-  /* Stil-Vorschau: gleiche 16 Folien wie FOLIEN in stil-konfigurator.html (Reihenfolge = ?folie=Nummer) */
+  /* Stil-Vorschau: gleiche 17 Folien wie FOLIEN in stil-konfigurator.html (Reihenfolge = ?folie=Nummer) */
   (function () {
     const leiste = document.querySelector('.nf-stil-farben');
     if (!leiste) return;
     const FOLIEN = [
+      ['Weiß (ohne Folierung)','#F2F2EF','00-weiss'],
       ['Orange','#EA922A','01-orange-standard'],['Rot','#B72124','02-rot'],['Orange kräftig','#FC660C','03-orange-kraeftig'],['Gelb','#FADE11','04-gelb'],
       ['Grün','#4F9A38','05-gruen'],['Blau','#0A72E9','06-blau'],['Indigo','#3B4189','07-indigo'],['Violett','#896DC6','08-violett'],
       ['Beige','#CEB79D','09-beige'],['Beige hell','#CBBAA5','10-beige-alternative'],['Taupe','#ACA59E','11-taupe'],['Taupe dunkel','#9E9790','12-taupe-alternative'],
@@ -468,7 +525,7 @@
       knopf.style.background = hex;
       knopf.title = titel;
       knopf.setAttribute('aria-label', 'Folierung ' + titel);
-      knopf.setAttribute('aria-pressed', i === 13 ? 'true' : 'false');
+      knopf.setAttribute('aria-pressed', i === 14 ? 'true' : 'false');
       const zeigen = () => {
         leiste.querySelectorAll('.nf-stil-farbe').forEach(b => b.setAttribute('aria-pressed', b === knopf ? 'true' : 'false'));
         name.textContent = titel;
@@ -483,6 +540,23 @@
       knopf.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') zeigen(); });
       leiste.appendChild(knopf);
     });
+  })();
+</script>
+<script>
+  /* Kommt jemand über einen Link wie neufahrzeuge.html#modell-470k, klappt genau
+     dieses Modell auf und rückt in den sichtbaren Bereich. */
+  (function(){
+    function ausHash(){
+      const id = location.hash.replace('#', '');
+      if (!id) return;
+      const ziel = document.getElementById(id);
+      if (ziel && ziel.tagName === 'DETAILS'){
+        ziel.open = true;
+        ziel.scrollIntoView({ block: 'start' });
+      }
+    }
+    ausHash();
+    window.addEventListener('hashchange', ausHash);
   })();
 </script>
 <script src="js/modellgalerie.js"></script>

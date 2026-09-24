@@ -364,6 +364,60 @@
   margin-bottom: 22px;
   
 }
+   /* Aufklapper „Welche Wohnwagen passen hier rein?" auf den Basis-Karten.
+      Klicks darin dürfen die Karte nicht aus-/abwählen — das fängt js/konfigurator.js ab. */
+  .model-beispiele{
+  margin: -14px 0 20px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  padding-top: 10px;
+}
+  .model-beispiele > summary{
+  list-style: none;
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+  .model-beispiele > summary::-webkit-details-marker{ display:none; }
+  .model-beispiele > summary::after{
+  content: '+';
+  margin-left: auto;
+  font-weight: 400;
+  font-size: 15px;
+  opacity: .8;
+  transition: transform .2s ease;
+}
+  .model-beispiele[open] > summary::after{ transform: rotate(45deg); }
+  .model-beispiele div{
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.75);
+}
+  .model-beispiele p{ margin: 0 0 6px; }
+  .model-beispiele ul{ margin: 0 0 6px; padding-left: 16px; }
+  .model-beispiele li{ margin-bottom: 2px; }
+  .model-beispiele strong{ color: #fff; font-weight: 600; }
+  .model-beispiele .mb-note{ opacity: .8; font-style: italic; margin: 0; }
+   /* Karten unten bündig: die Preiszeile sitzt immer auf gleicher Höhe,
+      auch wenn das Größenbeispiel zweizeilig wird */
+  .model-card{
+  display: flex;
+  flex-direction: column;
+}
+  .model-card .model-price{
+  margin-top: auto;
+}
+   /* Größenbeispiel auf den Basis-Karten: macht greifbar, welcher Wohnwagen in welche Klasse passt */
+  .model-beispiel{
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(255,255,255,0.68);
+  margin: -18px 0 22px;
+}
    /* Grundriss-Vorschau auf den Neufahrzeug-Karten. Die PNGs sind transparent mit
       dunkler Linienzeichnung, brauchen auf dem dunkelgrünen Kartengrund also eine
       helle Fläche — sonst sieht man nichts. */
@@ -1056,6 +1110,16 @@
   margin:0;
   text-align:right;
   font-weight:600;
+  color:var(--forest-deep);
+}
+  .summary-stil-summe{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:10px;
+  padding-top:8px;
+  border-top:1px solid rgba(255,255,255,.18);
+  font-weight:700;
   color:var(--forest-deep);
 }
   .summary-stil.is-leer{

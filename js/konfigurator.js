@@ -32,6 +32,10 @@
       return d && Array.isArray(d.zeilen) && d.zeilen.length ? d.zeilen : [];
     } catch (e) { return []; }
   }
+  /* Summe der Stil-Aufpreise (Schranktüren, Spritzschutz, Arbeitsplatte, Bodenbelag) */
+  function stilAufpreisSumme(zeilen){
+    return (zeilen || []).reduce((s, z) => s + (parseFloat(z.aufpreis) || 0), 0);
+  }
   const htmlSicher = (s) => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
 
 const fmtEuro = (n) => n.toLocaleString('de-DE', {
@@ -123,9 +127,12 @@ fmtEuro(price)
       totalEl.parentNode.insertBefore(stilEl, totalEl);
     }
     if (stil.length){
+      const stilAufpreis = stilAufpreisSumme(stil);
+      total += stilAufpreis;   // Aufpreise aus Schritt 1 fließen in die Gesamtsumme
       stilEl.classList.remove('is-leer');
       stilEl.innerHTML = '<div class="summary-stil-kopf"><strong>Euer Stil</strong><a href="' + STIL_SEITE + '">ändern</a></div><dl>'
-        + stil.map(z => '<dt>' + htmlSicher(z.label) + '</dt><dd>' + htmlSicher(z.wert) + '</dd>').join('') + '</dl>';
+        + stil.map(z => '<dt>' + htmlSicher(z.label) + '</dt><dd>' + htmlSicher(z.wert) + '</dd>').join('') + '</dl>'
+        + (stilAufpreis ? '<div class="summary-stil-summe"><span>Aufpreise Stil</span><span>' + fmtEuro(stilAufpreis) + '</span></div>' : '');
     } else {
       stilEl.classList.add('is-leer');
       stilEl.innerHTML = 'Noch keinen Stil gewählt? <a href="' + STIL_SEITE + '">Schritt 1: Stil gestalten →</a>';
@@ -160,24 +167,50 @@ hasRequestItems ? '<span class="note">zzgl. Positionen „auf Anfrage"</span>' :
       "gebraucht" (konfigurator.html) oder "neu" (neufahrzeug-konfigurator.html).
       Beim Neufahrzeug ergeben manche Extras keinen Sinn — die Fenster sind ab Werk neu. */
   const seitenModus = document.body.dataset.konfigMode || 'gebraucht';
-  const NUR_GEBRAUCHT = ['TrailView'];
+  const NUR_GEBRAUCHT = ["TrailView", "100-km/h-Zulassung", "Außendusche Capri"];
+
+  const extrasZaehler = document.querySelector('.extras-head .count');
+  /* Ausgangszahl aus dem Text lesen — die DOM-Kacheln zu zählen ginge nicht,
+     weil „Empfohlene Extras" dieselben Kacheln ein zweites Mal enthält.
+     Die Zahl im Text zählt die Extras des Gebraucht-Konfigurators. */
+  const extrasBasis = extrasZaehler ? (parseInt(extrasZaehler.textContent, 10) || 0) : 0;
+  const verstecktNamen = new Set();
+  let dazu = 0;
 
   if (seitenModus === 'neu'){
-    const extrasZaehler = document.querySelector('.extras-head .count');
-    /* Ausgangszahl aus dem Text lesen — die DOM-Kacheln zu zählen ginge nicht,
-       weil „Empfohlene Extras" dieselben Kacheln ein zweites Mal enthält. */
-    const extrasBasis = extrasZaehler ? (parseInt(extrasZaehler.textContent, 10) || 0) : 0;
-    let versteckt = 0;
     document.querySelectorAll('.chip').forEach(chip => {
       if (!NUR_GEBRAUCHT.some(k => (chip.dataset.name || '').includes(k))) return;
       chip.hidden = true;
-      versteckt++;
+      verstecktNamen.add(chip.dataset.name || "");
     });
-    if (extrasZaehler) extrasZaehler.textContent = (extrasBasis - versteckt) + ' Extras';
   }
 
+  /* Kategorien mit data-nur="neu" (LMC-Werksoptionen) gibt es nur beim Neufahrzeug —
+     beim Gebrauchtwagen wird die ganze Kategorie ausgeblendet. */
+  document.querySelectorAll('.extras-cat[data-nur]').forEach(kat => {
+    const anzahl = kat.querySelectorAll('.chip').length;
+    if (kat.dataset.nur !== seitenModus){
+      kat.hidden = true;
+      kat.querySelectorAll('.chip').forEach(c => { c.hidden = true; });
+    } else {
+      dazu += anzahl;
+    }
+  });
+
+  /* Einzelne Kacheln mit data-nur: Kopien, die nur auf einer der beiden Seiten stehen —
+     z. B. Mover und Markise ganz oben in den „Empfohlenen Extras" beim Neufahrzeug.
+     Sie zählen nicht extra, weil es dieselben Produkte wie in ihrer Kategorie sind. */
+  document.querySelectorAll('.chip[data-nur]').forEach(chip => {
+    if (chip.closest('.extras-cat[data-nur]')) return;   // schon über die Kategorie geregelt
+    if (chip.dataset.nur !== seitenModus) chip.hidden = true;
+  });
+
+  if (extrasZaehler) extrasZaehler.textContent = (extrasBasis - verstecktNamen.size + dazu) + ' Extras';
+
    document.querySelectorAll('.model-card').forEach(card => {
-  card.addEventListener('click', () => {
+  card.addEventListener('click', (e) => {
+  // Der Aufklapper „Welche Wohnwagen passen hier rein?" darf die Karte nicht auswählen
+  if (e.target.closest('.model-beispiele')) return;
   const wasSelected = card.classList.contains('selected');
   document.querySelectorAll('.model-card').forEach(c => c.classList.remove('selected'));
   if (!wasSelected) card.classList.add('selected');
@@ -569,7 +602,10 @@ fmtEuro(price)
 }
   const stilZeilen = stilLesen();
   if (stilZeilen && stilZeilen.length){
+    const stilAufpreisMail = stilAufpreisSumme(stilZeilen);
+    total += stilAufpreisMail;
     body += 'Gewählter Stil (Stil-Konfigurator):\n' + stilZeilen.map(z => '- ' + z.label + ': ' + z.wert).join('\n') + '\n\n';
+    if (stilAufpreisMail) body += 'Aufpreise Stil gesamt: ' + fmtEuro(stilAufpreisMail) + '\n\n';
   }
   body += `Ungefähre Gesamtsumme: ${
 fmtEuro(total)
@@ -766,6 +802,14 @@ encodeURIComponent(body)
       zeile(name, fmtEuro(p), false);
     });
 
+    // Aufpreise aus Schritt 1 (Stil) gehören in die Gesamtsumme
+    const stilPdf = stilLesen();
+    const stilAufpreisPdf = stilAufpreisSumme(stilPdf);
+    if (stilAufpreisPdf){
+      summe += stilAufpreisPdf;
+      zeile('Aufpreise Stil (Schritt 1)', fmtEuro(stilAufpreisPdf), false);
+    }
+
     // Summe
     y += 3;
     if (y > 258){ doc.addPage(); y = 22; }
@@ -778,7 +822,6 @@ encodeURIComponent(body)
     y += 10;
 
     // Stil aus Schritt 1
-    const stilPdf = stilLesen();
     if (stilPdf && stilPdf.length){
       if (y > 230){ doc.addPage(); y = 22; }
       doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor(...gruen);
