@@ -52,7 +52,7 @@
   <div class="container">
     <div class="section-head">
       <p class="eyebrow">Projekte</p>
-      <h1 style="font-size:clamp(30px,4.4vw,46px)">Elf Wohnwagen, elf Geschichten</h1>
+      <h1 style="font-size:clamp(30px,4.4vw,46px)">Fünfzehn Wohnwagen, fünfzehn Geschichten</h1>
       <p class="lede" style="max-width:60ch">Jedes Projekt bekommt bei uns seinen eigenen Namen — und seinen eigenen Charakter. Ein Überblick über alles, was schon durch unsere Werkstatt gelaufen ist.</p>
     </div>
   </div>
@@ -61,6 +61,60 @@
 <section class="section">
   <div class="container">
     <div class="project-detail-grid">
+
+<!-- Neue Projekte ohne Fotos: kein data-slug (= keine Galerie), Platzhalter-Fläche .photo.is-leer.
+     Sobald Fotos da sind: assets/projekte/<slug>/<slug>-01.jpg … + <slug>-cover.jpg, dann data-slug/data-count/data-name ergänzen,
+     .photo wie bei Hilde mit background-image + photo-count, „Galerie ansehen →" wieder einfügen. -->
+
+<article class="project-detail-card" id="max">
+        <div class="photo is-leer"><span class="flag">In Arbeit</span><span class="leer-text">Fotos folgen</span></div>
+        <div class="body">
+          <h3>Max</h3>
+          <p class="pending">Max ist gerade bei uns in der Werkstatt — Fotos und Beschreibung folgen, sobald er fertig ist.</p>
+          <p class="pending">Fahrzeugdaten folgen in Kürze.</p>
+        </div>
+      </article>
+
+<article class="project-detail-card" id="amy" data-slug="amy" data-count="26" data-name="Amy">
+        <div class="photo" style="background-image:url('assets/projekte/amy/amy-cover.jpg')"><span class="photo-count">26 Fotos</span></div>
+        <div class="body">
+          <h3>Amy</h3>
+          <p class="pending">Ausführliche Beschreibung folgt in Kürze.</p>
+          <details class="specs-toggle" data-no-lightbox><summary>Fahrzeugdaten <span class="plus">+</span></summary>
+          <dl class="specs">
+            <div><dt>Modell</dt><dd>LMC</dd></div>
+          </dl>
+          </details>
+          <span class="gallery-cue">Galerie ansehen →</span>
+        </div>
+      </article>
+
+<article class="project-detail-card" id="tutti" data-slug="tutti" data-count="23" data-name="Tutti">
+        <div class="photo" style="background-image:url('assets/projekte/tutti/tutti-cover.jpg')"><span class="photo-count">23 Fotos</span></div>
+        <div class="body">
+          <h3>Tutti</h3>
+          <p class="pending">Ausführliche Beschreibung folgt in Kürze.</p>
+          <details class="specs-toggle" data-no-lightbox><summary>Fahrzeugdaten <span class="plus">+</span></summary>
+          <dl class="specs">
+            <div><dt>Modell</dt><dd>Dethleffs</dd></div>
+          </dl>
+          </details>
+          <span class="gallery-cue">Galerie ansehen →</span>
+        </div>
+      </article>
+
+<article class="project-detail-card" id="wilma">
+        <div class="photo is-leer"><span class="leer-text">Fotos folgen</span></div>
+        <div class="body">
+          <h3>Wilma</h3>
+          <p class="pending">Ausführliche Beschreibung folgt in Kürze.</p>
+          <details class="specs-toggle" data-no-lightbox><summary>Fahrzeugdaten <span class="plus">+</span></summary>
+          <dl class="specs">
+            <div><dt>Modell</dt><dd>Hobby</dd></div>
+          </dl>
+          </details>
+        </div>
+      </article>
 
 <article class="project-detail-card" id="hilde" data-slug="hilde" data-count="22" data-name="Hilde">
         <div class="photo" style="background-image:url('assets/projekte/hilde/hilde-cover.jpg')"><span class="photo-count">22 Fotos</span></div>
